@@ -1,0 +1,13 @@
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+}
+
+[id] {
+    scroll-margin-top: 20px; /* ajusta según la altura real de tu TopBar */
+}
