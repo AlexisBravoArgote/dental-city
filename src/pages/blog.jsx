@@ -13,7 +13,7 @@ import alineadores from "../assets/alineadores.avif"
 import implantes from "../assets/implante.jpg"
 import periodoncia from "../assets/periodoncia.jpg"
 import blanqueamiento from "../assets/blanqueamiento.jpg"
-import endodoncia from "../assets/endodoncia.jpg"
+import endodoncia from "../assets/endodoncia2.jpg"
 const __MOTION_USED = Boolean(motion); // eslint-disable-line no-unused-vars
 
 /* ------------------------- Helpers/Layout ------------------------- */

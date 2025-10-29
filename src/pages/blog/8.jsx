@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
-import endodoncia from "../../assets/endodoncia.jpg";
+import endodoncia from "../../assets/endodoncia2.jpg";
 
 function Container({ children, className = "" }) {
     return (

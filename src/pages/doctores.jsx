@@ -22,8 +22,17 @@ import dc16 from "../assets/DCdoctor16.jpg";
 import dc17 from "../assets/DCdoctor17.jpg";
 import dc18 from "../assets/DCdoctor18.jpg";
 import dc19 from "../assets/DCdoctor19.jpg";
+import dc20 from "../assets/Dcdoctor20.jpg"
+import dc21 from "../assets/Dcdoctor21.jpg"
+import dc22 from "../assets/Dcdoctor22.jpg"
+import dc23 from "../assets/Dcdoctor23.jpg"
+import dc24 from "../assets/Dcdoctor24.jpg"
+import dc25 from "../assets/Dcdoctor25.jpg"
+import dc26 from "../assets/Dcdoctor26.jpg"
+import dc27 from "../assets/Dcdoctor27.jpg"
+import dc28 from "../assets/Dcdoctor28.jpg"
 import kids0 from "../assets/kids0.jpg"
-import kids1 from "../assets/kids1.jpg"
+
 import kids2 from "../assets/kids2.jpg"
 import kids3 from "../assets/kids3.jpg"
 import kids4 from "../assets/kids4.jpg"
@@ -337,8 +346,10 @@ export default function Doctores() {
             { src: dc5, alt: "Tecnología digital" },
             { src: dc6, alt: "Tecnología digital" },
             { src: dc7, alt: "Tecnología digital" },
+            { src: dc23, alt: "Tecnología digital" },
             { src: dc8, alt: "Tecnología digital" },
             { src: dc9, alt: "Tecnología digital" },
+            { src: dc22, alt: "Tecnología digital" },
             { src: dc10, alt: "Tecnología digital" },
             { src: dc11, alt: "Tecnología digital" },
             { src: dc12, alt: "Tecnología digital" },
@@ -349,14 +360,20 @@ export default function Doctores() {
             { src: dc17, alt: "Tecnología digital" },
             { src: dc18, alt: "Tecnología digital" },
             { src: dc19, alt: "Tecnología digital" },
-            
+            { src: dc20, alt: "Tecnología digital" },
+            { src: dc21, alt: "Tecnología digital" },
+            { src: dc22, alt: "Tecnología digital" },
+            { src: dc24, alt: "Tecnología digital" },
+            { src: dc25, alt: "Tecnología digital" },
+            { src: dc26, alt: "Tecnología digital" },
+            { src: dc27, alt: "Tecnología digital" },
+            { src: dc28, alt: "Tecnología digital" },
         ],
         []
     );
     const imagesKids = useMemo(
         () => [
             { src: kids0, alt: "Dental City Kids" },
-            { src: kids1, alt: "Ambiente pediátrico" },
             { src: kids2, alt: "Atención a niños" },
             { src: kids3, alt: "Atención a niños" },
             { src: kids4, alt: "Atención a niños" },

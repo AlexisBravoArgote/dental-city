@@ -42,7 +42,25 @@ import Edu from "./pages/edu.jsx"
 const WHATSAPP_NUMBER = "523333087833"; // 52 + 10 dígitos (sin “1”)
 const WA_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(
        "Hola 👋 me gustaría agendar una cita en Dental City."
-     )}`;
+)}`;
+// WhatsApp de ICTY Kids (no uses el '+', ni espacios)
+// WhatsApp ICTY Kids
+const WA_KIDS = "https://wa.me/523319699222"; // +52 33 1969 9222
+
+// Helper CORREGIDO para armar el enlace con el mensaje
+const getWaUrl = (key, title) => {
+    const base = (key === "ortopedia" || key === "limpieza-ninos") ? WA_KIDS : WA_URL;
+
+    const msg = `Hola 👋 me gustaría agendar una cita en Dental City para ${title}.`;
+
+    // Si el base YA trae "?" (por ejemplo, api.whatsapp.com/send?phone=...),
+    // concatenamos con "&text="; de lo contrario, con "?text="
+    const sep = base.includes("?") ? "&" : "?";
+
+    return `${base}${sep}text=${encodeURIComponent(msg)}`;
+};
+
+
 // útil para componentes que lo leen de window
 if (typeof window !== "undefined") window.WA_URL = WA_URL;
 
@@ -520,6 +538,7 @@ function About() {
 }
 
 
+
 function Services() {
     const all = useMemo(
         () => [
@@ -541,7 +560,8 @@ function Services() {
             { key: "selladores", title: "Selladores", desc: "Protección de fosas y fisuras contra caries." },
             { key: "extracciones", title: "Extracciones", desc: "Extracciones simples y de cordales con enfoque mínimamente invasivo." },
             { key: "ortopedia", title: "Ortopedia", desc: "Guía del crecimiento maxilar y mandibular en pacientes jóvenes." },
-            
+            { key: "armonizacion-facial", title: "Armonización facial", desc: "Procedimiento estético de botox para realzar y equilibrar los rasgos faciales." },
+            { key: "diseno-sonrisa", title: "Diseño de sonrisa", desc: "Plan estético integral para lograr una sonrisa armónica y personalizada." },
         ],
         []
     );
@@ -625,6 +645,7 @@ function Services() {
                             index={i}
                             title={s.title}
                             desc={s.desc}
+                            waUrl={getWaUrl(s.key, s.title)}   // ← usa Kids o Principal
                             onInfo={() => openInfo(s)}
                         />
                     ))}
@@ -640,9 +661,9 @@ function Services() {
                         >
                             ← Anterior
                         </button>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b89255] bg-white/5 px-3 py-1">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b89255] bg:white/5 bg-white/5 px-3 py-1">
                             <span className="text-xs text-[#e4b892]">Página</span>
-                            <span className="text-sm text-white/90">{dPage + 1}</span>
+                            <span className="text-sm text:white/90 text-white/90">{dPage + 1}</span>
                             <span className="text-white/60 text-sm">/</span>
                             <span className="text-sm text-white/80">{totalPagesDesktop}</span>
                         </div>
@@ -659,7 +680,14 @@ function Services() {
                 {/* Móvil: 3 por página (sin cambios) */}
                 <div className="mt-8 grid gap-6 sm:hidden">
                     {pageItemsMobile.map((s, i) => (
-                        <ServiceCard key={s.key} index={i} title={s.title} desc={s.desc} onInfo={() => openInfo(s)} />
+                        <ServiceCard
+                            key={s.key}
+                            index={i}
+                            title={s.title}
+                            desc={s.desc}
+                            waUrl={getWaUrl(s.key, s.title)}   // ← usa Kids o Principal
+                            onInfo={() => openInfo(s)}
+                        />
                     ))}
 
                     {totalPagesMobile > 1 && (
@@ -689,6 +717,7 @@ function Services() {
                 </div>
             </Container>
 
+            {/* Pasa el servicio activo al modal; dentro elegiremos el WhatsApp correcto */}
             <InfoModal open={open} onClose={closeInfo} service={active} />
 
             <style>{`
@@ -713,7 +742,7 @@ function Services() {
     );
 }
 
-function ServiceCard({ title, desc, index, onInfo }) {
+function ServiceCard({ title, desc, index, onInfo, waUrl }) {
     return (
         <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -732,7 +761,7 @@ function ServiceCard({ title, desc, index, onInfo }) {
                     {/* Empuja el footer al fondo para igualar alturas */}
                     <div className="mt-auto pt-4 flex items-center justify-between">
                         <a
-                            href={WA_URL}
+                            href={waUrl}  // ← usa el enlace calculado para cada servicio
                             target="_blank"
                             rel="noopener noreferrer"
                             className="relative inline-flex items-center gap-1 rounded-full bg-[#d8a07b] px-3.5 py-1.5 text-xs font-semibold text-[#0b1b2b] transition hover:brightness-110"
@@ -761,7 +790,6 @@ function ServiceCard({ title, desc, index, onInfo }) {
     );
 }
 
-
 function InfoModal({ open, onClose, service }) {
     useEffect(() => {
         if (!open) return;
@@ -777,6 +805,205 @@ function InfoModal({ open, onClose, service }) {
     }, [open, onClose]);
 
     if (!open || !service) return null;
+
+    const waForThisService = getWaUrl(service.key, service.title);
+
+    // Copys por servicio (incluye tiempo y precio estimado)
+    const getServiceCopy = (key, fallbackDesc) => {
+        switch (key) {
+            case "implantes":
+                return {
+                    subtitle: "Reposición fija con implante y corona de aspecto natural.",
+                    bullets: [
+                        "Colocación guiada para mayor precisión y confort.",
+                        "Tiempo estimado: cirugía 60–90 min; integración 3–6 meses.",
+                        "Precio estimado: $18,000–$35,000 MXN por implante (según caso).",
+                    ],
+                };
+            case "limpieza":
+                return {
+                    subtitle: "Profilaxis profesional para mantener encías y dientes sanos.",
+                    bullets: [
+                        "Remoción de placa, sarro y pulido.",
+                        "Tiempo estimado: 30–45 min.",
+                        "Precio estimado: $600–$1,200 MXN.",
+                    ],
+                };
+            case "coronas":
+                return {
+                    subtitle: "Rehabilitación resistente y estética de dientes dañados.",
+                    bullets: [
+                        "Material cerámico/zirconia con ajuste digital.",
+                        "Tiempo estimado: 2 citas de 60–90 min.",
+                        "Precio estimado: $6,000–$12,000 MXN por pieza.",
+                    ],
+                };
+            case "resinas":
+                return {
+                    subtitle: "Restauraciones conservadoras del color del diente.",
+                    bullets: [
+                        "Adhesión avanzada y pulido de alto brillo.",
+                        "Tiempo estimado: 40–60 min por pieza.",
+                        "Precio estimado: $1,000–$2,500 MXN por pieza.",
+                    ],
+                };
+            case "maxilofacial":
+                return {
+                    subtitle: "Procedimientos quirúrgicos especializados de alta precisión.",
+                    bullets: [
+                        "Plan quirúrgico personalizado y control del dolor.",
+                        "Tiempo estimado: 45–120 min (según procedimiento).",
+                        "Precio estimado: $5,000–$25,000+ MXN (según complejidad).",
+                    ],
+                };
+            case "endodoncia":
+                return {
+                    subtitle: "Tratamiento de conductos para conservar piezas naturales.",
+                    bullets: [
+                        "Desinfección, conformación y sellado del conducto.",
+                        "Tiempo estimado: 60–120 min (1–2 citas).",
+                        "Precio estimado: $3,500–$6,500 MXN (molares pueden ser más).",
+                    ],
+                };
+            case "periodoncia":
+                return {
+                    subtitle: "Cuidado integral de encías y soporte óseo.",
+                    bullets: [
+                        "Terapia periodontal no quirúrgica y mantenimiento.",
+                        "Tiempo estimado: 60–90 min por cuadrante.",
+                        "Precio estimado: $1,500–$3,000 MXN (mantenimiento).",
+                    ],
+                };
+            case "guarda-oclusal":
+                return {
+                    subtitle: "Protección contra bruxismo y alivio de sobrecarga.",
+                    bullets: [
+                        "Toma de impresión/escaneo y ajuste personalizado.",
+                        "Tiempo estimado: 2 citas de 20–30 min; entrega en 5–7 días.",
+                        "Precio estimado: $2,000–$4,000 MXN.",
+                    ],
+                };
+            case "puentes":
+                return {
+                    subtitle: "Soluciones fijas para reemplazo de uno o más dientes.",
+                    bullets: [
+                        "Diseño y ajuste de oclusión para estabilidad.",
+                        "Tiempo estimado: 2–3 citas de 60–90 min.",
+                        "Precio estimado: $12,000–$24,000 MXN (puente de 3 unidades).",
+                    ],
+                };
+            case "alineadores":
+                return {
+                    subtitle: "Ortodoncia removible y discreta para alinear tu sonrisa.",
+                    bullets: [
+                        "Escaneo 3D y plan de movimientos progresivos.",
+                        "Tiempo estimado: 6–18 meses, revisiones cada 6–8 semanas.",
+                        "Precio estimado: $25,000–$60,000 MXN (según complejidad).",
+                    ],
+                };
+            case "invisalign":
+                return {
+                    subtitle: "Alineadores invisibles con planeación digital.",
+                    bullets: [
+                        "Comodidad y control preciso del tratamiento.",
+                        "Tiempo estimado: 6–18 meses, citas de control periódicas.",
+                        "Precio estimado: $35,000–$80,000 MXN.",
+                    ],
+                };
+            case "brackets":
+                return {
+                    subtitle: "Ortodoncia fija para corrección de mordida y alineación.",
+                    bullets: [
+                        "Opciones metálicos o estéticos (según caso).",
+                        "Tiempo estimado: 18–24 meses; citas mensuales.",
+                        "Precio estimado: $20,000–$40,000 MXN el tratamiento.",
+                    ],
+                };
+            case "blanqueamientos":
+                return {
+                    subtitle: "Aclarado seguro y efectivo del tono dental.",
+                    bullets: [
+                        "En clínica y/o domiciliario supervisado.",
+                        "Tiempo estimado: 45–60 min por sesión.",
+                        "Precio estimado: $2,500–$4,500 MXN (clínica) / $1,800–$3,000 MXN (kit).",
+                    ],
+                };
+            case "carillas":
+                return {
+                    subtitle: "Láminas estéticas para forma y color perfectos.",
+                    bullets: [
+                        "Cerámica o compuesto con mínima preparación (según caso).",
+                        "Tiempo estimado: 2–3 citas; laboratorio 7–14 días.",
+                        "Precio estimado: $6,000–$12,000 MXN por pieza.",
+                    ],
+                };
+            case "limpieza-ninos":
+                return {
+                    subtitle: "Profilaxis infantil amable y educativa.",
+                    bullets: [
+                        "Limpieza suave, barniz de flúor y consejos de higiene.",
+                        "Tiempo estimado: 20–30 min.",
+                        "Precio estimado: $450–$900 MXN.",
+                    ],
+                };
+            case "selladores":
+                return {
+                    subtitle: "Protección de fosas y fisuras contra caries.",
+                    bullets: [
+                        "Aplicación sin dolor sobre molares sanos.",
+                        "Tiempo estimado: 15–20 min por diente.",
+                        "Precio estimado: $400–$800 MXN por diente.",
+                    ],
+                };
+            case "extracciones":
+                return {
+                    subtitle: "Extracciones simples y de cordales con enfoque mínimamente invasivo.",
+                    bullets: [
+                        "Anestesia local y manejo postoperatorio.",
+                        "Tiempo estimado: 20–60 min (según complejidad).",
+                        "Precio estimado: $800–$1,800 MXN (simple) / $2,500–$6,500 MXN (cordal).",
+                    ],
+                };
+            case "ortopedia":
+                return {
+                    subtitle: "Guía del crecimiento maxilar y mandibular en pacientes jóvenes.",
+                    bullets: [
+                        "Aparatología funcional personalizada y controles periódicos.",
+                        "Tiempo estimado: 6–18 meses; revisiones bimestrales.",
+                        "Precio estimado: $8,000–$18,000 MXN (según aparatología).",
+                    ],
+                };
+            case "armonizacion-facial":
+                return {
+                    subtitle: "Toxina botulínica y rellenos dérmicos para equilibrio facial natural.",
+                    bullets: [
+                        "Atenuación de líneas y realce de volumen sutil.",
+                        "Tiempo estimado: 20–40 min; resultados 4–12 meses.",
+                        "Precio estimado: $2,500–$4,500 MXN por zona (toxina) / $4,500–$7,500 MXN por 1 ml (relleno).",
+                    ],
+                };
+            case "diseno-sonrisa":
+                return {
+                    subtitle: "Plan estético integral con mock-up digital y ejecución guiada.",
+                    bullets: [
+                        "Fotografía clínica, análisis de proporciones y pruebas previas.",
+                        "Tiempo estimado: 1–3 citas para diagnóstico y mock-up.",
+                        "Precio estimado: Estudio $1,500–$3,000 MXN; tratamiento final según plan ($10,000–$60,000 MXN).",
+                    ],
+                };
+            default:
+                return {
+                    subtitle: fallbackDesc || "Atención personalizada según tu diagnóstico.",
+                    bullets: [
+                        "Evaluación clínica y plan a medida.",
+                        "Tiempo estimado: variable.",
+                        "Precio estimado: a cotizar tras valoración.",
+                    ],
+                };
+        }
+    };
+
+    const { subtitle, bullets } = getServiceCopy(service.key, service.desc);
 
     return (
         <AnimatePresence>
@@ -795,46 +1022,73 @@ function InfoModal({ open, onClose, service }) {
                     animate={{ y: 0, opacity: 1, scale: 1 }}
                     exit={{ y: 10, opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-[#e4b89233] bg-[#102238] text-white shadow-2xl"
+                    className="relative w-full max-w-2xl overflow-hidden rounded-[22px] border border-[#e4b89233] bg-[#0f2237] text-white shadow-2xl"
                 >
+                    {/* líneas doradas superior e inferior */}
                     <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
-                    <div className="flex items-start justify-between gap-3 p-5">
-                        <div>
-                            <div className="text-[11px] tracking-[.3em] text-[#e4b892cc]">SERVICIO</div>
-                            <h3 className="mt-1 text-2xl font-semibold">{service.title}</h3>
-                            <p className="mt-2 text-sm text-white/75">{service.desc}</p>
-                        </div>
-                        <button onClick={onClose} className="rounded-full border border-white/20 px-2 py-1 text-sm text-white/70 hover:bg:white/10" aria-label="Cerrar">
-                            ✕
-                        </button>
+                    <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
+
+                    {/* botón cerrar circular */}
+                    <button
+                        onClick={onClose}
+                        className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 hover:bg-white/10"
+                        aria-label="Cerrar"
+                    >
+                        ✕
+                    </button>
+
+                    {/* cabecera centrada como en la imagen */}
+                    <div className="px-6 pt-8 text-center sm:px-10">
+                        <div className="text-[11px] tracking-[.35em] text-[#e4b892cc]">SERVICIO</div>
+                        <h3 className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">{service.title}</h3>
+                        <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+                            {subtitle}
+                        </p>
                     </div>
 
-                    <div className="px-5 pb-5">
-                        <ul className="grid gap-2 text-[14px] text-white/80">
-                            <li className="flex items-start gap-2"><span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[#e4b892]" />Evaluación personalizada y plan digital de tratamiento.</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[#e4b892]" />Tecnología de imagen y seguimiento para resultados predecibles.</li>
-                            <li className="flex items-start gap-2"><span className="mt-1 inline-block h-1.5 w-1.5 rounded-full bg-[#e4b892]" />Opciones de confort y estética adaptadas a tu estilo de vida.</li>
+                    {/* bullets alineados a la izquierda */}
+                    <div className="px-6 pt-5 sm:px-10">
+                        <ul className="grid gap-3 text-[15px] sm:text-[16px] text-white/90">
+                            {bullets.map((b, i) => (
+                                <li key={i} className="flex items-start gap-3">
+                                    <span className="mt-2 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[#e4b892]" />
+                                    <span className="leading-relaxed">{b}</span>
+                                </li>
+                            ))}
                         </ul>
+                    </div>
 
-                        <div className="mt-5 flex flex-wrap items-center gap-3">
-                            <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[#d8a07b] px-5 py-2 text-sm font-semibold text-[#0b1b2b] hover:brightness-110">
+                    {/* botones grandes tipo “píldora” como en la imagen */}
+                    <div className="px-6 pb-8 pt-7 sm:px-10">
+                        <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
+                            <a
+                                href={waForThisService}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex h-12 min-w-[260px] items-center justify-center gap-2 rounded-full bg-[#d8a07b] px-7 text-[15px] font-semibold text-[#0b1b2b] shadow-[0_8px_24px_rgba(216,160,123,.25)] transition hover:brightness-110"
+                            >
                                 Agendar por WhatsApp
                                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M5 12h14M13 5l7 7-7 7" />
                                 </svg>
                             </a>
-                            <a href="#ubicacion" onClick={onClose} className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-2 text-sm text-white/90 hover:bg-white/10">
+
+                            <a
+                                href="#ubicacion"
+                                onClick={onClose}
+                                className="inline-flex h-12 min-w-[200px] items-center justify-center gap-2 rounded-full border border-white/20 px-7 text-[15px] text-white/90 transition hover:bg-white/10"
+                            >
                                 Ver clínicas
                             </a>
                         </div>
                     </div>
-
-                    <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                 </motion.div>
             </motion.button>
         </AnimatePresence>
     );
 }
+
+
 
 function GalleryCarousel() {
     const IMAGES = [
