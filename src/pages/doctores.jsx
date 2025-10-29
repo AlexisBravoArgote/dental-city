@@ -22,15 +22,15 @@ import dc16 from "../assets/DCdoctor16.jpg";
 import dc17 from "../assets/DCdoctor17.jpg";
 import dc18 from "../assets/DCdoctor18.jpg";
 import dc19 from "../assets/DCdoctor19.jpg";
-import dc20 from "../assets/Dcdoctor20.jpg"
-import dc21 from "../assets/Dcdoctor21.jpg"
-import dc22 from "../assets/Dcdoctor22.jpg"
-import dc23 from "../assets/Dcdoctor23.jpg"
-import dc24 from "../assets/Dcdoctor24.jpg"
-import dc25 from "../assets/Dcdoctor25.jpg"
-import dc26 from "../assets/Dcdoctor26.jpg"
-import dc27 from "../assets/Dcdoctor27.jpg"
-import dc28 from "../assets/Dcdoctor28.jpg"
+import dc20 from "../assets/DCdoctor20.jpg"
+import dc21 from "../assets/DCdoctor21.jpg"
+import dc22 from "../assets/DCdoctor22.jpg"
+import dc23 from "../assets/DCdoctor23.jpg"
+import dc24 from "../assets/DCdoctor24.jpg"
+import dc25 from "../assets/DCdoctor25.jpg"
+import dc26 from "../assets/DCdoctor26.jpg"
+import dc27 from "../assets/DCdoctor27.jpg"
+import dc28 from "../assets/DCdoctor28.jpg"
 import kids0 from "../assets/kids0.jpg"
 
 import kids2 from "../assets/kids2.jpg"
