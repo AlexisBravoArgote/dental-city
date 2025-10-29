@@ -93,7 +93,7 @@ function Carousel({
     images = [],
     ariaLabel = "galería",
     autoPlay = true,
-    duration = 5000, // ms por foto
+    duration = 7000, // ms por foto
 }) {
     const [i, setI] = useState(0);
     const n = images.length || 1;
