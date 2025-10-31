@@ -1,9 +1,13 @@
-﻿import React, { useEffect,useMemo,useRef,useState,useCallback,useId,} from "react";
+﻿// src/App.jsx
+import React, { useEffect, useMemo, useRef, useState, useCallback, useId } from "react";
 import { Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { useTranslation } from "react-i18next";
+import "./i18n"; // <<<<<< inicializa i18next
+
 const __MOTION_USED = Boolean(motion); // eslint-disable-line no-unused-vars
 
-// Assets (ajusta si tus nombres cambian)
+// Assets
 import alineadores from "./assets/alineadores.avif";
 import transparentes from "./assets/transparentes2.jpg";
 import seguimiento2 from "./assets/seguimiento2.jpg";
@@ -16,68 +20,57 @@ import segunda from "./assets/segunda.webp";
 import tercera from "./assets/tercera.webp";
 import cuarta from "./assets/cuarta.webp";
 import arquitectura from "./assets/arquitectura.png";
+
 import TopBar from "./components/TopBar.jsx";
 import Footer from "./components/Footer.jsx";
+import LanguageBoutique from "./components/LanguageBoutique.jsx";
+
 // Rutas estáticas
 import Privacidad from "./pages/Privacidad.jsx";
 import Terminos from "./pages/Terminos.jsx";
-import Bolsa from "./pages/bolsa.jsx"
-import Doctores from "./pages/doctores.jsx"
-import Blog from "./pages/blog.jsx"
+import Bolsa from "./pages/bolsa.jsx";
+import Doctores from "./pages/doctores.jsx";
+import Blog from "./pages/blog.jsx";
 import BlogPost10 from "./pages/blog/10.jsx";
 import BlogPost11 from "./pages/blog/11.jsx";
 import BlogPost5 from "./pages/blog/5.jsx";
-import BlogPost2 from "./pages/blog/2.jsx"
-import BlogPost1 from "./pages/blog/1.jsx"
-import BlogPost3 from "./pages/blog/3.jsx"
-import BlogPost4 from "./pages/blog/4.jsx"
-import BlogPost6 from "./pages/blog/6.jsx"
-import BlogPost7 from "./pages/blog/7.jsx"
-import BlogPost8 from "./pages/blog/8.jsx"
-import BlogPost9 from "./pages/blog/9.jsx"
-import Edu from "./pages/edu.jsx"
+import BlogPost2 from "./pages/blog/2.jsx";
+import BlogPost1 from "./pages/blog/1.jsx";
+import BlogPost3 from "./pages/blog/3.jsx";
+import BlogPost4 from "./pages/blog/4.jsx";
+import BlogPost6 from "./pages/blog/6.jsx";
+import BlogPost7 from "./pages/blog/7.jsx";
+import BlogPost8 from "./pages/blog/8.jsx";
+import BlogPost9 from "./pages/blog/9.jsx";
+import Edu from "./pages/edu.jsx";
+
 // =========================
 // Config rápida
 // =========================
-const WHATSAPP_NUMBER = "523333087833"; // 52 + 10 dígitos (sin “1”)
+const WHATSAPP_NUMBER = "523333087833";
 const WA_URL = `https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(
-       "Hola 👋 me gustaría agendar una cita en Dental City."
+    "Hola 👋 me gustaría agendar una cita en Dental City."
 )}`;
-// WhatsApp de ICTY Kids (no uses el '+', ni espacios)
-// WhatsApp ICTY Kids
-const WA_KIDS = "https://wa.me/523319699222"; // +52 33 1969 9222
+const WA_KIDS = "https://wa.me/523319699222";
 
-// Helper CORREGIDO para armar el enlace con el mensaje
 const getWaUrl = (key, title) => {
     const base = (key === "ortopedia" || key === "limpieza-ninos") ? WA_KIDS : WA_URL;
-
     const msg = `Hola 👋 me gustaría agendar una cita en Dental City para ${title}.`;
-
-    // Si el base YA trae "?" (por ejemplo, api.whatsapp.com/send?phone=...),
-    // concatenamos con "&text="; de lo contrario, con "?text="
     const sep = base.includes("?") ? "&" : "?";
-
     return `${base}${sep}text=${encodeURIComponent(msg)}`;
 };
 
-
-// útil para componentes que lo leen de window
 if (typeof window !== "undefined") window.WA_URL = WA_URL;
 
-// Navega a #ubicacion y activa pestaña
 function navigateToLocation(tabKey) {
     try {
         sessionStorage.setItem("initialTab", tabKey);
-    } catch (err) {
-        void err;
-    }
+    } catch (err) { void err; }
     const el = document.querySelector("#ubicacion");
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
     if (location.hash !== "#ubicacion") location.hash = "#ubicacion";
     setTimeout(() => {
-        window.dispatchEvent(
-            new CustomEvent("select-location-tab", { detail: tabKey })
-        );
+        window.dispatchEvent(new CustomEvent("select-location-tab", { detail: tabKey }));
     }, 0);
 }
 
@@ -95,62 +88,68 @@ function Container({ children, className = "" }) {
 // =========================
 // Páginas (Rutas)
 // =========================
-function Home() { 
-  const { scrollYProgress } = useScroll();
-  const bgOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.85]);
+function Home() {
+    const { scrollYProgress } = useScroll();
+    const bgOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.85]);
 
-  return (
-    <div className="min-h-screen w-full bg-[#0b1b2b] text-white">
-      <TopBar bgOpacity={bgOpacity} />
+    return (
+        <div className="min-h-screen w-full bg-[#0b1b2b] text-white">
+            <TopBar bgOpacity={bgOpacity} />
+            {/* 🌐 selector global, debajo del TopBar en todas las páginas */}
+            <LanguageBoutique />
 
-      {/* Secciones */}
-      <Hero />
-      <About />
-      <Services />
-      <GalleryCarousel />
-      <InvisalignInteractive />
-      <LocationsTabs />
-      <FAQ />
+            {/* Secciones */}
+            <Hero />
+            <About />
+            <Services />
+            <GalleryCarousel />
+            <InvisalignInteractive />
+            <LocationsTabs />
+            <FAQ />
 
-      <Footer />
-      <FloatingCta />
-      <FloatingBackToTop />
-      <DevTests />
-    </div>
-  );
+            <Footer />
+            <FloatingCta />
+            <FloatingBackToTop />
+            <DevTests />
+        </div>
+    );
 }
 
 export default function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/terminos" element={<Terminos />} />
-          <Route path="/privacidad" element={<Privacidad />} />
-          <Route path="/bolsa" element={<Bolsa />} />
-          <Route path="/doctores" element={<Doctores />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/10" element={<BlogPost10 />} />
-          <Route path="/blog/11" element={<BlogPost11 />} />
-          <Route path="/blog/5" element={<BlogPost5 />} />
-          <Route path="/blog/1" element={<BlogPost1 />} />
-          <Route path="/blog/2" element={<BlogPost2 />} />
-          <Route path="/blog/3" element={<BlogPost3 />} />
-          <Route path="/blog/4" element={<BlogPost4 />} />
-          <Route path="/blog/6" element={<BlogPost6 />} />
-          <Route path="/blog/7" element={<BlogPost7 />} />
-          <Route path="/blog/8" element={<BlogPost8 />} />
-          <Route path="/blog/9" element={<BlogPost9 />} />
-          <Route path="/edu" element={<Edu />} />
-    </Routes>
-  );
+    return (
+        <>
+            {/* Si quieres que el 🌐 esté también en páginas que no usan <TopBar />, muévelo aquí arriba */}
+            {/* <LanguageBoutique /> */}
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/terminos" element={<Terminos />} />
+                <Route path="/privacidad" element={<Privacidad />} />
+                <Route path="/bolsa" element={<Bolsa />} />
+                <Route path="/doctores" element={<Doctores />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/blog/10" element={<BlogPost10 />} />
+                <Route path="/blog/11" element={<BlogPost11 />} />
+                <Route path="/blog/5" element={<BlogPost5 />} />
+                <Route path="/blog/1" element={<BlogPost1 />} />
+                <Route path="/blog/2" element={<BlogPost2 />} />
+                <Route path="/blog/3" element={<BlogPost3 />} />
+                <Route path="/blog/4" element={<BlogPost4 />} />
+                <Route path="/blog/6" element={<BlogPost6 />} />
+                <Route path="/blog/7" element={<BlogPost7 />} />
+                <Route path="/blog/8" element={<BlogPost8 />} />
+                <Route path="/blog/9" element={<BlogPost9 />} />
+                <Route path="/edu" element={<Edu />} />
+            </Routes>
+        </>
+    );
 }
-
 
 // =========================
 // Secciones y componentes
 // =========================
 
 function Hero() {
+    const { t } = useTranslation("home"); // usa el namespace "home"
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -167,8 +166,7 @@ function Hero() {
             }
         };
         if (openHeroCta) document.addEventListener("mousedown", handleClickOutside);
-        return () =>
-            document.removeEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [openHeroCta]);
 
     return (
@@ -215,7 +213,9 @@ function Hero() {
                     transition={{ duration: 0.7 }}
                     className="text-[42px] md:text-6xl font-light tracking-wide leading-[1.15] md:leading-[1.1] pb-[2px]"
                 >
-                    <span className="golden-sweep">Elegancia que se nota al sonreír</span>
+                    <span className="golden-sweep">
+                        {t("hero.title", { defaultValue: "Elegancia que se nota al sonreír" })}
+                    </span>
                 </motion.h1>
 
                 <motion.p
@@ -224,8 +224,10 @@ function Hero() {
                     transition={{ delay: 0.1, duration: 0.7 }}
                     className="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-white/85"
                 >
-                    Odontología digital de vanguardia, donde la precisión se une al
-                    confort y la atención personalizada.
+                    {t("hero.subtitle", {
+                        defaultValue:
+                            "Odontología digital de vanguardia, donde la precisión se une al confort y la atención personalizada.",
+                    })}
                 </motion.p>
 
                 {/* Botones */}
@@ -234,8 +236,8 @@ function Hero() {
                         <motion.button
                             onClick={() => setOpenHeroCta((v) => !v)}
                             className={`flex items-center gap-2 rounded-full px-7 py-3 font-medium shadow-lg transition active:scale-[0.97] ${openHeroCta
-                                ? "bg-gradient-to-r from-[#e8c3a2] to-[#d8a07b] text-[#0b1b2b]"
-                                : "bg-[#d8a07b] text-[#0b1b2b] hover:brightness-105"
+                                    ? "bg-gradient-to-r from-[#e8c3a2] to-[#d8a07b] text-[#0b1b2b]"
+                                    : "bg-[#d8a07b] text-[#0b1b2b] hover:brightness-105"
                                 }`}
                             aria-haspopup="menu"
                             aria-expanded={openHeroCta}
@@ -246,7 +248,7 @@ function Hero() {
                             }}
                             transition={{ duration: 0.4, ease: "easeOut" }}
                         >
-                            Agendar cita
+                            {t("hero.book", { defaultValue: "Agendar cita" })}
                             <motion.svg
                                 viewBox="0 0 24 24"
                                 fill="none"
@@ -320,7 +322,7 @@ function Hero() {
                         href="#servicios"
                         className="rounded-full border border-white/25 bg-white/5 px-7 py-3 text-white/90 backdrop-blur-md transition hover:bg-white/15"
                     >
-                        Ver tratamientos
+                        {t("hero.viewTreatments", { defaultValue: "Ver tratamientos" })}
                     </a>
                 </div>
             </Container>
@@ -343,6 +345,9 @@ function Hero() {
         </section>
     );
 }
+
+
+
 
 function Noise() {
     return (
@@ -376,6 +381,9 @@ function SectionHeading({ overline, title, subtitle }) {
     );
 }
 
+
+
+/* ======= Chip (sin cambios de UI, solo igual) ======= */
 function Chip({ children }) {
     const id = useId();
     return (
@@ -433,6 +441,7 @@ function Chip({ children }) {
     );
 }
 
+/* ======= ImageCard (igual de UI) ======= */
 function ImageCard({ src, alt, label }) {
     return (
         <figure className="group relative aspect-square overflow-hidden rounded-2xl">
@@ -456,25 +465,30 @@ function ImageCard({ src, alt, label }) {
     );
 }
 
+/* ======= About (con i18n) ======= */
 function About() {
+    const { t } = useTranslation("home");
+
     const IMAGES = [
-        { src: primera, alt: "Todas las especialidades" },
-        { src: segunda, alt: "Ortodoncia" },
-        { src: tercera, alt: "Odontología estética" },
-        { src: cuarta, alt: "Escaneo digital" },
+        { src: primera, alt: t("about.img_all") },
+        { src: segunda, alt: t("about.img_ortho") },
+        { src: tercera, alt: t("about.img_aesthetic") },
+        { src: cuarta, alt: t("about.img_scan") },
     ];
 
     return (
         <section id="about" className="bg-[#0f2237] py-20">
             <Container>
                 <div className="text-center">
-                    <div className="text-xs tracking-[0.35em] text-white/50">NOSOTROS</div>
+                    <div className="text-xs tracking-[0.35em] text-white/50">
+                        {t("about.eyebrow")}
+                    </div>
                     <h2 className="mt-3 inline-block text-3xl font-semibold md:text-4xl relative">
-                        <span className="golden-sweep">Cuidado dental con diseño</span>
+                        <span className="golden-sweep">{t("about.title")}</span>
                         <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                     </h2>
                     <p className="mx-auto mt-3 max-w-2xl text-white/75">
-                        Desde 1999, unimos tecnología y calidad para que tu sonrisa se vea y se sienta mejor.
+                        {t("about.blurb")}
                     </p>
                 </div>
 
@@ -482,14 +496,14 @@ function About() {
                     <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_50px_rgba(0,0,0,.35)]">
                         <div className="pointer-events-none absolute -inset-px rounded-3xl bg-[radial-gradient(120%_120%_at_10%_0%,rgba(228,184,146,.18),transparent)]" />
                         <p className="text-[15px] leading-7 text-white/85 text-justify">
-                            Clínica integral con <span className="text-white font-semibold">todas las especialidades dentales</span>. Somos clínica diamante <span className="text-white font-semibold">Invisalign</span> con laboratorio propio para crear <span className="text-white font-semibold">diseños digitales de sonrisa</span> precisos, naturales y personalizados.
+                            {t("about.paragraph")}
                         </p>
 
                         <div className="mt-6 grid grid-cols-2 gap-4">
-                            <Chip>Diagnóstico 3D</Chip>
-                            <Chip>Laboratorio propio</Chip>
-                            <Chip>Ortodoncia invisible</Chip>
-                            <Chip>Odontología estética</Chip>
+                            <Chip>{t("about.chip_diag3d")}</Chip>
+                            <Chip>{t("about.chip_lab")}</Chip>
+                            <Chip>{t("about.chip_invisible")}</Chip>
+                            <Chip>{t("about.chip_aesthetic")}</Chip>
                         </div>
                         <div className="my-6 h-[2px] w-full overflow-hidden rounded bg-white/10">
                             <div className="h-full w-full animate-[shine_3.6s_linear_infinite] bg-gradient-to-r from-transparent via-[#e4b892] to-transparent" />
@@ -498,7 +512,7 @@ function About() {
                             <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-[#d8a07b33] to-transparent blur-lg" />
                             <img
                                 src={arquitectura}
-                                alt="Arquitectura de Dental City"
+                                alt={t("about.arch_alt")}
                                 className="relative mx-auto block h-40 w-full max-w-[720px] object-contain md:h-48"
                                 loading="lazy"
                             />
@@ -539,32 +553,35 @@ function About() {
 
 
 
+
 function Services() {
+    const { t } = useTranslation("home");
     const all = useMemo(
         () => [
-            { key: "implantes", title: "Implantes", desc: "Reposición fija y estética de piezas ausentes." },
-            { key: "limpieza", title: "Limpieza dental", desc: "Profilaxis profesional para mantener encías y dientes sanos." },
-            { key: "coronas", title: "Coronas dentales", desc: "Rehabilitación resistente y natural de dientes dañados." },
-            { key: "resinas", title: "Resinas dentales", desc: "Restauraciones estéticas y conservadoras del color del diente." },
-            { key: "maxilofacial", title: "Cirugía Maxilofacial", desc: "Procedimientos quirúrgicos especializados de alta precisión." },
-            { key: "endodoncia", title: "Endodoncia", desc: "Tratamiento de conductos para conservar piezas naturales." },
-            { key: "periodoncia", title: "Periodoncia", desc: "Cuidado integral de encías y soporte óseo." },
-            { key: "guarda-oclusal", title: "Guarda oclusal", desc: "Protección contra bruxismo y alivio de sobrecarga." },
-            { key: "puentes", title: "Rehabilitacion oral", desc: "Soluciones fijas para reemplazo de uno o más dientes." },
-            { key: "alineadores", title: "Alineadores", desc: "Ortodoncia removible y discreta para alinear tu sonrisa." },
-            { key: "invisalign", title: "Invisalign", desc: "Alineadores invisibles con planeación digital." },
-            { key: "brackets", title: "Brackets", desc: "Ortodoncia fija para corrección de mordida y alineación." },
-            { key: "blanqueamientos", title: "Blanqueamientos", desc: "Aclarado seguro y efectivo del tono dental." },
-            { key: "carillas", title: "Carillas", desc: "Láminas estéticas para forma y color perfectos." },
-            { key: "limpieza-ninos", title: "Limpieza dental para niños", desc: "Profilaxis infantil amable y educativa." },
-            { key: "selladores", title: "Selladores", desc: "Protección de fosas y fisuras contra caries." },
-            { key: "extracciones", title: "Extracciones", desc: "Extracciones simples y de cordales con enfoque mínimamente invasivo." },
-            { key: "ortopedia", title: "Ortopedia", desc: "Guía del crecimiento maxilar y mandibular en pacientes jóvenes." },
-            { key: "armonizacion-facial", title: "Armonización facial", desc: "Procedimiento estético de botox para realzar y equilibrar los rasgos faciales." },
-            { key: "diseno-sonrisa", title: "Diseño de sonrisa", desc: "Plan estético integral para lograr una sonrisa armónica y personalizada." },
+            { key: "implantes", title: t("services.items.implantes.title"), desc: t("services.items.implantes.desc") },
+            { key: "limpieza", title: t("services.items.limpieza.title"), desc: t("services.items.limpieza.desc") },
+            { key: "coronas", title: t("services.items.coronas.title"), desc: t("services.items.coronas.desc") },
+            { key: "resinas", title: t("services.items.resinas.title"), desc: t("services.items.resinas.desc") },
+            { key: "maxilofacial", title: t("services.items.maxilofacial.title"), desc: t("services.items.maxilofacial.desc") },
+            { key: "endodoncia", title: t("services.items.endodoncia.title"), desc: t("services.items.endodoncia.desc") },
+            { key: "periodoncia", title: t("services.items.periodoncia.title"), desc: t("services.items.periodoncia.desc") },
+            { key: "guarda-oclusal", title: t("services.items.guarda_oclusal.title"), desc: t("services.items.guarda_oclusal.desc") },
+            { key: "puentes", title: t("services.items.puentes.title"), desc: t("services.items.puentes.desc") },
+            { key: "alineadores", title: t("services.items.alineadores.title"), desc: t("services.items.alineadores.desc") },
+            { key: "invisalign", title: t("services.items.invisalign.title"), desc: t("services.items.invisalign.desc") },
+            { key: "brackets", title: t("services.items.brackets.title"), desc: t("services.items.brackets.desc") },
+            { key: "blanqueamientos", title: t("services.items.blanqueamientos.title"), desc: t("services.items.blanqueamientos.desc") },
+            { key: "carillas", title: t("services.items.carillas.title"), desc: t("services.items.carillas.desc") },
+            { key: "limpieza-ninos", title: t("services.items.limpieza_ninos.title"), desc: t("services.items.limpieza_ninos.desc") },
+            { key: "selladores", title: t("services.items.selladores.title"), desc: t("services.items.selladores.desc") },
+            { key: "extracciones", title: t("services.items.extracciones.title"), desc: t("services.items.extracciones.desc") },
+            { key: "ortopedia", title: t("services.items.ortopedia.title"), desc: t("services.items.ortopedia.desc") },
+            { key: "armonizacion-facial", title: t("services.items.armonizacion_facial.title"), desc: t("services.items.armonizacion_facial.desc") },
+            { key: "diseno-sonrisa", title: t("services.items.diseno_sonrisa.title"), desc: t("services.items.diseno_sonrisa.desc") },
         ],
-        []
+        [t]
     );
+
 
     const [query, setQuery] = useState("");
     const filtered = all.filter((s) =>
@@ -600,13 +617,15 @@ function Services() {
         <section id="servicios" className="bg-[#0f2237] py-20">
             <Container>
                 <div className="text-center">
-                    <div className="text-xs tracking-[0.35em] text-white/50">SERVICIOS</div>
+                    <div className="text-xs tracking-[0.35em] text-white/50">
+                        {t("services.eyebrow")}
+                    </div>
                     <h2 className="mt-3 inline-block text-3xl font-semibold md:text-4xl relative">
-                        <span className="golden-sweep">Tratamientos</span>
+                        <span className="golden-sweep">{t("services.title")}</span>
                         <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                     </h2>
                     <p className="mx-auto mt-3 max-w-2xl text-white/75">
-                        Tratamientos de ortodoncia, rehabilitacion, endodoncia, odontopediatria, prostodoncia, periodoncia.
+                        {t("services.blurb")}
                     </p>
                 </div>
 
@@ -616,11 +635,10 @@ function Services() {
                             value={query}
                             onChange={(e) => {
                                 setQuery(e.target.value);
-                                // Reiniciar páginas al buscar, para que se vea desde la primera página en ambos layouts
                                 setMPage(0);
                                 setDPage(0);
                             }}
-                            placeholder="Buscar servicio…"
+                            placeholder={t("services.searchPlaceholder")}
                             className="w-full rounded-full border border-white/15 bg-white/5 px-4 py-2.5 pl-10 text-sm outline-none placeholder:text-white/50 focus:border-[#e4b89266] focus:ring-2 focus:ring-[#e4b89233]"
                         />
                         <svg
@@ -659,10 +677,10 @@ function Services() {
                             disabled={dPage === 0}
                             className="rounded-full border border-[#e4b89255] bg-white/5 px-4 py-2 text-sm text-white/85 disabled:opacity-40 disabled:cursor-not-allowed transition hover:bg-white/10"
                         >
-                            ← Anterior
+                            {t("services.prev")}
                         </button>
                         <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b89255] bg:white/5 bg-white/5 px-3 py-1">
-                            <span className="text-xs text-[#e4b892]">Página</span>
+                            <span className="text-xs text-[#e4b892]">{t("services.pageLabel")}</span>
                             <span className="text-sm text:white/90 text-white/90">{dPage + 1}</span>
                             <span className="text-white/60 text-sm">/</span>
                             <span className="text-sm text-white/80">{totalPagesDesktop}</span>
@@ -672,7 +690,7 @@ function Services() {
                             disabled={dPage >= totalPagesDesktop - 1}
                             className="rounded-full border border-[#e4b89255] bg-[#d8a07b] px-4 py-2 text-sm font-semibold text-[#0b1b2b] disabled:opacity-40 disabled:cursor-not-allowed transition hover:brightness-110"
                         >
-                            Siguiente →
+                            {t("services.next")}
                         </button>
                     </div>
                 )}
@@ -697,10 +715,10 @@ function Services() {
                                 disabled={mPage === 0}
                                 className="rounded-full border border-[#e4b89255] bg-white/5 px-4 py-2 text-sm text-white/85 disabled:opacity-40 disabled:cursor-not-allowed transition hover:bg-white/10"
                             >
-                                ← Anterior
+                                {t("services.prev")}
                             </button>
-                            <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b89255] bg-white/5 px-3 py-1">
-                                <span className="text-xs text-[#e4b892]">Página</span>
+                            <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b7 89255] bg-white/5 px-3 py-1">
+                                <span className="text-xs text-[#e4b892]">{t("services.pageLabel")}</span>
                                 <span className="text-sm text-white/90">{mPage + 1}</span>
                                 <span className="text-white/60 text-sm">/</span>
                                 <span className="text-sm text-white/80">{totalPagesMobile}</span>
@@ -710,7 +728,7 @@ function Services() {
                                 disabled={mPage >= totalPagesMobile - 1}
                                 className="rounded-full border border-[#e4b89255] bg-[#d8a07b] px-4 py-2 text-sm font-semibold text-[#0b1b2b] disabled:opacity-40 disabled:cursor-not-allowed transition hover:brightness-110"
                             >
-                                Siguiente →
+                                {t("services.next")}
                             </button>
                         </div>
                     )}
@@ -742,7 +760,10 @@ function Services() {
     );
 }
 
+
 function ServiceCard({ title, desc, index, onInfo, waUrl }) {
+    const { t } = useTranslation("home");
+
     return (
         <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -761,12 +782,12 @@ function ServiceCard({ title, desc, index, onInfo, waUrl }) {
                     {/* Empuja el footer al fondo para igualar alturas */}
                     <div className="mt-auto pt-4 flex items-center justify-between">
                         <a
-                            href={waUrl}  // ← usa el enlace calculado para cada servicio
+                            href={waUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="relative inline-flex items-center gap-1 rounded-full bg-[#d8a07b] px-3.5 py-1.5 text-xs font-semibold text-[#0b1b2b] transition hover:brightness-110"
                         >
-                            Agendar
+                            {t("services2.btn_schedule", { defaultValue: "Agendar" })}
                             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                 <path d="M5 12h14M13 5l7 7-7 7" />
                             </svg>
@@ -779,7 +800,7 @@ function ServiceCard({ title, desc, index, onInfo, waUrl }) {
                             onClick={onInfo}
                             className="rounded-full border border-white/20 px-3 py-1 text-xs text-white/75 transition hover:border-[#e4b89255] hover:bg:white/10 hover:bg-white/10"
                         >
-                            Más info
+                            {t("services2.btn_moreInfo", { defaultValue: "Más info" })}
                         </button>
                     </div>
 
@@ -790,7 +811,10 @@ function ServiceCard({ title, desc, index, onInfo, waUrl }) {
     );
 }
 
+
 function InfoModal({ open, onClose, service }) {
+    const { t } = useTranslation("home");
+
     useEffect(() => {
         if (!open) return;
         const prev = document.body.style.overflow;
@@ -808,208 +832,30 @@ function InfoModal({ open, onClose, service }) {
 
     const waForThisService = getWaUrl(service.key, service.title);
 
-    // Copys por servicio (incluye tiempo y precio estimado)
-    const getServiceCopy = (key, fallbackDesc) => {
-        switch (key) {
-            case "implantes":
-                return {
-                    subtitle: "Reposición fija con implante y corona de aspecto natural.",
-                    bullets: [
-                        "Colocación guiada para mayor precisión y confort.",
-                        "Tiempo estimado: cirugía 60–90 min; integración 3–6 meses.",
-                        "Precio estimado: $18,000–$35,000 MXN por implante (según caso).",
-                    ],
-                };
-            case "limpieza":
-                return {
-                    subtitle: "Profilaxis profesional para mantener encías y dientes sanos.",
-                    bullets: [
-                        "Remoción de placa, sarro y pulido.",
-                        "Tiempo estimado: 30–45 min.",
-                        "Precio estimado: $600–$1,200 MXN.",
-                    ],
-                };
-            case "coronas":
-                return {
-                    subtitle: "Rehabilitación resistente y estética de dientes dañados.",
-                    bullets: [
-                        "Material cerámico/zirconia con ajuste digital.",
-                        "Tiempo estimado: 2 citas de 60–90 min.",
-                        "Precio estimado: $6,000–$12,000 MXN por pieza.",
-                    ],
-                };
-            case "resinas":
-                return {
-                    subtitle: "Restauraciones conservadoras del color del diente.",
-                    bullets: [
-                        "Adhesión avanzada y pulido de alto brillo.",
-                        "Tiempo estimado: 40–60 min por pieza.",
-                        "Precio estimado: $1,000–$2,500 MXN por pieza.",
-                    ],
-                };
-            case "maxilofacial":
-                return {
-                    subtitle: "Procedimientos quirúrgicos especializados de alta precisión.",
-                    bullets: [
-                        "Plan quirúrgico personalizado y control del dolor.",
-                        "Tiempo estimado: 45–120 min (según procedimiento).",
-                        "Precio estimado: $5,000–$25,000+ MXN (según complejidad).",
-                    ],
-                };
-            case "endodoncia":
-                return {
-                    subtitle: "Tratamiento de conductos para conservar piezas naturales.",
-                    bullets: [
-                        "Desinfección, conformación y sellado del conducto.",
-                        "Tiempo estimado: 60–120 min (1–2 citas).",
-                        "Precio estimado: $3,500–$6,500 MXN (molares pueden ser más).",
-                    ],
-                };
-            case "periodoncia":
-                return {
-                    subtitle: "Cuidado integral de encías y soporte óseo.",
-                    bullets: [
-                        "Terapia periodontal no quirúrgica y mantenimiento.",
-                        "Tiempo estimado: 60–90 min por cuadrante.",
-                        "Precio estimado: $1,500–$3,000 MXN (mantenimiento).",
-                    ],
-                };
-            case "guarda-oclusal":
-                return {
-                    subtitle: "Protección contra bruxismo y alivio de sobrecarga.",
-                    bullets: [
-                        "Toma de impresión/escaneo y ajuste personalizado.",
-                        "Tiempo estimado: 2 citas de 20–30 min; entrega en 5–7 días.",
-                        "Precio estimado: $2,000–$4,000 MXN.",
-                    ],
-                };
-            case "puentes":
-                return {
-                    subtitle: "Soluciones fijas para reemplazo de uno o más dientes.",
-                    bullets: [
-                        "Diseño y ajuste de oclusión para estabilidad.",
-                        "Tiempo estimado: 2–3 citas de 60–90 min.",
-                        "Precio estimado: $12,000–$24,000 MXN (puente de 3 unidades).",
-                    ],
-                };
-            case "alineadores":
-                return {
-                    subtitle: "Ortodoncia removible y discreta para alinear tu sonrisa.",
-                    bullets: [
-                        "Escaneo 3D y plan de movimientos progresivos.",
-                        "Tiempo estimado: 6–18 meses, revisiones cada 6–8 semanas.",
-                        "Precio estimado: $25,000–$60,000 MXN (según complejidad).",
-                    ],
-                };
-            case "invisalign":
-                return {
-                    subtitle: "Alineadores invisibles con planeación digital.",
-                    bullets: [
-                        "Comodidad y control preciso del tratamiento.",
-                        "Tiempo estimado: 6–18 meses, citas de control periódicas.",
-                        "Precio estimado: $35,000–$80,000 MXN.",
-                    ],
-                };
-            case "brackets":
-                return {
-                    subtitle: "Ortodoncia fija para corrección de mordida y alineación.",
-                    bullets: [
-                        "Opciones metálicos o estéticos (según caso).",
-                        "Tiempo estimado: 18–24 meses; citas mensuales.",
-                        "Precio estimado: $20,000–$40,000 MXN el tratamiento.",
-                    ],
-                };
-            case "blanqueamientos":
-                return {
-                    subtitle: "Aclarado seguro y efectivo del tono dental.",
-                    bullets: [
-                        "En clínica y/o domiciliario supervisado.",
-                        "Tiempo estimado: 45–60 min por sesión.",
-                        "Precio estimado: $2,500–$4,500 MXN (clínica) / $1,800–$3,000 MXN (kit).",
-                    ],
-                };
-            case "carillas":
-                return {
-                    subtitle: "Láminas estéticas para forma y color perfectos.",
-                    bullets: [
-                        "Cerámica o compuesto con mínima preparación (según caso).",
-                        "Tiempo estimado: 2–3 citas; laboratorio 7–14 días.",
-                        "Precio estimado: $6,000–$12,000 MXN por pieza.",
-                    ],
-                };
-            case "limpieza-ninos":
-                return {
-                    subtitle: "Profilaxis infantil amable y educativa.",
-                    bullets: [
-                        "Limpieza suave, barniz de flúor y consejos de higiene.",
-                        "Tiempo estimado: 20–30 min.",
-                        "Precio estimado: $450–$900 MXN.",
-                    ],
-                };
-            case "selladores":
-                return {
-                    subtitle: "Protección de fosas y fisuras contra caries.",
-                    bullets: [
-                        "Aplicación sin dolor sobre molares sanos.",
-                        "Tiempo estimado: 15–20 min por diente.",
-                        "Precio estimado: $400–$800 MXN por diente.",
-                    ],
-                };
-            case "extracciones":
-                return {
-                    subtitle: "Extracciones simples y de cordales con enfoque mínimamente invasivo.",
-                    bullets: [
-                        "Anestesia local y manejo postoperatorio.",
-                        "Tiempo estimado: 20–60 min (según complejidad).",
-                        "Precio estimado: $800–$1,800 MXN (simple) / $2,500–$6,500 MXN (cordal).",
-                    ],
-                };
-            case "ortopedia":
-                return {
-                    subtitle: "Guía del crecimiento maxilar y mandibular en pacientes jóvenes.",
-                    bullets: [
-                        "Aparatología funcional personalizada y controles periódicos.",
-                        "Tiempo estimado: 6–18 meses; revisiones bimestrales.",
-                        "Precio estimado: $8,000–$18,000 MXN (según aparatología).",
-                    ],
-                };
-            case "armonizacion-facial":
-                return {
-                    subtitle: "Toxina botulínica y rellenos dérmicos para equilibrio facial natural.",
-                    bullets: [
-                        "Atenuación de líneas y realce de volumen sutil.",
-                        "Tiempo estimado: 20–40 min; resultados 4–12 meses.",
-                        "Precio estimado: $2,500–$4,500 MXN por zona (toxina) / $4,500–$7,500 MXN por 1 ml (relleno).",
-                    ],
-                };
-            case "diseno-sonrisa":
-                return {
-                    subtitle: "Plan estético integral con mock-up digital y ejecución guiada.",
-                    bullets: [
-                        "Fotografía clínica, análisis de proporciones y pruebas previas.",
-                        "Tiempo estimado: 1–3 citas para diagnóstico y mock-up.",
-                        "Precio estimado: Estudio $1,500–$3,000 MXN; tratamiento final según plan ($10,000–$60,000 MXN).",
-                    ],
-                };
-            default:
-                return {
-                    subtitle: fallbackDesc || "Atención personalizada según tu diagnóstico.",
-                    bullets: [
-                        "Evaluación clínica y plan a medida.",
-                        "Tiempo estimado: variable.",
-                        "Precio estimado: a cotizar tras valoración.",
-                    ],
-                };
-        }
-    };
+    // --- Textos por servicio desde i18n ---
+    const baseKey = `serviceModal.byService.${service.key}`;
+    const subtitle =
+        t(`${baseKey}.subtitle`, { defaultValue: "" }) ||
+        t("serviceModal.byService.default.subtitle",
+            { defaultValue: "Atención personalizada según tu diagnóstico." });
 
-    const { subtitle, bullets } = getServiceCopy(service.key, service.desc);
+    const bullets =
+        t(`${baseKey}.bullets`, { returnObjects: true, defaultValue: [] })?.length
+            ? t(`${baseKey}.bullets`, { returnObjects: true })
+            : t("serviceModal.byService.default.bullets", {
+                returnObjects: true,
+                defaultValue: [
+                    "Evaluación clínica y plan a medida.",
+                    "Tiempo estimado: variable.",
+                    "Precio estimado: a cotizar tras valoración.",
+                ],
+            });
 
     return (
         <AnimatePresence>
             <motion.button
                 type="button"
-                aria-label="Cerrar modal"
+                aria-label={t("serviceModal.ariaClose", { defaultValue: "Cerrar modal" })}
                 onClick={onClose}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -1024,29 +870,34 @@ function InfoModal({ open, onClose, service }) {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="relative w-full max-w-2xl overflow-hidden rounded-[22px] border border-[#e4b89233] bg-[#0f2237] text-white shadow-2xl"
                 >
-                    {/* líneas doradas superior e inferior */}
+                    {/* líneas doradas */}
                     <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                     <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
 
-                    {/* botón cerrar circular */}
+                    {/* botón cerrar */}
                     <button
                         onClick={onClose}
                         className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 hover:bg-white/10"
-                        aria-label="Cerrar"
+                        aria-label={t("serviceModal.close", { defaultValue: "Cerrar" })}
+                        title={t("serviceModal.close", { defaultValue: "Cerrar" })}
                     >
                         ✕
                     </button>
 
-                    {/* cabecera centrada como en la imagen */}
+                    {/* cabecera */}
                     <div className="px-6 pt-8 text-center sm:px-10">
-                        <div className="text-[11px] tracking-[.35em] text-[#e4b892cc]">SERVICIO</div>
-                        <h3 className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">{service.title}</h3>
+                        <div className="text-[11px] tracking-[.35em] text-[#e4b892cc]">
+                            {t("serviceModal.eyebrow", { defaultValue: "SERVICIO" })}
+                        </div>
+                        <h3 className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">
+                            {service.title}
+                        </h3>
                         <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
                             {subtitle}
                         </p>
                     </div>
 
-                    {/* bullets alineados a la izquierda */}
+                    {/* bullets */}
                     <div className="px-6 pt-5 sm:px-10">
                         <ul className="grid gap-3 text-[15px] sm:text-[16px] text-white/90">
                             {bullets.map((b, i) => (
@@ -1058,7 +909,7 @@ function InfoModal({ open, onClose, service }) {
                         </ul>
                     </div>
 
-                    {/* botones grandes tipo “píldora” como en la imagen */}
+                    {/* CTAs */}
                     <div className="px-6 pb-8 pt-7 sm:px-10">
                         <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
                             <a
@@ -1067,7 +918,7 @@ function InfoModal({ open, onClose, service }) {
                                 rel="noopener noreferrer"
                                 className="inline-flex h-12 min-w-[260px] items-center justify-center gap-2 rounded-full bg-[#d8a07b] px-7 text-[15px] font-semibold text-[#0b1b2b] shadow-[0_8px_24px_rgba(216,160,123,.25)] transition hover:brightness-110"
                             >
-                                Agendar por WhatsApp
+                                {t("serviceModal.cta_whatsapp", { defaultValue: "Agendar por WhatsApp" })}
                                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M5 12h14M13 5l7 7-7 7" />
                                 </svg>
@@ -1078,7 +929,7 @@ function InfoModal({ open, onClose, service }) {
                                 onClick={onClose}
                                 className="inline-flex h-12 min-w-[200px] items-center justify-center gap-2 rounded-full border border-white/20 px-7 text-[15px] text-white/90 transition hover:bg-white/10"
                             >
-                                Ver clínicas
+                                {t("serviceModal.cta_viewClinics", { defaultValue: "Ver clínicas" })}
                             </a>
                         </div>
                     </div>
@@ -1090,12 +941,15 @@ function InfoModal({ open, onClose, service }) {
 
 
 
+
 function GalleryCarousel() {
+    const { t } = useTranslation("home");
+
     const IMAGES = [
-        { src: ubicacion, title: "Ubicación", subtitle: "Jardín Real · Zapopan" },
-        { src: unidades, title: "Unidades", subtitle: "Tecnología & confort" },
-        { src: recepcion, title: "Recepción", subtitle: "Hospitalidad y calidez" },
-        { src: fotos, title: "Detalles", subtitle: "Diseño que inspira" },
+        { src: ubicacion, title: t("gallery.items.ubicacion.title"), subtitle: t("gallery.items.ubicacion.subtitle") },
+        { src: unidades, title: t("gallery.items.unidades.title"), subtitle: t("gallery.items.unidades.subtitle") },
+        { src: recepcion, title: t("gallery.items.recepcion.title"), subtitle: t("gallery.items.recepcion.subtitle") },
+        { src: fotos, title: t("gallery.items.detalles.title"), subtitle: t("gallery.items.detalles.subtitle") },
     ];
 
     const [i, setI] = useState(0);
@@ -1122,8 +976,8 @@ function GalleryCarousel() {
     }, [next, prev]);
 
     const onTouchStart = (e) => {
-        const t = e.touches[0];
-        touchRef.current = { x: t.clientX, y: t.clientY, t: Date.now() };
+        const t0 = e.touches[0];
+        touchRef.current = { x: t0.clientX, y: t0.clientY, t: Date.now() };
     };
     const onTouchEnd = (e) => {
         const dx = (e.changedTouches[0].clientX - touchRef.current.x) || 0;
@@ -1137,10 +991,9 @@ function GalleryCarousel() {
         <section id="galeria" className="bg-[#0b1b2b] py-16">
             <Container>
                 <div className="text-center">
-                    <div className="text-xs tracking-[0.35em] text-white/50">GALERÍA</div>
+                    <div className="text-xs tracking-[0.35em] text-white/50">{t("gallery.eyebrow")}</div>
                     <h2 className="mt-5 md:-mt-1 inline-block text-3xl font-semibold md:text-4xl relative">
-
-                        <span className="golden-sweep">Nuestras instalaciones</span>
+                        <span className="golden-sweep">{t("gallery.title")}</span>
                         <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                     </h2>
                 </div>
@@ -1173,7 +1026,7 @@ function GalleryCarousel() {
                         <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
                             <div className="flex items-end justify-between">
                                 <div>
-                                    <div className="text-xs tracking-[.35em] text_white/60">DENTAL CITY</div>
+                                    <div className="text-xs tracking-[.35em] text_white/60">{t("gallery.brand")}</div>
                                     <h3 className="mt-1 text-2xl md:text-3xl font-semibold text-white/95">{active.title}</h3>
                                     <p className="text-white/75 text-sm md:text-[15px]">{active.subtitle}</p>
                                 </div>
@@ -1196,7 +1049,7 @@ function GalleryCarousel() {
                         </div>
 
                         <button
-                            aria-label="Anterior"
+                            aria-label={t("gallery.prev")}
                             onClick={prev}
                             className="group absolute left-3 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-black/30 text-white/90 backdrop-blur border border-white/15 hover:bg-black/40 transition"
                         >
@@ -1206,7 +1059,7 @@ function GalleryCarousel() {
                             <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-[#e4b89266] opacity-0 group-hover:opacity-100 transition" />
                         </button>
                         <button
-                            aria-label="Siguiente"
+                            aria-label={t("gallery.next")}
                             onClick={next}
                             className="group absolute right-3 top-1/2 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full bg-black/30 text-white/90 backdrop-blur border border-white/15 hover:bg-black/40 transition"
                         >
@@ -1241,7 +1094,7 @@ function GalleryCarousel() {
                             key={idx}
                             onClick={() => setI(idx)}
                             className={`h-1.5 w-6 rounded-full transition ${idx === i ? "bg-[#e4b892]" : "bg-white/30 hover:bg-white/50"}`}
-                            aria-label={`Ir a foto ${idx + 1}`}
+                            aria-label={t("gallery.goToPhoto", { n: idx + 1 })}
                         />
                     ))}
                 </div>
@@ -1275,38 +1128,39 @@ function GalleryCarousel() {
     );
 }
 
+
+
 function InvisalignInteractive() {
+    const { t } = useTranslation("home");
+
     const slides = useMemo(
         () => [
             {
-                overline: "INVISALIGN",
-                title: "Ortodoncia sin brackets",
-                subLeft: "La nueva ortodoncia sin brackets.",
-                strongRight: "El alineador número 1",
-                textRight:
-                    "del mundo en tratamientos de ortodoncia sin brackets a partir de los 8 años.",
+                overline: t("invis.slides.slide1.overline"),
+                title: t("invis.slides.slide1.title"),
+                subLeft: t("invis.slides.slide1.subLeft"),
+                strongRight: t("invis.slides.slide1.strongRight"),
+                textRight: t("invis.slides.slide1.textRight"),
                 img: alineadores,
             },
             {
-                overline: "PLAN DIGITAL",
-                title: "Tratamiento guiado en 3D",
-                subLeft: "Visualiza el resultado antes de empezar.",
-                strongRight: "Control preciso por etapas",
-                textRight:
-                    "con seguimiento digital y ajustes personalizados para tu sonrisa.",
+                overline: t("invis.slides.slide2.overline"),
+                title: t("invis.slides.slide2.title"),
+                subLeft: t("invis.slides.slide2.subLeft"),
+                strongRight: t("invis.slides.slide2.strongRight"),
+                textRight: t("invis.slides.slide2.textRight"),
                 img: seguimiento2,
             },
             {
-                overline: "CONFORT Y ESTÉTICA",
-                title: "Alineadores transparentes",
-                subLeft: "Cómodos, removibles e higiénicos.",
-                strongRight: "Vive tu día a día",
-                textRight:
-                    "sin cambios drásticos en hábitos de higiene ni alimentación.",
+                overline: t("invis.slides.slide3.overline"),
+                title: t("invis.slides.slide3.title"),
+                subLeft: t("invis.slides.slide3.subLeft"),
+                strongRight: t("invis.slides.slide3.strongRight"),
+                textRight: t("invis.slides.slide3.textRight"),
                 img: transparentes,
             },
         ],
-        []
+        [t]
     );
 
     const [idx, setIdx] = useState(0);
@@ -1339,7 +1193,7 @@ function InvisalignInteractive() {
     return (
         <section className="relative bg-[#dfeaf5] py-4 text-[#0b1b2b] sm:py-6">
             <div className="mx-auto max-w-6xl px-3 sm:px-4">
-                {/* Slide container (positioning context for the bottom card) */}
+                {/* Slide container */}
                 <div className="relative isolate overflow-hidden rounded-2xl min-h-[440px] sm:min-h-[500px]">
                     <AnimatePresence mode="wait">
                         <motion.img
@@ -1361,7 +1215,7 @@ function InvisalignInteractive() {
                     {/* main content */}
                     <div className="relative z-10 grid h-full grid-rows-[1fr]">
                         <div className="grid h-full items-center gap-4 p-4 sm:p-6 lg:grid-cols-[1fr_1fr]">
-                            {/* left column (unchanged) */}
+                            {/* left column */}
                             <div className="max-w-xl text-white">
                                 <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] tracking-[.35em] text-[#f1caa6] backdrop-blur-md">
                                     <span className="h-1.5 w-1.5 rounded-full bg-[#f1caa6]" />
@@ -1386,13 +1240,13 @@ function InvisalignInteractive() {
                                             rel="noopener noreferrer"
                                             className="w-[210px] rounded-full bg-white px-6 py-2.5 text-center text-sm font-semibold text-[#0b1b2b] shadow-sm transition hover:brightness-95"
                                         >
-                                            Agendar por WhatsApp
+                                            {t("invis.cta_whatsapp")}
                                         </a>
                                         <button
                                             onClick={() => setOpen(true)}
                                             className="w-[210px] rounded-full border border-white/40 bg-white/10 px-6 py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
                                         >
-                                            Ver demostración
+                                            {t("invis.cta_demo")}
                                         </button>
                                     </div>
                                 </div>
@@ -1402,7 +1256,7 @@ function InvisalignInteractive() {
                         </div>
                     </div>
 
-                    {/* ✅ bottom card, pinned to the true bottom of the slide container */}
+                    {/* bottom card */}
                     <div className="pointer-events-auto absolute z-20 left-4 sm:left-6 bottom-4 sm:bottom-5">
                         <div className="w-[430px] max-w-[calc(100vw-2rem)] rounded-xl border border-white/40 bg-white/30 px-4 py-3 text-center text-[14px] font-medium text-[#0b1b2b] backdrop-blur-md shadow-[0_6px_20px_rgba(0,0,0,.08)]">
                             <span className="font-semibold italic underline decoration-[#0b1b2b]/25 underline-offset-[6px]">
@@ -1411,13 +1265,12 @@ function InvisalignInteractive() {
                             {s.textRight}
                         </div>
                     </div>
-                    {/* If you want it absolutely flush: change bottom-4 sm:bottom-5 -> bottom-0 */}
                 </div>
 
                 {/* controls */}
                 <div className="mt-1.5 flex items-center justify-center gap-4">
                     <button
-                        aria-label="Anterior"
+                        aria-label={t("invis.controls.prev")}
                         onClick={prev}
                         className="rounded-full p-1.5 outline-none transition hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#edb791]"
                     >
@@ -1430,7 +1283,7 @@ function InvisalignInteractive() {
                             return (
                                 <button
                                     key={i}
-                                    aria-label={`Ir al slide ${i + 1}`}
+                                    aria-label={t("invis.controls.goTo", { n: i + 1 })}
                                     onClick={() => setIdx(i)}
                                     className={[
                                         "relative inline-flex items-center justify-center rounded-full transition",
@@ -1448,7 +1301,7 @@ function InvisalignInteractive() {
                     </div>
 
                     <button
-                        aria-label="Siguiente"
+                        aria-label={t("invis.controls.next")}
                         onClick={next}
                         className="rotate-180 rounded-full p-1.5 outline-none transition hover:scale-105 focus-visible:ring-2 focus-visible:ring-[#edb791]"
                     >
@@ -1461,7 +1314,7 @@ function InvisalignInteractive() {
                 {open && (
                     <motion.button
                         type="button"
-                        aria-label="Cerrar"
+                        aria-label={t("invis.controls.close")}
                         onClick={() => setOpen(false)}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -1479,7 +1332,7 @@ function InvisalignInteractive() {
                                 <iframe
                                     className="h-full w-full"
                                     src="https://www.youtube.com/embed/p_q0G4GhMnI?rel=0"
-                                    title="Demostración Invisalign"
+                                    title={t("invis.iframeTitle")}
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     referrerPolicy="strict-origin-when-cross-origin"
                                     allowFullScreen
@@ -1488,17 +1341,17 @@ function InvisalignInteractive() {
                             <div className="flex items-center justify-between p-3">
                                 <div>
                                     <h4 className="text-base font-semibold">
-                                        Simulación de tratamiento
+                                        {t("invis.modal.title")}
                                     </h4>
                                     <p className="text-sm text-[#0b1b2b]/70">
-                                        Visualiza los avances por etapa.
+                                        {t("invis.modal.subtitle")}
                                     </p>
                                 </div>
                                 <button
                                     onClick={() => setOpen(false)}
                                     className="rounded-full border border-[#0b1b2b]/20 px-3 py-1 text-sm hover:bg-[#0b1b2b]/5"
                                 >
-                                    Cerrar
+                                    {t("invis.controls.close")}
                                 </button>
                             </div>
                         </motion.div>
@@ -1527,6 +1380,7 @@ function InvisalignInteractive() {
 }
 
 
+
 function Arrow() {
     return (
         <svg viewBox="0 0 24 24" className="h-6 w-6 text-[#edb791] drop-shadow" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -1536,9 +1390,11 @@ function Arrow() {
 }
 
 // ==== Locations / Tabs ====
-// ==== Locations / Tabs ====
-// ==== Locations / Tabs ====
+
+
 function LocationsTabs() {
+    const { t } = useTranslation("home");
+
     const MAP_HEIGHT = 330;
 
     const tabs = useMemo(
@@ -1603,7 +1459,6 @@ function LocationsTabs() {
         return `tel:+${withCountry}`;
     }, [tab, tabs]);
 
-    // Helpers WhatsApp
     const normalizeMx = useCallback((rawNumber) => {
         const digits = String(rawNumber || "").replace(/\D/g, "");
         if (digits.startsWith("521")) return digits;
@@ -1612,28 +1467,24 @@ function LocationsTabs() {
         return "521" + digits;
     }, []);
 
-    // Con mensaje (para el botón "Agendar por WhatsApp")
     const buildWaLink = useCallback((rawNumber, msg) => {
         const intl = normalizeMx(rawNumber);
         const text = encodeURIComponent(msg || "");
         return `https://api.whatsapp.com/send?phone=${intl}&text=${text}`;
     }, [normalizeMx]);
 
-    // Sin mensaje (para el ícono de "Síguenos")
     const buildWaLinkNoText = useCallback((rawNumber) => {
         const intl = normalizeMx(rawNumber);
         return `https://api.whatsapp.com/send?phone=${intl}`;
     }, [normalizeMx]);
 
-    // Link con mensaje por tab (botón principal)
     const waHref = useMemo(() => {
         const msg = tab === "Dental City"
-            ? "Hola quiero agendar una cita en Dental City."
-            : "Hola quiero agendar una cita en Dental City Kids.";
+            ? t("locations.msg.dc")
+            : t("locations.msg.kids");
         return buildWaLink(tabs[tab]?.whatsapp, msg);
-    }, [tab, tabs, buildWaLink]);
+    }, [tab, tabs, buildWaLink, t]);
 
-    // Link sin mensaje por tab (ícono de Síguenos)
     const waHrefNoText = useMemo(() => {
         return buildWaLinkNoText(tabs[tab]?.whatsapp);
     }, [tab, tabs, buildWaLinkNoText]);
@@ -1734,9 +1585,11 @@ function LocationsTabs() {
         <section id="ubicacion" className="bg-[#0f2237] py-20">
             <Container>
                 <div className="text-center">
-                    <div className="text-xs tracking-[0.35em] text-white/50">SUCURSALES</div>
+                    <div className="text-xs tracking-[0.35em] text-white/50">
+                        {t("locations.eyebrow")}
+                    </div>
                     <h2 className="mt-3 inline-block text-3xl font-semibold md:text-4xl relative">
-                        <span className="golden-sweep">Nuestras Clínicas</span>
+                        <span className="golden-sweep">{t("locations.title")}</span>
                         <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                     </h2>
                 </div>
@@ -1769,13 +1622,13 @@ function LocationsTabs() {
                         <div className="flex flex-wrap items-center justify-between gap-3">
                             <h4 className="text-2xl font-semibold tracking-wide">{tab}</h4>
                             <div className="inline-flex items-center gap-2 rounded-full border border-[#e4b89233] bg-white/5 px-3 py-1.5 text-xs text-white/90">
-                                <span className="text-[#e4b892]">WhatsApp:</span>
+                                <span className="text-[#e4b892]">{t("locations.labels.whatsapp")}:</span>
                                 <span className="opacity-90">{active.whatsapp}</span>
                             </div>
                         </div>
 
                         <p className="mt-2 text-[15px]">
-                            <span className="text-[#e4b892] font-semibold">Teléfonos:</span>{" "}
+                            <span className="text-[#e4b892] font-semibold">{t("locations.labels.phones")}:</span>{" "}
                             <span className="text-white/85">{active.phones.join(" · ")}</span>
                         </p>
 
@@ -1797,7 +1650,7 @@ function LocationsTabs() {
 
                             <div className="mb-3 flex items-center gap-2">
                                 <ClockIcon />
-                                <h5 className="text-base font-semibold">Horarios</h5>
+                                <h5 className="text-base font-semibold">{t("locations.labels.schedule")}</h5>
                             </div>
 
                             <ul className="relative ml-2 mt-2 pr-1 flex-1">
@@ -1809,7 +1662,7 @@ function LocationsTabs() {
                                             <span className="text-[15px] text-white/90">{s.day}</span>
                                             {s.closed ? (
                                                 <span className="rounded-full bg-red-500/15 px-3 py-1.5 text-xs font-semibold text-red-300">
-                                                    Cerrado
+                                                    {t("locations.labels.closed")}
                                                 </span>
                                             ) : (
                                                 <span className="relative rounded-full bg-green-500/15 px-3 py-1.5 text-xs font-semibold text-green-300">
@@ -1830,7 +1683,7 @@ function LocationsTabs() {
                                     className="order-1 sm:order-2 inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-[#0b1b2b] transition hover:brightness-110"
                                 >
                                     <WhatsAppIcon />
-                                    Agendar por WhatsApp
+                                    {t("locations.cta.whatsapp")}
                                 </a>
 
                                 <a
@@ -1840,7 +1693,7 @@ function LocationsTabs() {
                                     <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                                         <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.63 2.61a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.47-1.15a2 2 0 0 1 2.11-.45c.84.3 1.71.51 2.61.63A2 2 0 0 1 22 16.92Z" />
                                     </svg>
-                                    Agendar por llamada
+                                    {t("locations.cta.call")}
                                 </a>
                             </div>
                         </div>
@@ -1850,7 +1703,7 @@ function LocationsTabs() {
                             style={{ height: mapHeight }}
                         >
                             <iframe
-                                title={`Mapa ${tab}`}
+                                title={t("locations.mapTitle", { name: tab })}
                                 src={mapEmbedSrc(active.query)}
                                 className="h-full w-full"
                                 loading="lazy"
@@ -1865,7 +1718,7 @@ function LocationsTabs() {
                         >
                             <div className="mb-3 flex items-center gap-2">
                                 <HolidayIcon />
-                                <h5 className="text-base font-semibold">Días feriados</h5>
+                                <h5 className="text-base font-semibold">{t("locations.labels.holidays")}</h5>
                             </div>
 
                             <ul className="relative ml-2 mt-2 flex-1 overflow-visible pr-1">
@@ -1876,10 +1729,10 @@ function LocationsTabs() {
                                         <div className="flex items-center justify-between gap-3 rounded-xl bg-white/5 px-4 py-3 ring-1 ring-white/10">
                                             <span className="text-[15px] text-white/90">{h.day}</span>
                                             {h.closed ? (
-                                                <span className="rounded-full bg-red-500/15 px-3 py-1.5 text-xs font-semibold text-red-300">Cerrado</span>
+                                                <span className="rounded-full bg-red-500/15 px-3 py-1.5 text-xs font-semibold text-red-300">{t("locations.labels.closed")}</span>
                                             ) : (
                                                 <span className="rounded-full bg-[#d8a07b]/15 px-3 py-1.5 text-xs font-semibold text-[#edb791] shadow-[inset_0_0_0_1px_rgba(216,160,123,.25)]">
-                                                    {h.note || "Horario especial"}
+                                                    {h.note || t("locations.labels.specialHours")}
                                                 </span>
                                             )}
                                         </div>
@@ -1897,15 +1750,15 @@ function LocationsTabs() {
                             <span className="pointer-events-none absolute right-0 bottom-0 h-[2px] w-6 rounded-l bg-[#e4b89266]" />
                             <span className="pointer-events-none absolute right-0 bottom-0 h-6 w-[2px] rounded-t bg-[#e4b89266]" />
 
-                            <div className="text-xs uppercase tracking-[.2em] text-white/50">Dirección</div>
+                            <div className="text-xs uppercase tracking-[.2em] text-white/50">{t("locations.labels.address")}</div>
                             <p className="mt-2 text-[15px] leading-relaxed text-white/90">{active.address}</p>
                             <div className="mt-3 flex flex-wrap gap-2">
                                 <button
                                     onClick={() => copy(active.address)}
                                     className="rounded-full border border-white/20 px-3 py-1.5 text-xs text-white/90 transition hover:border-[#e4b89266] hover:bg-white/10"
-                                    title="Copiar dirección"
+                                    title={t("locations.copy.copyAddressTitle")}
                                 >
-                                    {copied ? "Copiado ✓" : "Copiar"}
+                                    {copied ? t("locations.copy.copied") : t("locations.copy.copy")}
                                 </button>
                                 <a
                                     href={mapOpenLink(active.query)}
@@ -1917,15 +1770,15 @@ function LocationsTabs() {
                                         <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0Z" />
                                         <circle cx="12" cy="10" r="3" />
                                     </svg>
-                                    Ver en Maps
+                                    {t("locations.cta.viewMaps")}
                                 </a>
                             </div>
 
-                            <div className="mt-6 text-xs uppercase tracking-[.2em] text-white/50">Síguenos</div>
+                            <div className="mt-6 text-xs uppercase tracking-[.2em] text-white/50">{t("locations.labels.followUs")}</div>
                             <p className="mt-2 text-[15px] leading-relaxed text-white/90">
                                 {tab === "Dental City"
-                                    ? "Contacta a Dental City en redes sociales."
-                                    : "Contacta a Dental City Kids & Family en  redes sociales."}
+                                    ? t("locations.follow.dc")
+                                    : t("locations.follow.kids")}
                             </p>
                             <div className="mt-3 flex flex-wrap gap-3">
                                 {active.socials.map(({ key, label, href, icon: Icon }) => {
@@ -1972,6 +1825,7 @@ function LocationsTabs() {
         </section>
     );
 }
+
 
 
 /* Iconos */
@@ -2026,12 +1880,13 @@ function DoctoraliaIcon() {
 
 
 
+
 function FAQ() {
-    const data = [
-        { q: "¿Atienden a niños?", a: "Sí, contamos con odontopediatría y un enfoque amable para niñas y niños en Dental City Kids & Family." },
-        { q: "¿Aceptan tarjeta?", a: "Sí, además de planes de pago en tratamientos seleccionados." },
-        { q: "¿Qué incluye la primera cita?", a: "Valoración clínica, estudios necesarios y un plan a medida." },
-    ];
+    const { t } = useTranslation("home"); // usa el namespace donde guardes estas claves, p. ej. 'home'
+
+    // Cargamos el arreglo de Q&A desde i18n
+    const data = t("faq.items", { returnObjects: true });
+
     const [open, setOpen] = useState(0);
 
     return (
@@ -2041,19 +1896,19 @@ function FAQ() {
 
             <Container>
                 <div className="text-center">
-                    <div className="text-xs tracking-[0.35em] text-white/50">FAQ</div>
+                    <div className="text-xs tracking-[0.35em] text-white/50">{t("faq.eyebrow")}</div>
 
                     {/* Título con luz dorada que barre las letras */}
                     <h2 className="relative mt-3 inline-block text-3xl md:text-4xl font-semibold">
                         <span className="golden-sweep">
-                            Preguntas frecuentes
+                            {t("faq.title")}
                         </span>
                         {/* línea dorada debajo */}
                         <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                     </h2>
                 </div>
 
-                {/* Caja del FAQ (tu mismo contenido anterior) */}
+                {/* Caja del FAQ */}
                 <div className="mx-auto mt-10 max-w-3xl overflow-visible rounded-2xl border border-white/10 bg-white/5 p-1 shadow-[0_18px_50px_rgba(0,0,0,.35)] ring-1 ring-white/10">
                     <div className="rounded-2xl bg-gradient-to-br from-[#c89b7b33] via-transparent to-[#e4b89222] p-[1px]">
                         <div className="rounded-2xl bg-[#0f2136]/50 backdrop-blur">
@@ -2140,23 +1995,18 @@ function FAQ() {
           100% { filter: brightness(1); }
         }
 
-        /* --- Luz dorada que barre las letras del título --- */
         .golden-sweep{
-          /* base dorada elegante */
           color: transparent;
           background-image:
             linear-gradient(90deg, #c89b7b 0%, #e4b892 20%, #f4d3b3 35%, #e4b892 60%, #c89b7b 100%);
           background-size: 250% 100%;
           background-clip: text;
           -webkit-background-clip: text;
-
-          /* brillo móvil superpuesto */
           position: relative;
           display: inline-block;
           animation: goldSweep 3.2s linear infinite;
         }
 
-        /* respetar accesibilidad: si el usuario prefiere menos animación, pausamos */
         @media (prefers-reduced-motion: reduce){
           .golden-sweep{ animation: none; background-size: 100% 100%; }
         }
@@ -2173,7 +2023,9 @@ function FAQ() {
 
 
 
+
 function FloatingCta() {
+    const { t } = useTranslation("home");
     const [open, setOpen] = useState(false);
     const wrapRef = useRef(null);
 
@@ -2226,7 +2078,7 @@ function FloatingCta() {
                 }}
                 transition={{ duration: 0.35 }}
             >
-                Agendar cita
+                {t("hero.book", { defaultValue: "Agendar cita" })}
                 <motion.span
                     className="inline-block ml-1"
                     animate={{ rotate: open ? 180 : 0 }}

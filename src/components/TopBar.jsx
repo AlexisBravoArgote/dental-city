@@ -2,6 +2,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom"; // ✅ IMPORTANTE
+import { useTranslation } from "react-i18next"; // ✅ i18n
 import logoPng from "../assets/download.avif";
 const __MOTION_USED = Boolean(motion); // eslint-disable-line no-unused-vars
 
@@ -50,6 +51,8 @@ function navigateToLocation(tabKey) {
 
 /* TOP BAR */
 export default function TopBar({ bgOpacity }) {
+    const { t } = useTranslation("home");
+
     const hasMotion =
         bgOpacity &&
         typeof bgOpacity.get === "function" &&
@@ -120,7 +123,7 @@ export default function TopBar({ bgOpacity }) {
                 {/* Botón hamburguesa (móvil) */}
                 <button
                     type="button"
-                    aria-label="Abrir menú"
+                    aria-label={t("topbar.openMenu", { defaultValue: "Abrir menú" })}
                     aria-expanded={mobileOpen}
                     onClick={() => setMobileOpen((v) => !v)}
                     className="md:hidden inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 p-2 text-white/90 hover:bg-white/10 transition"
@@ -143,8 +146,8 @@ export default function TopBar({ bgOpacity }) {
                 {/* Nav principal (desktop) */}
                 <nav className="hidden items-center gap-8 md:flex text-[15px] font-medium tracking-wide">
                     {[
-                        ["Nuestros tratamientos", "#servicios"],
-                        ["Nuestras instalaciones", "#galeria"],
+                        [t("topbar.treatments", { defaultValue: "Nuestros tratamientos" }), "#servicios"],
+                        [t("topbar.gallery", { defaultValue: "Nuestras instalaciones" }), "#galeria"],
                     ].map(([label, hash]) => (
                         <a
                             key={hash}
@@ -171,7 +174,7 @@ export default function TopBar({ bgOpacity }) {
                             }
                             className="flex items-center gap-1 text-white/80 transition hover:text-white hover:drop-shadow-[0_0_4px_rgba(228,184,146,0.6)]"
                         >
-                            Nuestras clínicas
+                            {t("topbar.clinics", { defaultValue: "Nuestras clínicas" })}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 className={`h-4 w-4 transition-transform duration-300 ${openDesktop === "clinicas" ? "rotate-180" : ""}`}
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -201,7 +204,7 @@ export default function TopBar({ bgOpacity }) {
                         href="/doctores"
                         className="text-white/80 transition hover:text-white hover:drop-shadow-[0_0_4px_rgba(228,184,146,0.6)]"
                     >
-                        Nuestros doctores
+                        {t("topbar.doctors", { defaultValue: "Nuestros doctores" })}
                     </a>
 
                     {/* Dropdown: Recursos (desktop) */}
@@ -213,7 +216,7 @@ export default function TopBar({ bgOpacity }) {
                             }
                             className="flex items-center gap-1 text-white/80 transition hover:text-white hover:drop-shadow-[0_0_4px_rgba(228,184,146,0.6)]"
                         >
-                            Recursos
+                            {t("topbar.resources", { defaultValue: "Recursos" })}
                             <svg xmlns="http://www.w3.org/2000/svg"
                                 className={`h-4 w-4 transition-transform duration-300 ${openDesktop === "recursos" ? "rotate-180" : ""}`}
                                 fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -223,10 +226,10 @@ export default function TopBar({ bgOpacity }) {
 
                         <div className={`absolute left-1/2 top-[120%] z-50 w-56 -translate-x-1/2 rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 p-2 text-white/90 shadow-2xl backdrop-blur-lg transition-all duration-300 hover:border-[#e4b89266] ${openDesktop === "recursos" ? "block" : "hidden"}`}>
                             <a href="/blog" className="block rounded-xl px-4 py-3 transition hover:bg-white/10">
-                                Blog & Research
+                                {t("topbar.blog", { defaultValue: "Blog & Research" })}
                             </a>
                             <a href="/edu" className="block rounded-xl px-4 py-3 transition hover:bg-white/10">
-                                Dental City Edu
+                                {t("topbar.edu", { defaultValue: "Dental City Edu" })}
                             </a>
                         </div>
                     </div>
@@ -235,7 +238,7 @@ export default function TopBar({ bgOpacity }) {
                         href="/bolsa"
                         className="text-white/80 transition hover:text-white hover:drop-shadow-[0_0_4px_rgba(228,184,146,0.6)]"
                     >
-                        Bolsa de trabajo
+                        {t("topbar.jobs", { defaultValue: "Bolsa de trabajo" })}
                     </a>
                 </nav>
             </Container>
@@ -261,15 +264,17 @@ export default function TopBar({ bgOpacity }) {
                             transition={{ type: "tween", duration: 0.25 }}
                             className="fixed inset-0 z-50 h-dvh w-full bg-[#11243a]/95 text-white/90 backdrop-blur"
                             role="dialog"
-                            aria-label="Menú"
+                            aria-label={t("topbar.menu", { defaultValue: "Menú" })}
                         >
                             <div className="flex h-full w-full flex-col p-4">
                                 {/* Cabecera */}
                                 <div className="mb-2 flex items-center justify-between">
-                                    <span className="text-sm tracking-[.25em] text-white/60">MENÚ</span>
+                                    <span className="text-sm tracking-[.25em] text-white/60">
+                                        {t("topbar.menuCaps", { defaultValue: "MENÚ" })}
+                                    </span>
                                     <button
                                         type="button"
-                                        aria-label="Cerrar menú"
+                                        aria-label={t("topbar.closeMenu", { defaultValue: "Cerrar menú" })}
                                         onClick={() => setMobileOpen(false)}
                                         className="rounded-full border border-white/15 bg-white/5 p-2 hover:bg-white/10 transition"
                                     >
@@ -283,10 +288,10 @@ export default function TopBar({ bgOpacity }) {
 
                                 <div className="flex flex-col gap-2 py-3 flex-1">
                                     <a href="/#servicios" onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-[15px] hover:bg-white/10">
-                                        Nuestros tratamientos
+                                        {t("topbar.treatments", { defaultValue: "Nuestros tratamientos" })}
                                     </a>
                                     <a href="/#galeria" onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-[15px] hover:bg-white/10">
-                                        Nuestras instalaciones
+                                        {t("topbar.gallery", { defaultValue: "Nuestras instalaciones" })}
                                     </a>
 
                                     {/* Grupo: Nuestras clínicas */}
@@ -296,7 +301,7 @@ export default function TopBar({ bgOpacity }) {
                                             onClick={() => setOpenGroup((g) => (g === "clinicas" ? null : "clinicas"))}
                                             className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-[15px] hover:bg-white/10"
                                         >
-                                            <span>Nuestras clínicas</span>
+                                            <span>{t("topbar.clinics", { defaultValue: "Nuestras clínicas" })}</span>
                                             <svg viewBox="0 0 24 24"
                                                 className={`h-4 w-4 transition-transform ${openGroup === "clinicas" ? "rotate-180" : ""}`}
                                                 fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -333,7 +338,7 @@ export default function TopBar({ bgOpacity }) {
                                     </div>
 
                                     <a href="/doctores" onClick={() => setMobileOpen(false)} className="block rounded-xl px-4 py-3 text-[15px] hover:bg-white/10">
-                                        Nuestros doctores
+                                        {t("topbar.doctors", { defaultValue: "Nuestros doctores" })}
                                     </a>
 
                                     {/* Grupo: Recursos */}
@@ -343,7 +348,7 @@ export default function TopBar({ bgOpacity }) {
                                             onClick={() => setOpenGroup((g) => (g === "recursos" ? null : "recursos"))}
                                             className="flex w-full items-center justify-between rounded-xl px-4 py-3 text-left text-[15px] hover:bg-white/10"
                                         >
-                                            <span>Recursos</span>
+                                            <span>{t("topbar.resources", { defaultValue: "Recursos" })}</span>
                                             <svg viewBox="0 0 24 24"
                                                 className={`h-4 w-4 transition-transform ${openGroup === "recursos" ? "rotate-180" : ""}`}
                                                 fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -361,10 +366,10 @@ export default function TopBar({ bgOpacity }) {
                                                     className="overflow-hidden pl-2"
                                                 >
                                                     <a href="/blog" onClick={() => setMobileOpen(false)} className="mt-1 block rounded-lg px-4 py-2.5 text-[14px] text-white/90 hover:bg-white/10">
-                                                        Blog & Research
+                                                        {t("topbar.blog", { defaultValue: "Blog & Research" })}
                                                     </a>
                                                     <a href="/edu" onClick={() => setMobileOpen(false)} className="mt-1 block rounded-lg px-4 py-2.5 text-[14px] text-white/90 hover:bg-white/10">
-                                                        Dental City Edu
+                                                        {t("topbar.edu", { defaultValue: "Dental City Edu" })}
                                                     </a>
                                                 </motion.div>
                                             )}
@@ -377,7 +382,7 @@ export default function TopBar({ bgOpacity }) {
                                         onClick={() => setMobileOpen(false)}
                                         className="block rounded-xl px-4 py-3 text-[15px] hover:bg-white/10"
                                     >
-                                        Bolsa de trabajo
+                                        {t("topbar.jobs", { defaultValue: "Bolsa de trabajo" })}
                                     </Link>
                                 </div>
 
@@ -399,6 +404,7 @@ export default function TopBar({ bgOpacity }) {
         </motion.header>
     );
 }
+
 
 
 

@@ -1,9 +1,10 @@
 ﻿// src/pages/Doctores.jsx
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import TopBar from "../components/TopBar.jsx";
 import Footer from "../components/Footer.jsx";
-
+const __MOTION_USED = Boolean(motion); // eslint-disable-line no-unused-vars
 
 import dc3 from "../assets/DCdoctor3.jpg";
 import dc4 from "../assets/DCdoctor4.jpg";
@@ -22,43 +23,40 @@ import dc16 from "../assets/DCdoctor16.jpg";
 import dc17 from "../assets/DCdoctor17.jpg";
 import dc18 from "../assets/DCdoctor18.jpg";
 import dc19 from "../assets/DCdoctor19.jpg";
-import dc20 from "../assets/DCdoctor20.jpg"
-import dc21 from "../assets/DCdoctor21.jpg"
-import dc22 from "../assets/DCdoctor22.jpg"
-import dc23 from "../assets/DCdoctor23.jpg"
-import dc24 from "../assets/DCdoctor24.jpg"
-import dc25 from "../assets/DCdoctor25.jpg"
-import dc26 from "../assets/DCdoctor26.jpg"
-import dc27 from "../assets/DCdoctor27.jpg"
-import dc28 from "../assets/DCdoctor28.jpg"
-import kids0 from "../assets/kids0.jpg"
+import dc20 from "../assets/DCdoctor20.jpg";
+import dc21 from "../assets/DCdoctor21.jpg";
+import dc22 from "../assets/DCdoctor22.jpg";
+import dc23 from "../assets/DCdoctor23.jpg";
+import dc24 from "../assets/DCdoctor24.jpg";
+import dc25 from "../assets/DCdoctor25.jpg";
+import dc26 from "../assets/DCdoctor26.jpg";
+import dc27 from "../assets/DCdoctor27.jpg";
+import dc28 from "../assets/DCdoctor28.jpg";
 
-import kids2 from "../assets/kids2.jpg"
-import kids3 from "../assets/kids3.jpg"
-import kids4 from "../assets/kids4.jpg"
-import kids5 from "../assets/kids5.jpg"
-import kids6 from "../assets/kids6.jpg"
-import kids7 from "../assets/kids7.jpg"
-import kids8 from "../assets/kids8.jpg"
-import kids9 from "../assets/kids9.jpg"
-import kids10 from "../assets/kids10.jpg"
-import kids11 from "../assets/kids11.jpg"
-import kids12 from "../assets/kids12.jpg"
-import kids13 from "../assets/kids13.jpg"
-import kids14 from "../assets/kids14.jpg"
-import kids15 from "../assets/kids15.jpg"
-import kids16 from "../assets/kids16.jpg"
-import kids17 from "../assets/kids17.jpg"
-import kids18 from "../assets/kids18.jpg"
-import kids19 from "../assets/kids19.jpg"
-import kids20 from "../assets/kids20.jpg"
-import kids21 from "../assets/kids21.jpg"
-import kids22 from "../assets/kids22.jpg"
+import kids0 from "../assets/kids0.jpg";
+import kids2 from "../assets/kids2.jpg";
+import kids3 from "../assets/kids3.jpg";
+import kids4 from "../assets/kids4.jpg";
+import kids5 from "../assets/kids5.jpg";
+import kids6 from "../assets/kids6.jpg";
+import kids7 from "../assets/kids7.jpg";
+import kids8 from "../assets/kids8.jpg";
+import kids9 from "../assets/kids9.jpg";
+import kids10 from "../assets/kids10.jpg";
+import kids11 from "../assets/kids11.jpg";
+import kids12 from "../assets/kids12.jpg";
+import kids13 from "../assets/kids13.jpg";
+import kids14 from "../assets/kids14.jpg";
+import kids15 from "../assets/kids15.jpg";
+import kids16 from "../assets/kids16.jpg";
+import kids17 from "../assets/kids17.jpg";
+import kids18 from "../assets/kids18.jpg";
+import kids19 from "../assets/kids19.jpg";
+import kids20 from "../assets/kids20.jpg";
+import kids21 from "../assets/kids21.jpg";
+import kids22 from "../assets/kids22.jpg";
 
-
-const __MOTION_USED = Boolean(motion); // eslint-disable-line no-unused-vars
-
-/* Helpers */
+/* ----------------------------- Helpers UI ----------------------------- */
 function Container({ children, className = "" }) {
     return (
         <div className={`mx-auto w-full max-w-6xl px-6 md:px-8 ${className}`}>
@@ -87,28 +85,25 @@ function SectionTitle({ eyebrow, title, center = true, className = "" }) {
     );
 }
 
-/* Componente carrusel (cuadrado) */
-/* Componente carrusel (cuadrado) */
+/* ----------------------------- Carousel ----------------------------- */
 function Carousel({
     images = [],
-    ariaLabel = "galería",
+    ariaLabel = "gallery",
     autoPlay = true,
-    duration = 7000, // ms por foto
+    duration = 7000,
+    prevLabel = "Previous",
+    nextLabel = "Next",
 }) {
     const [i, setI] = useState(0);
     const n = images.length || 1;
-
-    // progreso visual (0–100)
     const [progress, setProgress] = useState(0);
     const [hovering, setHovering] = useState(false);
 
-    // Timer absoluto (anti doble-salto)
-    const tickIdRef = React.useRef(null);
-    const startRef = React.useRef(Date.now());
-    const pausedUntilRef = React.useRef(0);
+    const tickIdRef = useRef(null);
+    const startRef = useRef(Date.now());
+    const pausedUntilRef = useRef(0);
 
-    // Rail de miniaturas (solo desplaza horizontal, no mueve la página)
-    const railRef = React.useRef(null);
+    const railRef = useRef(null);
 
     const clearTick = () => {
         if (tickIdRef.current) {
@@ -118,8 +113,7 @@ function Carousel({
     };
 
     const resetCycle = () => {
-        const now = Date.now();
-        startRef.current = now;
+        startRef.current = Date.now();
         setProgress(0);
     };
 
@@ -127,7 +121,6 @@ function Carousel({
         pausedUntilRef.current = Date.now() + ms;
     };
 
-    // Avanza exactamente 1
     const go = (dir) => {
         setI((prev) => (prev + dir + n) % n);
         pauseAutoplay();
@@ -140,13 +133,9 @@ function Carousel({
         resetCycle();
     };
 
-    // Autoplay por tiempo absoluto (sin carreras con clics)
     useEffect(() => {
         clearTick();
-        if (!autoPlay || n <= 1) {
-            setProgress(0);
-            return;
-        }
+        if (!autoPlay || n <= 1) return;
 
         startRef.current = Date.now();
         setProgress(0);
@@ -168,7 +157,6 @@ function Carousel({
         return clearTick;
     }, [autoPlay, duration, n, hovering]);
 
-    // Centrar miniatura activa SOLO dentro del rail (sin tocar el scroll de la página)
     useEffect(() => {
         const rail = railRef.current;
         if (!rail) return;
@@ -198,7 +186,7 @@ function Carousel({
                 }}
                 aria-label={ariaLabel}
             >
-                {/* === Carrusel principal === */}
+                {/* Principal */}
                 <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[.04] shadow-[0_18px_50px_rgba(0,0,0,.35)]">
                     <div
                         className="flex transition-transform duration-500 ease-out"
@@ -206,7 +194,6 @@ function Carousel({
                     >
                         {images.map((img, idx) => (
                             <div key={idx} className="relative min-w-full">
-                                {/* Imagen completa sin recorte (fondo AZUL) */}
                                 <div className="relative w-full max-h-[80vh] bg-[#0f2237] flex items-center justify-center">
                                     {img.src ? (
                                         <img
@@ -219,10 +206,8 @@ function Carousel({
                                     )}
                                 </div>
 
-                                {/* línea superior dorada */}
                                 <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
 
-                                {/* contador 01 / n */}
                                 {n > 1 && (
                                     <div className="absolute bottom-3 right-3 rounded-full bg-[#0d2034]/70 border border-white/20 px-3 py-1 text-[12px] text-white/90 backdrop-blur">
                                         {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
@@ -239,7 +224,8 @@ function Carousel({
                                 type="button"
                                 onClick={() => go(-1)}
                                 className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-[#0d2034]/70 p-2 backdrop-blur hover:bg-[#0d2034]/90"
-                                aria-label="Anterior"
+                                aria-label={prevLabel}
+                                title={prevLabel}
                             >
                                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M15 18l-6-6 6-6" />
@@ -249,7 +235,8 @@ function Carousel({
                                 type="button"
                                 onClick={() => go(1)}
                                 className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-[#0d2034]/70 p-2 backdrop-blur hover:bg-[#0d2034]/90"
-                                aria-label="Siguiente"
+                                aria-label={nextLabel}
+                                title={nextLabel}
                             >
                                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
                                     <path d="M9 18l6-6-6-6" />
@@ -258,7 +245,7 @@ function Carousel({
                         </>
                     )}
 
-                    {/* Barra de progreso dorada */}
+                    {/* Progreso */}
                     {autoPlay && n > 1 && (
                         <div className="absolute bottom-0 left-0 right-0 h-[6px]">
                             <div className="mx-6 mb-3 h-[6px] rounded-full bg-white/15 backdrop-blur-sm">
@@ -271,13 +258,10 @@ function Carousel({
                     )}
                 </div>
 
-                {/* === Miniaturas (sin snap, sin focus, sin scrollbars visibles) === */}
+                {/* Miniaturas */}
                 {n > 1 && (
                     <div className="mt-4 flex items-center justify-center">
-                        <div
-                            ref={railRef}
-                            className="thumb-rail flex gap-2 overflow-x-auto px-4 py-1"
-                        >
+                        <div ref={railRef} className="thumb-rail flex gap-2 overflow-x-auto px-4 py-1">
                             {images.map((img, idx) => {
                                 const selected = i === idx;
                                 return (
@@ -285,16 +269,18 @@ function Carousel({
                                         key={idx}
                                         id={`thumb-${idx}`}
                                         type="button"
-                                        onMouseDown={(e) => e.preventDefault()} // evita foco que empuja la página
+                                        onMouseDown={(e) => e.preventDefault()}
                                         tabIndex={-1}
                                         onClick={() => set(idx)}
                                         className={`relative shrink-0 transition-all duration-300 ${selected ? "scale-105" : "opacity-80 hover:opacity-100 hover:scale-105"
                                             }`}
+                                        aria-label={(img.alt || "Imagen") + ` ${idx + 1}`}
+                                        title={(img.alt || "Imagen") + ` ${idx + 1}`}
                                     >
                                         <div
                                             className={`rounded-2xl p-[2px] ${selected
-                                                    ? "bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]"
-                                                    : "bg-white/20"
+                                                ? "bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]"
+                                                : "bg-white/20"
                                                 }`}
                                         >
                                             <div className="rounded-[14px] overflow-hidden bg-[#0f2237]/90">
@@ -313,109 +299,206 @@ function Carousel({
                 )}
             </div>
 
-            {/* Ocultar scrollbar de la rail de miniaturas */}
+            {/* Ocultar scrollbar */}
             <style>{`
-        .thumb-rail {
-          -ms-overflow-style: none;      /* IE/Edge */
-          scrollbar-width: none;         /* Firefox */
-          overscroll-behavior-x: contain;/* evita rebotes */
-        }
-        .thumb-rail::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        .thumb-rail { -ms-overflow-style: none; scrollbar-width: none; overscroll-behavior-x: contain; }
+        .thumb-rail::-webkit-scrollbar { display: none; }
       `}</style>
         </>
     );
 }
 
-
-
-
-
-
 /* ============================ Página ============================ */
 export default function Doctores() {
+    const { t, i18n } = useTranslation();
+
+    // Title
     useEffect(() => {
-        document.title = "Nuestros doctores | Dental City";
+        const title = t("metaTitle", { defaultValue: "Nuestros doctores | Dental City" });
+        document.title = title;
+    }, [t]);
+
+    // ---------- Selector de idioma (🌐) ----------
+    const [openLang, setOpenLang] = useState(false);
+    const langWrapRef = useRef(null);
+    useEffect(() => {
+        const onDocClick = (e) => {
+            if (langWrapRef.current && !langWrapRef.current.contains(e.target)) setOpenLang(false);
+        };
+        const onKey = (e) => e.key === "Escape" && setOpenLang(false);
+        document.addEventListener("mousedown", onDocClick);
+        document.addEventListener("keydown", onKey);
+        return () => {
+            document.removeEventListener("mousedown", onDocClick);
+            document.removeEventListener("keydown", onKey);
+        };
     }, []);
 
+    const languages = [
+        { code: "es", flag: "🇪🇸", label: "Español" },
+        { code: "en", flag: "🇬🇧", label: "English" },
+        { code: "fr", flag: "🇫🇷", label: "Français" },
+        { code: "zh", flag: "🇨🇳", label: "中文" },
+        { code: "ja", flag: "🇯🇵", label: "日本語" },
+        { code: "ko", flag: "🇰🇷", label: "한국어" },
+        { code: "it", flag: "🇮🇹", label: "Italiano" },
+        { code: "de", flag: "🇩🇪", label: "Deutsch" },
+    ];
+
+    const changeLang = async (code) => {
+        await i18n.changeLanguage(code);
+        localStorage.setItem("lang", code);
+        setOpenLang(false);
+    };
+
+    // Botón + menú de idioma (TOP-RIGHT; móvil mitad de tamaño)
+    // dentro del componente Doctores()
+    const LanguageBoutique = () => (
+        <div
+            ref={langWrapRef}
+            // Móvil un poquito más a la derecha; desktop como antes
+            className="fixed top-2 right-1 md:top-4 md:right-4 z-[90]"
+        >
+            <button
+                type="button"
+                onClick={() => setOpenLang((v) => !v)}
+                className="
+        // --- Estilos MÓVIL (solo el emoji, sin círculo) ---
+        p-0 border-0 bg-transparent shadow-none
+        // --- Estilos DESKTOP (lo mismo que tenías) ---
+        md:p-3 md:inline-flex md:items-center md:justify-center md:rounded-full md:border
+        md:border-[#e4b89240] md:bg-[#0b1b2b99] md:backdrop-blur-md md:text-white
+        md:shadow-[0_8px_30px_rgba(0,0,0,0.45)]
+        md:hover:brightness-110 md:active:scale-[0.98] md:transition-all
+      "
+                aria-haspopup="menu"
+                aria-expanded={openLang}
+                aria-label={t('languageLabel', { defaultValue: 'Language' })}
+                title={t('languageLabel', { defaultValue: 'Language' })}
+            >
+                {/* Emoji globo: móvil más pequeño; desktop como antes */}
+                <span
+                    aria-hidden="true"
+                    className="select-none leading-none translate-y-[1px] text-[18px] md:text-[20px]"
+                >
+                    🌐
+                </span>
+            </button>
+
+            {openLang && (
+                <div
+                    role="menu"
+                    className="
+          mt-2 w-[220px] md:w-[300px]
+          rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 text-white/90
+          backdrop-blur-xl shadow-[0_18px_50px_rgba(0,0,0,.55)] p-2
+        "
+                >
+                    <div className="grid grid-cols-2 gap-2">
+                        {languages.map((it) => {
+                            const active = i18n.language?.startsWith(it.code);
+                            return (
+                                <button
+                                    key={it.code}
+                                    type="button"
+                                    onClick={() => changeLang(it.code)}
+                                    className={`flex items-center gap-2 rounded-xl px-3 py-2 text-left
+                  hover:bg-white/10 transition
+                  ${active ? "bg-white/10 ring-1 ring-[#e4b89266]" : ""}`}
+                                    role="menuitem"
+                                    aria-label={it.label}
+                                    title={it.label}
+                                >
+                                    <span className="text-sm md:text-lg">{it.flag}</span>
+                                    <span className="text-[12px] md:text-sm opacity-90">{it.label}</span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+            )}
+        </div>
+    );
+
+
+    // ---------- Imágenes con alts localizados ----------
     const imagesDC = useMemo(
         () => [
-            
-            
-            { src: dc3, alt: "Tecnología digital" },
-            { src: dc4, alt: "Tecnología digital" },
-            { src: dc5, alt: "Tecnología digital" },
-            { src: dc6, alt: "Tecnología digital" },
-            { src: dc7, alt: "Tecnología digital" },
-            { src: dc23, alt: "Tecnología digital" },
-            { src: dc8, alt: "Tecnología digital" },
-            { src: dc9, alt: "Tecnología digital" },
-            { src: dc22, alt: "Tecnología digital" },
-            { src: dc10, alt: "Tecnología digital" },
-            { src: dc11, alt: "Tecnología digital" },
-            { src: dc12, alt: "Tecnología digital" },
-            { src: dc13, alt: "Tecnología digital" },
-            { src: dc14, alt: "Tecnología digital" },
-            { src: dc15, alt: "Tecnología digital" },
-            { src: dc16, alt: "Tecnología digital" },
-            { src: dc17, alt: "Tecnología digital" },
-            { src: dc18, alt: "Tecnología digital" },
-            { src: dc19, alt: "Tecnología digital" },
-            { src: dc20, alt: "Tecnología digital" },
-            { src: dc21, alt: "Tecnología digital" },
-            { src: dc22, alt: "Tecnología digital" },
-            { src: dc24, alt: "Tecnología digital" },
-            { src: dc25, alt: "Tecnología digital" },
-            { src: dc26, alt: "Tecnología digital" },
-            { src: dc27, alt: "Tecnología digital" },
-            { src: dc28, alt: "Tecnología digital" },
+            { src: dc3, alt: t("altTech") },
+            { src: dc4, alt: t("altTech") },
+            { src: dc5, alt: t("altTech") },
+            { src: dc6, alt: t("altTech") },
+            { src: dc7, alt: t("altTech") },
+            { src: dc23, alt: t("altTech") },
+            { src: dc8, alt: t("altTech") },
+            { src: dc9, alt: t("altTech") },
+            { src: dc22, alt: t("altTech") },
+            { src: dc10, alt: t("altTech") },
+            { src: dc11, alt: t("altTech") },
+            { src: dc12, alt: t("altTech") },
+            { src: dc13, alt: t("altTech") },
+            { src: dc14, alt: t("altTech") },
+            { src: dc15, alt: t("altTech") },
+            { src: dc16, alt: t("altTech") },
+            { src: dc17, alt: t("altTech") },
+            { src: dc18, alt: t("altTech") },
+            { src: dc19, alt: t("altTech") },
+            { src: dc20, alt: t("altTech") },
+            { src: dc21, alt: t("altTech") },
+            { src: dc22, alt: t("altTech") },
+            { src: dc24, alt: t("altTech") },
+            { src: dc25, alt: t("altTech") },
+            { src: dc26, alt: t("altTech") },
+            { src: dc27, alt: t("altTech") },
+            { src: dc28, alt: t("altTech") },
         ],
-        []
+        [t]
     );
     const imagesKids = useMemo(
         () => [
-            { src: kids0, alt: "Dental City Kids" },
-            { src: kids2, alt: "Atención a niños" },
-            { src: kids3, alt: "Atención a niños" },
-            { src: kids4, alt: "Atención a niños" },
-            { src: kids5, alt: "Atención a niños" },
-            { src: kids6, alt: "Atención a niños" },
-            { src: kids22, alt: "Atención a niños" },
-            { src: kids21, alt: "Atención a niños" },
-            { src: kids20, alt: "Atención a niños" },
-            { src: kids19, alt: "Atención a niños" },
-            { src: kids18, alt: "Atención a niños" },
-            { src: kids17, alt: "Atención a niños" },
-            { src: kids16, alt: "Atención a niños" },
-            { src: kids15, alt: "Atención a niños" },
-            { src: kids14, alt: "Atención a niños" },
-            { src: kids13, alt: "Atención a niños" },
-            { src: kids12, alt: "Atención a niños" },
-            { src: kids11, alt: "Atención a niños" },
-            { src: kids10, alt: "Atención a niños" },
-            { src: kids9, alt: "Atención a niños" },
-            { src: kids8, alt: "Atención a niños" },
-            { src: kids7, alt: "Atención a niños" },
-            
-            
+            { src: kids0, alt: t("altKids") },
+            { src: kids2, alt: t("altKids") },
+            { src: kids3, alt: t("altKids") },
+            { src: kids4, alt: t("altKids") },
+            { src: kids5, alt: t("altKids") },
+            { src: kids6, alt: t("altKids") },
+            { src: kids22, alt: t("altKids") },
+            { src: kids21, alt: t("altKids") },
+            { src: kids20, alt: t("altKids") },
+            { src: kids19, alt: t("altKids") },
+            { src: kids18, alt: t("altKids") },
+            { src: kids17, alt: t("altKids") },
+            { src: kids16, alt: t("altKids") },
+            { src: kids15, alt: t("altKids") },
+            { src: kids14, alt: t("altKids") },
+            { src: kids13, alt: t("altKids") },
+            { src: kids12, alt: t("altKids") },
+            { src: kids11, alt: t("altKids") },
+            { src: kids10, alt: t("altKids") },
+            { src: kids9, alt: t("altKids") },
+            { src: kids8, alt: t("altKids") },
+            { src: kids7, alt: t("altKids") },
         ],
-        []
+        [t]
     );
 
     const stats = [
-        ["Ortodoncistas", "5"],
-        ["Odontólogos generales", "9"],
-        ["Rehabilitadores", "5"],
-        ["Periodoncistas", "2"],
-        ["Endodoncistas", "2"],
-        ["Cirujano maxilofacial", "1"],
-        ["Cirujanos orales", "2"],
-        ["Odontopediatra", "1"],
-        ["Implantólogo", "1"],
+        [t("stat_ortho"), "5"],
+        [t("stat_gd"), "9"],
+        [t("stat_pros"), "5"],
+        [t("stat_perio"), "2"],
+        [t("stat_endo"), "2"],
+        [t("stat_mfs"), "1"],
+        [t("stat_oral"), "2"],
+        [t("stat_pedo"), "1"],
+        [t("stat_implant"), "1"],
     ];
 
     return (
         <>
             <TopBar />
+            <LanguageBoutique />
+
             <main className="min-h-dvh bg-[#0f2237]">
                 {/* Hero */}
                 <section className="relative overflow-hidden bg-[radial-gradient(70%_70%_at_50%_0%,rgba(255,255,255,0.08),transparent_60%)]">
@@ -423,21 +506,22 @@ export default function Doctores() {
                     <Container className="py-12 md:py-14">
                         <div className="text-center">
                             <div className="text-xs tracking-[0.35em] text-white/50">
-                                EQUIPO
+                                {t("eyebrowTeam")}
                             </div>
                             <h1 className="mt-3 inline-block text-3xl md:text-5xl font-semibold relative">
-                                <span className="golden-sweep">Nuestros doctores</span>
+                                <span className="golden-sweep">{t("pageTitle")}</span>
                                 <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                             </h1>
                             <p className="mx-auto mt-8 max-w-3xl text-white/85 leading-relaxed">
-                                <strong>Dental City</strong> es la clínica dental más grande del área metropolitana de Guadalajara.
-                                Con más de <strong>25 años</strong> de trayectoria, atendemos a la comunidad de la Zona Real de Zapopan,
-                                pacientes de otros estados y visitantes del extranjero. Contamos con <strong>todas las especialidades</strong> y
-                                <strong> dos sucursales</strong>, incluyendo <strong>Dental City Kids</strong>, enfocada en odontopediatría y ortodoncia.
+                                {t("heroP1", {
+                                    years: t("heroP1_years"),
+                                    allSpecs: t("heroP1_allSpecs"),
+                                    twoBranches: t("heroP1_twoBranches"),
+                                    kids: t("heroP1_kids"),
+                                })}
                             </p>
                             <p className="mx-auto mt-4 max-w-3xl text-white/80 leading-relaxed">
-                                Innovamos constantemente en <em>odontología digital</em> para tratamientos más precisos y eficientes, siempre con nuestro
-                                sello de calidad que nos distingue.
+                                {t("heroP2")}
                             </p>
                         </div>
                     </Container>
@@ -453,7 +537,7 @@ export default function Doctores() {
                                         28
                                     </div>
                                     <div className="mt-3 text-sm uppercase tracking-[.2em] text-white/85">
-                                        Dentistas
+                                        {t("dentistsCount")}
                                     </div>
                                 </div>
                             </div>
@@ -492,11 +576,16 @@ export default function Doctores() {
                 <section className="pb-10">
                     <Container>
                         <SectionTitle
-                            eyebrow="• CLÍNICA PRINCIPAL •"
-                            title={<span className="golden-sweep">Dental City</span>}
+                            eyebrow={t("eyebrowMainClinic")}
+                            title={<span className="golden-sweep">{t("titleMainClinic")}</span>}
                         />
                         <div className="mt-6">
-                            <Carousel images={imagesDC} ariaLabel="Doctores Dental City" />
+                            <Carousel
+                                images={imagesDC}
+                                ariaLabel={t("ariaMainCarousel")}
+                                prevLabel={t("ariaPrev")}
+                                nextLabel={t("ariaNext")}
+                            />
                         </div>
                     </Container>
                 </section>
@@ -505,11 +594,16 @@ export default function Doctores() {
                 <section className="pb-16">
                     <Container>
                         <SectionTitle
-                            eyebrow="• ODONTOPEDIATRÍA Y ORTODONCIA •"
-                            title={<span className="golden-sweep">Dental City Kids & Family</span>}
+                            eyebrow={t("eyebrowKids")}
+                            title={<span className="golden-sweep">{t("titleKids")}</span>}
                         />
                         <div className="mt-6">
-                            <Carousel images={imagesKids} ariaLabel="Doctores Dental City Kids" />
+                            <Carousel
+                                images={imagesKids}
+                                ariaLabel={t("ariaKidsCarousel")}
+                                prevLabel={t("ariaPrev")}
+                                nextLabel={t("ariaNext")}
+                            />
                         </div>
                     </Container>
                 </section>
@@ -547,3 +641,7 @@ export default function Doctores() {
         </>
     );
 }
+
+
+
+   

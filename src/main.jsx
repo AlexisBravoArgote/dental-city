@@ -5,6 +5,7 @@ import { BrowserRouter, useLocation } from "react-router-dom";
 import App from "./App.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
 import "./index.css";
+import "./i18n.js";
 
 /** ✅ Exportado para que Fast Refresh no marque warning */
 export function HashScroll() {

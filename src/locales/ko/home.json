@@ -1,0 +1,432 @@
+﻿{
+    "hero": {
+        "title": "미소에서 드러나는 우아함",
+        "subtitle": "최첨단 디지털 치의학, 정밀함과 편안함, 맞춤 케어의 만남.",
+        "book": "예약하기",
+        "viewTreatments": "치료 보기"
+    },
+    "about": {
+        "eyebrow": "소개",
+        "title": "디자인이 있는 치과 진료",
+        "blurb": "1999년부터 기술과 품질을 결합해 당신의 미소가 더 보기 좋고 편안해지도록 합니다.",
+        "paragraph": "모든 치과 전문과를 갖춘 통합 클리닉입니다. 인비절라인 다이아몬드 클리닉으로, 자체 랩에서 정밀하고 자연스러우며 개인 맞춤형 디지털 스마일 디자인을 제공합니다.",
+        "all": "모든 치과 전문 진료",
+        "brand": "Invisalign",
+        "designs": "디지털 스마일 디자인",
+        "chip_diag3d": "3D 진단",
+        "chip_lab": "자체 랩",
+        "chip_invisible": "투명 교정",
+        "chip_aesthetic": "심미 치과",
+        "arch_alt": "Dental City 건축",
+        "img_all": "모든 전문과",
+        "img_ortho": "교정치과",
+        "img_aesthetic": "심미 치과",
+        "img_scan": "디지털 스캔"
+    },
+    "services": {
+        "eyebrow": "서비스",
+        "title": "치료",
+        "blurb": "교정, 구강 재활, 근관치료, 소아치과, 보철, 치주.",
+        "searchPlaceholder": "서비스 검색…",
+        "prev": "← 이전",
+        "next": "다음 →",
+        "pageLabel": "페이지",
+        "btn_schedule": "예약",
+        "btn_moreInfo": "자세히",
+        "items": {
+            "implantes": {
+                "title": "임플란트",
+                "desc": "결손 치아의 고정식 심미 보철."
+            },
+            "limpieza": {
+                "title": "치과 클리닝",
+                "desc": "잇몸과 치아 건강을 위한 전문 스케일링."
+            },
+            "coronas": {
+                "title": "치과 크라운",
+                "desc": "손상된 치아의 강하고 자연스러운 수복."
+            },
+            "resinas": {
+                "title": "레진 수복",
+                "desc": "치아 색상과 조화를 이루는 심미적·보존적 수복."
+            },
+            "maxilofacial": {
+                "title": "구강악안면외과",
+                "desc": "고정밀 특수 수술."
+            },
+            "endodoncia": {
+                "title": "근관치료",
+                "desc": "자연치 보존을 위한 근관 치료."
+            },
+            "periodoncia": {
+                "title": "치주과",
+                "desc": "잇몸과 치조골의 포괄적 관리."
+            },
+            "guarda_oclusal": {
+                "title": "교합 장치",
+                "desc": "이갈이 보호 및 과부하 완화."
+            },
+            "puentes": {
+                "title": "구강 재활",
+                "desc": "하나 이상의 치아를 대체하는 고정식 해법."
+            },
+            "alineadores": {
+                "title": "알라이너",
+                "desc": "미소 교정을 위한 탈착식, 티 안 나는 교정."
+            },
+            "invisalign": {
+                "title": "Invisalign",
+                "desc": "디지털 계획 기반의 투명 교정장치."
+            },
+            "brackets": {
+                "title": "브라켓(고정식 교정)",
+                "desc": "교합 교정과 배열을 위한 고정식 교정."
+            },
+            "blanqueamientos": {
+                "title": "치아 미백",
+                "desc": "치아 색조를 안전하고 효과적으로 밝게."
+            },
+            "carillas": {
+                "title": "비니어",
+                "desc": "완벽한 형태와 색을 위한 심미 라미네이트."
+            },
+            "limpieza_ninos": {
+                "title": "소아 클리닝",
+                "desc": "아이들을 위한 친절한 예방 클리닝."
+            },
+            "selladores": {
+                "title": "실란트",
+                "desc": "치면 열구를 충치로부터 보호."
+            },
+            "extracciones": {
+                "title": "발치",
+                "desc": "최소침습 접근의 단순·사랑니 발치."
+            },
+            "ortopedia": {
+                "title": "악정형",
+                "desc": "청소년의 상·하악 성장 유도."
+            },
+            "armonizacion_facial": {
+                "title": "안면 조화",
+                "desc": "보톡스 미용 시술로 얼굴 균형과 강조."
+            },
+            "diseno_sonrisa": {
+                "title": "스마일 디자인",
+                "desc": "조화롭고 개인화된 미소를 위한 통합 심미 계획."
+            }
+        }
+    },
+    "services2": {
+        "btn_schedule": "예약",
+        "btn_moreInfo": "자세히"
+    },
+    "serviceModal": {
+        "eyebrow": "서비스",
+        "close": "닫기",
+        "ariaClose": "모달 닫기",
+        "cta_whatsapp": "WhatsApp로 예약",
+        "cta_viewClinics": "클리닉 보기",
+        "byService": {
+            "implantes": {
+                "subtitle": "자연스러운 임플란트와 크라운으로 고정식 보철.",
+                "bullets": [
+                    "가이드 수술로 더 높은 정밀도와 편안함.",
+                    "예상 소요: 수술 60–90분; 골유착 3–6개월.",
+                    "예상 비용: 임플란트당 $18,000–$35,000 MXN (증례에 따라)."
+                ]
+            },
+            "limpieza": {
+                "subtitle": "잇몸과 치아를 건강하게 유지하는 전문 스케일링.",
+                "bullets": [
+                    "치태·치석 제거 및 폴리싱.",
+                    "예상 소요: 30–45분.",
+                    "예상 비용: $600–$1,200 MXN."
+                ]
+            },
+            "coronas": {
+                "subtitle": "손상된 치아를 견고하고 심미적으로 수복.",
+                "bullets": [
+                    "세라믹/지르코니아, 디지털 적합.",
+                    "예상 소요: 60–90분 2회 내원.",
+                    "예상 비용: 치아당 $6,000–$12,000 MXN."
+                ]
+            },
+            "resinas": {
+                "subtitle": "치아 색과 조화를 이루는 보존적 수복.",
+                "bullets": [
+                    "고도 접착 및 고광택 폴리싱.",
+                    "예상 소요: 치아당 40–60분.",
+                    "예상 비용: 치아당 $1,000–$2,500 MXN."
+                ]
+            },
+            "maxilofacial": {
+                "subtitle": "고정밀 전문 수술.",
+                "bullets": [
+                    "맞춤 수술 계획 및 통증 관리.",
+                    "예상 소요: 45–120분(시술에 따라).",
+                    "예상 비용: $5,000–$25,000+ MXN(난이도에 따라)."
+                ]
+            },
+            "endodoncia": {
+                "subtitle": "자연치 보존을 위한 근관 치료.",
+                "bullets": [
+                    "세정·성형·근관 충전.",
+                    "예상 소요: 60–120분(1–2회 내원).",
+                    "예상 비용: $3,500–$6,500 MXN(대구치는 추가될 수 있음)."
+                ]
+            },
+            "periodoncia": {
+                "subtitle": "잇몸과 지지골의 포괄적 관리.",
+                "bullets": [
+                    "비외과적 치주치료 및 유지관리.",
+                    "예상 소요: 사분악당 60–90분.",
+                    "예상 비용: $1,500–$3,000 MXN(유지관리)."
+                ]
+            },
+            "guarda-oclusal": {
+                "subtitle": "이갈이 보호 및 과부하 완화.",
+                "bullets": [
+                    "인상/스캔 후 맞춤 조정.",
+                    "예상 소요: 20–30분 2회; 5–7일 후 전달.",
+                    "예상 비용: $2,000–$4,000 MXN."
+                ]
+            },
+            "puentes": {
+                "subtitle": "하나 이상의 치아를 대체하는 고정식 해법.",
+                "bullets": [
+                    "안정성을 위한 교합 디자인과 조정.",
+                    "예상 소요: 60–90분 2–3회.",
+                    "예상 비용: $12,000–$24,000 MXN(3유닛 브리지)."
+                ]
+            },
+            "alineadores": {
+                "subtitle": "탈착식·비가시성 교정으로 미소 정렬.",
+                "bullets": [
+                    "3D 스캔과 단계적 이동 계획.",
+                    "예상 소요: 6–18개월, 6–8주 간격 내원.",
+                    "예상 비용: $25,000–$60,000 MXN(난이도에 따라)."
+                ]
+            },
+            "invisalign": {
+                "subtitle": "디지털 계획의 투명 교정.",
+                "bullets": [
+                    "편안함과 정밀한 치료 컨트롤.",
+                    "예상 소요: 6–18개월, 정기 내원.",
+                    "예상 비용: $35,000–$80,000 MXN."
+                ]
+            },
+            "brackets": {
+                "subtitle": "교합 교정과 배열을 위한 고정식 교정.",
+                "bullets": [
+                    "메탈·심미 옵션(증례에 따라).",
+                    "예상 소요: 18–24개월; 월 1회 내원.",
+                    "예상 비용: 전체 치료 $20,000–$40,000 MXN."
+                ]
+            },
+            "blanqueamientos": {
+                "subtitle": "치아 색조를 안전하고 효과적으로 밝게.",
+                "bullets": [
+                    "치과 내원 및/또는 감독 하 가정용.",
+                    "예상 소요: 회당 45–60분.",
+                    "예상 비용: 클리닉 $2,500–$4,500 MXN / 키트 $1,800–$3,000 MXN."
+                ]
+            },
+            "carillas": {
+                "subtitle": "완벽한 형태와 색을 위한 심미 라미네이트.",
+                "bullets": [
+                    "세라믹 또는 복합레진, 최소 삭제(증례별).",
+                    "예상 소요: 2–3회; 랩 7–14일.",
+                    "예상 비용: 치아당 $6,000–$12,000 MXN."
+                ]
+            },
+            "limpieza-ninos": {
+                "subtitle": "친절하고 교육적인 소아 예방 클리닝.",
+                "bullets": [
+                    "부드러운 클리닝, 불소 바니시, 위생 교육.",
+                    "예상 소요: 20–30분.",
+                    "예상 비용: $450–$900 MXN."
+                ]
+            },
+            "selladores": {
+                "subtitle": "치면 열구를 충치로부터 보호.",
+                "bullets": [
+                    "건강한 대구치에 무통 적용.",
+                    "예상 소요: 치아당 15–20분.",
+                    "예상 비용: 치아당 $400–$800 MXN."
+                ]
+            },
+            "extracciones": {
+                "subtitle": "최소침습 접근의 단순·사랑니 발치.",
+                "bullets": [
+                    "국소 마취 및 사후 관리.",
+                    "예상 소요: 20–60분(난이도에 따라).",
+                    "예상 비용: 단순 $800–$1,800 MXN / 사랑니 $2,500–$6,500 MXN."
+                ]
+            },
+            "ortopedia": {
+                "subtitle": "청소년의 악골 성장 유도.",
+                "bullets": [
+                    "맞춤 기능성 장치 및 정기 추적.",
+                    "예상 소요: 6–18개월; 격월 내원.",
+                    "예상 비용: $8,000–$18,000 MXN(장치에 따라)."
+                ]
+            },
+            "armonizacion-facial": {
+                "subtitle": "보툴리눔 톡신 및 필러로 자연스러운 안면 균형.",
+                "bullets": [
+                    "잔주름 완화 및 은은한 볼륨 개선.",
+                    "예상 소요: 20–40분; 효과 4–12개월.",
+                    "예상 비용: 부위당(톡신) $2,500–$4,500 MXN / 1 ml(필러) $4,500–$7,500 MXN."
+                ]
+            },
+            "diseno-sonrisa": {
+                "subtitle": "디지털 목업과 가이드 실행을 포함한 통합 심미 계획.",
+                "bullets": [
+                    "임상 사진, 비율 분석, 사전 테스트.",
+                    "예상 소요: 진단·목업 1–3회.",
+                    "예상 비용: 스터디 $1,500–$3,000 MXN; 최종 치료는 계획에 따라 ($10,000–$60,000 MXN)."
+                ]
+            },
+            "default": {
+                "subtitle": "진단에 따른 맞춤 케어.",
+                "bullets": [
+                    "임상 평가 및 맞춤 계획.",
+                    "예상 소요: 가변적.",
+                    "예상 비용: 상담 후 견적."
+                ]
+            }
+        }
+    },
+    "gallery": {
+        "eyebrow": "갤러리",
+        "title": "우리의 시설",
+        "brand": "DENTAL CITY",
+        "prev": "이전",
+        "next": "다음",
+        "goToPhoto": "사진 {{n}}로 이동",
+        "items": {
+            "ubicacion": {
+                "title": "위치",
+                "subtitle": "Jardín Real · Zapopan"
+            },
+            "unidades": {
+                "title": "유닛",
+                "subtitle": "기술과 편안함"
+            },
+            "recepcion": {
+                "title": "리셉션",
+                "subtitle": "환대와 따스함"
+            },
+            "detalles": {
+                "title": "디테일",
+                "subtitle": "영감을 주는 디자인"
+            }
+        }
+    },
+    "invis": {
+        "cta_whatsapp": "WhatsApp로 예약",
+        "cta_demo": "데모 보기",
+        "controls": {
+            "prev": "이전",
+            "next": "다음",
+            "goTo": "슬라이드 {{n}}로 이동",
+            "close": "닫기"
+        },
+        "iframeTitle": "Invisalign 데모",
+        "modal": {
+            "title": "치료 시뮬레이션",
+            "subtitle": "단계별 진행을 확인하세요."
+        },
+        "slides": {
+            "slide1": {
+                "overline": "INVISALIGN",
+                "title": "브라켓 없는 교정",
+                "subLeft": "브라켓 없는 새로운 교정 방식.",
+                "strongRight": "세계 1위 알라이너",
+                "textRight": "만 8세부터 적용 가능한 비브라켓 교정 분야 세계 1위."
+            },
+            "slide2": {
+                "overline": "디지털 플랜",
+                "title": "3D 가이드 치료",
+                "subLeft": "시작 전에 결과를 미리 확인.",
+                "strongRight": "단계별 정밀 제어",
+                "textRight": "디지털 추적과 맞춤 조정으로 당신의 미소를 설계합니다."
+            },
+            "slide3": {
+                "overline": "편안함과 심미",
+                "title": "투명 알라이너",
+                "subLeft": "편안하고 탈착 가능하며 위생적.",
+                "strongRight": "일상 그대로",
+                "textRight": "위생·식습관을 크게 바꾸지 않고 생활하세요."
+            }
+        }
+    },
+    "locations": {
+        "eyebrow": "지점",
+        "title": "우리 클리닉",
+        "labels": {
+            "whatsapp": "WhatsApp",
+            "phones": "전화",
+            "schedule": "영업시간",
+            "closed": "휴무",
+            "holidays": "공휴일",
+            "specialHours": "특별 운영시간",
+            "address": "주소",
+            "followUs": "팔로우"
+        },
+        "cta": {
+            "whatsapp": "WhatsApp로 예약",
+            "call": "전화로 예약",
+            "viewMaps": "지도에서 보기"
+        },
+        "copy": {
+            "copy": "복사",
+            "copied": "복사됨 ✓",
+            "copyAddressTitle": "주소 복사"
+        },
+        "follow": {
+            "dc": "소셜 미디어에서 Dental City에 문의하세요.",
+            "kids": "소셜 미디어에서 Dental City Kids & Family에 문의하세요."
+        },
+        "mapTitle": "지도 {{name}}",
+        "msg": {
+            "dc": "안녕하세요, Dental City에서 예약하고 싶습니다.",
+            "kids": "안녕하세요, Dental City Kids에서 예약하고 싶습니다."
+        }
+    },
+    "faq": {
+        "eyebrow": "FAQ",
+        "title": "자주 묻는 질문",
+        "items": [
+            {
+                "q": "소아 진료가 가능한가요?",
+                "a": "네. Dental City Kids & Family에서 소아치과와 친절한 접근을 제공합니다."
+            },
+            {
+                "q": "신용카드 결제가 가능한가요?",
+                "a": "가능합니다. 일부 치료는 할부도 제공합니다."
+            },
+            {
+                "q": "첫 방문에는 무엇이 포함되나요?",
+                "a": "임상 평가, 필요한 검사, 맞춤 계획이 포함됩니다."
+            }
+        ]
+    },
+    
+        "topbar": {
+            "treatments": "치료 안내",
+            "gallery": "시설 안내",
+            "clinics": "클리닉 안내",
+            "doctors": "의료진 소개",
+            "resources": "자료실",
+            "blog": "블로그 & 리서치",
+            "edu": "Dental City Edu",
+            "jobs": "채용",
+            "menu": "메뉴",
+            "menuCaps": "메뉴",
+            "openMenu": "메뉴 열기",
+            "closeMenu": "메뉴 닫기"
+        }
+    
+
+}
