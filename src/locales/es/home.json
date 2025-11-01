@@ -132,15 +132,15 @@
                 "bullets": [
                     "Colocación guiada para mayor precisión y confort.",
                     "Tiempo estimado: cirugía 60–90 min; integración 3–6 meses.",
-                    "Precio estimado: $18,000–$35,000 MXN por implante (según caso)."
+                    "Precio estimado: $30,0000 - 33,0000 MXN por implante (según caso)."
                 ]
             },
             "limpieza": {
                 "subtitle": "Profilaxis profesional para mantener encías y dientes sanos.",
                 "bullets": [
                     "Remoción de placa, sarro y pulido.",
-                    "Tiempo estimado: 30–45 min.",
-                    "Precio estimado: $600–$1,200 MXN."
+                    "Tiempo estimado: 45 min.",
+                    "Precio estimado: $1,200–$1,500 MXN."
                 ]
             },
             "coronas": {
@@ -148,7 +148,7 @@
                 "bullets": [
                     "Material cerámico/zirconia con ajuste digital.",
                     "Tiempo estimado: 2 citas de 60–90 min.",
-                    "Precio estimado: $6,000–$12,000 MXN por pieza."
+                    "Precio estimado: $9,000–$10,000 MXN por pieza."
                 ]
             },
             "resinas": {
@@ -156,7 +156,7 @@
                 "bullets": [
                     "Adhesión avanzada y pulido de alto brillo.",
                     "Tiempo estimado: 40–60 min por pieza.",
-                    "Precio estimado: $1,000–$2,500 MXN por pieza."
+                    "Precio estimado: $1,500 MXN (adulto), $1,000 (nino) por pieza."
                 ]
             },
             "maxilofacial": {
@@ -172,7 +172,7 @@
                 "bullets": [
                     "Desinfección, conformación y sellado del conducto.",
                     "Tiempo estimado: 60–120 min (1–2 citas).",
-                    "Precio estimado: $3,500–$6,500 MXN (molares pueden ser más)."
+                    "Precio estimado: $4,900 MXN (molares pueden ser más)."
                 ]
             },
             "periodoncia": {
@@ -188,7 +188,7 @@
                 "bullets": [
                     "Toma de impresión/escaneo y ajuste personalizado.",
                     "Tiempo estimado: 2 citas de 20–30 min; entrega en 5–7 días.",
-                    "Precio estimado: $2,000–$4,000 MXN."
+                    "Precio estimado: $2,500 MXN."
                 ]
             },
             "puentes": {
@@ -196,7 +196,7 @@
                 "bullets": [
                     "Diseño y ajuste de oclusión para estabilidad.",
                     "Tiempo estimado: 2–3 citas de 60–90 min.",
-                    "Precio estimado: $12,000–$24,000 MXN (puente de 3 unidades)."
+                    "Precio estimado: $8,000 MXN (puente de 3 unidades)."
                 ]
             },
             "alineadores": {
@@ -204,7 +204,7 @@
                 "bullets": [
                     "Escaneo 3D y plan de movimientos progresivos.",
                     "Tiempo estimado: 6–18 meses, revisiones cada 6–8 semanas.",
-                    "Precio estimado: $25,000–$60,000 MXN (según complejidad)."
+                    "Precio estimado: $25,000–$40 000 MXN (según complejidad)."
                 ]
             },
             "invisalign": {
@@ -212,7 +212,7 @@
                 "bullets": [
                     "Comodidad y control preciso del tratamiento.",
                     "Tiempo estimado: 6–18 meses, citas de control periódicas.",
-                    "Precio estimado: $35,000–$80,000 MXN."
+                    "Precio estimado: $55,000–$85,000 MXN."
                 ]
             },
             "brackets": {
@@ -220,7 +220,7 @@
                 "bullets": [
                     "Opciones metálicos o estéticos (según caso).",
                     "Tiempo estimado: 18–24 meses; citas mensuales.",
-                    "Precio estimado: $20,000–$40,000 MXN el tratamiento."
+                    "Precio estimado: $38,000–$55,000 MXN el tratamiento."
                 ]
             },
             "blanqueamientos": {
@@ -228,7 +228,7 @@
                 "bullets": [
                     "En clínica y/o domiciliario supervisado.",
                     "Tiempo estimado: 45–60 min por sesión.",
-                    "Precio estimado: $2,500–$4,500 MXN (clínica) / $1,800–$3,000 MXN (kit)."
+                    "Precio estimado: $3900 MXN (clínica) / $1,800–$3,000 MXN (kit)."
                 ]
             },
             "carillas": {
@@ -252,7 +252,7 @@
                 "bullets": [
                     "Aplicación sin dolor sobre molares sanos.",
                     "Tiempo estimado: 15–20 min por diente.",
-                    "Precio estimado: $400–$800 MXN por diente."
+                    "Precio estimado: $1000 MXN por diente."
                 ]
             },
             "extracciones": {
@@ -260,7 +260,7 @@
                 "bullets": [
                     "Anestesia local y manejo postoperatorio.",
                     "Tiempo estimado: 20–60 min (según complejidad).",
-                    "Precio estimado: $800–$1,800 MXN (simple) / $2,500–$6,500 MXN (cordal)."
+                    "Precio estimado: $2000 MXN (Incisivo) / $3000 MXN (muelas del juicio)."
                 ]
             },
             "ortopedia": {
@@ -276,7 +276,7 @@
                 "bullets": [
                     "Atenuación de líneas y realce de volumen sutil.",
                     "Tiempo estimado: 20–40 min; resultados 4–12 meses.",
-                    "Precio estimado: $2,500–$4,500 MXN por zona (toxina) / $4,500–$7,500 MXN por 1 ml (relleno)."
+                    "Precio estimado: $5000 MXN por zona (Botox Bruxismo) / $2,800 (baby botox)."
                 ]
             },
             "diseno-sonrisa": {
