@@ -66,9 +66,22 @@ function navigateToLocation(tabKey) {
     try {
         sessionStorage.setItem("initialTab", tabKey);
     } catch (err) { void err; }
+
     const el = document.querySelector("#ubicacion");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (el) {
+        const isMobile = window.innerWidth < 640; // sm
+        if (isMobile) {
+            // desplaza un poco MÁS ABAJO del inicio de #ubicacion
+            const extra = 160; // ajusta a 140–200 si quieres
+            const y = el.getBoundingClientRect().top + window.scrollY + extra;
+            window.scrollTo({ top: y, behavior: "smooth" });
+        } else {
+            el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    }
+
     if (location.hash !== "#ubicacion") location.hash = "#ubicacion";
+
     setTimeout(() => {
         window.dispatchEvent(new CustomEvent("select-location-tab", { detail: tabKey }));
     }, 0);
