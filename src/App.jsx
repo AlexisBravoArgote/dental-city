@@ -236,8 +236,8 @@ function Hero() {
                         <motion.button
                             onClick={() => setOpenHeroCta((v) => !v)}
                             className={`flex items-center gap-2 rounded-full px-7 py-3 font-medium shadow-lg transition active:scale-[0.97] ${openHeroCta
-                                    ? "bg-gradient-to-r from-[#e8c3a2] to-[#d8a07b] text-[#0b1b2b]"
-                                    : "bg-[#d8a07b] text-[#0b1b2b] hover:brightness-105"
+                                ? "bg-gradient-to-r from-[#e8c3a2] to-[#d8a07b] text-[#0b1b2b]"
+                                : "bg-[#d8a07b] text-[#0b1b2b] hover:brightness-105"
                                 }`}
                             aria-haspopup="menu"
                             aria-expanded={openHeroCta}
@@ -271,7 +271,8 @@ function Hero() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                     transition={{ duration: 0.25, ease: "easeOut" }}
-                                    className="absolute left-1/2 top-[110%] w-[280px] -translate-x-1/2 rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 p-2 text-white/90 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-lg z-20"
+                                    /* 👇 Cambio solo para mobile: ocupa hasta 90vw y se centra */
+                                    className="absolute left-1/2 top-[110%] w-[90vw] max-w-[280px] -translate-x-1/2 rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 p-2 text-white/90 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-lg z-20"
                                     role="menu"
                                 >
                                     <button
@@ -299,7 +300,7 @@ function Hero() {
                                             navigateToLocation("Dental City Kids & Family");
                                             setOpenHeroCta(false);
                                         }}
-                                        className="mt-1 flex w-full items-center justify-between gap-2 rounded-xl px-4 py-3 text-left transition hover:bg-white/10"
+                                        className="mt-1 flex w-full items-center justify-between gap-2 rounded-xl px-4 py-3 text-left transition hover:bg白/10 hover:bg-white/10"
                                         role="menuitem"
                                     >
                                         <span>Dental City Kids & Family</span>
@@ -345,6 +346,7 @@ function Hero() {
         </section>
     );
 }
+
 
 
 
