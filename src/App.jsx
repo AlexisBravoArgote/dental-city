@@ -524,8 +524,7 @@ function About() {
                 <div className="mt-12 grid gap-8 md:grid-cols-2">
                     <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_50px_rgba(0,0,0,.35)]">
                         <div className="pointer-events-none absolute -inset-px rounded-3xl bg-[radial-gradient(120%_120%_at_10%_0%,rgba(228,184,146,.18),transparent)]" />
-                        <p className="text-[15px] leading-7 text-white/85 max-sm:text-left sm:text-justify">
-
+                        <p className="text-[15px] leading-7 text-white/85 text-justify">
                             {t("about.paragraph")}
                         </p>
 
@@ -1050,10 +1049,21 @@ function GalleryCarousel() {
                             />
                         </AnimatePresence>
 
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#0b1b2b]/55 via-transparent to-transparent" />
+                        {/* Overlays para legibilidad: móvil usa gradiente desde arriba; desktop mantiene desde abajo */}
+                        <div className="pointer-events-none absolute inset-0 hidden sm:block bg-gradient-to-t from-[#0b1b2b]/55 via-transparent to-transparent" />
+                        <div className="pointer-events-none absolute inset-0 sm:hidden bg-gradient-to-b from-[#0b1b2b]/55 via-transparent to-transparent" />
                         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(11,27,43,.18),transparent_60%)]" />
 
-                        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7">
+                        {/* CAPTION */}
+                        {/* Móvil: brand + título arriba; subtítulo abajo. Desktop: todo abajo como antes */}
+                        {/* Top caption (mobile only) */}
+                        <div className="absolute left-0 right-0 top-0 p-4 sm:hidden">
+                            <div className="text-xs tracking-[.35em] text_white/60">{t("gallery.brand")}</div>
+                            <h3 className="mt-1 text-2xl font-semibold text-white/95">{active.title}</h3>
+                        </div>
+
+                        {/* Desktop caption (unchanged) */}
+                        <div className="absolute bottom-0 left-0 right-0 p-5 md:p-7 hidden sm:block">
                             <div className="flex items-end justify-between">
                                 <div>
                                     <div className="text-xs tracking-[.35em] text_white/60">{t("gallery.brand")}</div>
@@ -1078,6 +1088,12 @@ function GalleryCarousel() {
                             </div>
                         </div>
 
+                        {/* Bottom subtitle (mobile only) */}
+                        <div className="absolute left-0 right-0 bottom-0 p-4 sm:hidden">
+                            <p className="text-white/80 text-sm">{active.subtitle}</p>
+                        </div>
+
+                        {/* Arrows (iguales) */}
                         <button
                             aria-label={t("gallery.prev")}
                             onClick={prev}
@@ -1101,7 +1117,8 @@ function GalleryCarousel() {
                     </div>
                 </div>
 
-                <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                {/* THUMBS: una sola fila en móvil (más pequeñas) */}
+                <div className="mt-5 flex items-center justify-center gap-2 flex-nowrap sm:flex-wrap">
                     {IMAGES.map((img, idx) => (
                         <button
                             key={idx}
@@ -1109,7 +1126,12 @@ function GalleryCarousel() {
                             className={`thumb chic relative overflow-hidden rounded-xl border ${idx === i ? "border-[#e4b89299]" : "border-white/15"} bg-white/5 hover:bg-white/10 transition`}
                             title={img.title}
                         >
-                            <img src={img.src} alt={img.title} className="h-14 w-20 object-cover md:h-[68px] md:w-[96px]" loading="lazy" />
+                            <img
+                                src={img.src}
+                                alt={img.title}
+                                className="h-12 w-16 sm:h-14 sm:w-20 md:h-[68px] md:w[96px] object-cover"
+                                loading="lazy"
+                            />
                             {idx === i && <span className="pointer-events-none absolute inset-0 rounded-xl ring-2 ring-[#e4b892]/70" />}
                             <span className="tooltip absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-black/70 px-2.5 py-1 text-xs text-white/90 opacity-0 transition pointer-events-none">
                                 {img.title}
@@ -1157,6 +1179,7 @@ function GalleryCarousel() {
         </section>
     );
 }
+
 
 
 
