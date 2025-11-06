@@ -273,7 +273,8 @@ function Hero() {
                                     transition={{ duration: 0.25, ease: "easeOut" }}
                                     /* Mobile: anclado al borde izquierdo del botón y ancho seguro
                                        Desktop (>=640px): vuelve a centrado y 280px */
-                                    className="absolute top-[110%] left-0 translate-x-0 w-[calc(100vw-32px)] max-w-none
+                                    className="absolute top-[110%] left-0 translate-x-0 w-max max-w-[90vw]
+
                                                sm:left-1/2 sm:-translate-x-1/2 sm:w-[280px] sm:max-w-[280px]
                                                rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 p-2 text-white/90 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-lg z-20"
                                     role="menu"
