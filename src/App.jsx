@@ -67,25 +67,32 @@ function navigateToLocation(tabKey) {
         sessionStorage.setItem("initialTab", tabKey);
     } catch (err) { void err; }
 
-    const el = document.querySelector("#ubicacion");
-    if (el) {
-        const isMobile = window.innerWidth < 640; // sm
-        if (isMobile) {
-            // desplaza un poco MÁS ABAJO del inicio de #ubicacion
-            const extra = 160; // ajusta a 140–200 si quieres
-            const y = el.getBoundingClientRect().top + window.scrollY + extra;
-            window.scrollTo({ top: y, behavior: "smooth" });
-        } else {
-            el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-    }
+    // 1) Activa el tab ANTES del scroll
+    window.dispatchEvent(new CustomEvent("select-location-tab", { detail: tabKey }));
 
-    if (location.hash !== "#ubicacion") location.hash = "#ubicacion";
+    // 2) Espera a que el DOM se relayout (2 frames para mayor seguridad)
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            const el = document.querySelector("#ubicacion");
+            if (!el) return;
 
-    setTimeout(() => {
-        window.dispatchEvent(new CustomEvent("select-location-tab", { detail: tabKey }));
-    }, 0);
+            const isMobile = window.innerWidth < 640; // sm
+            if (isMobile) {
+                const extra = 160; // ajusta 140–200 a tu gusto
+                const y = el.getBoundingClientRect().top + window.scrollY + extra;
+                window.scrollTo({ top: y, behavior: "smooth" });
+            } else {
+                el.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+
+            // 3) Actualiza el hash SIN provocar auto-scroll del navegador
+            if (location.hash !== "#ubicacion") {
+                history.replaceState(null, "", "#ubicacion");
+            }
+        });
+    });
 }
+
 
 // =========================
 // Helpers / Layout
