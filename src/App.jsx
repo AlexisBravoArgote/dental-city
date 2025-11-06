@@ -271,8 +271,11 @@ function Hero() {
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                     transition={{ duration: 0.25, ease: "easeOut" }}
-                                    /* 👇 Cambio solo para mobile: ocupa hasta 90vw y se centra */
-                                    className="absolute left-1/2 top-[110%] w-[90vw] max-w-[280px] -translate-x-1/2 rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 p-2 text-white/90 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-lg z-20"
+                                    /* Mobile: anclado al borde izquierdo del botón y ancho seguro
+                                       Desktop (>=640px): vuelve a centrado y 280px */
+                                    className="absolute top-[110%] left-0 translate-x-0 w-[calc(100vw-32px)] max-w-none
+                                               sm:left-1/2 sm:-translate-x-1/2 sm:w-[280px] sm:max-w-[280px]
+                                               rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 p-2 text-white/90 shadow-[0_8px_30px_rgba(0,0,0,0.5)] backdrop-blur-lg z-20"
                                     role="menu"
                                 >
                                     <button
@@ -300,7 +303,7 @@ function Hero() {
                                             navigateToLocation("Dental City Kids & Family");
                                             setOpenHeroCta(false);
                                         }}
-                                        className="mt-1 flex w-full items-center justify-between gap-2 rounded-xl px-4 py-3 text-left transition hover:bg白/10 hover:bg-white/10"
+                                        className="mt-1 flex w-full items-center justify-between gap-2 rounded-xl px-4 py-3 text-left transition hover:bg-white/10"
                                         role="menuitem"
                                     >
                                         <span>Dental City Kids & Family</span>
@@ -346,6 +349,7 @@ function Hero() {
         </section>
     );
 }
+
 
 
 
