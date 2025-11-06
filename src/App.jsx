@@ -242,7 +242,8 @@ function Hero() {
                     initial={{ y: 18, opacity: 0 }}
                     whileInView={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.1, duration: 0.7 }}
-                    className="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-white/85"
+                    className="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-white/85 
+            max-sm:max-w-[90%] max-sm:text-[16.5px] max-sm:text-justify"
                 >
                     {t("hero.subtitle", {
                         defaultValue:
