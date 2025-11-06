@@ -524,7 +524,8 @@ function About() {
                 <div className="mt-12 grid gap-8 md:grid-cols-2">
                     <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_18px_50px_rgba(0,0,0,.35)]">
                         <div className="pointer-events-none absolute -inset-px rounded-3xl bg-[radial-gradient(120%_120%_at_10%_0%,rgba(228,184,146,.18),transparent)]" />
-                        <p className="text-[15px] leading-7 text-white/85 text-justify">
+                        <p className="text-[15px] leading-7 text-white/85 max-sm:text-left sm:text-justify">
+
                             {t("about.paragraph")}
                         </p>
 
