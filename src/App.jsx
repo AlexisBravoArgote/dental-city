@@ -78,7 +78,7 @@ function navigateToLocation(tabKey) {
 
             const isMobile = window.innerWidth < 640; // sm
             if (isMobile) {
-                const extra = 160; // ajusta 140–200 a tu gusto
+                const extra = 170; // ajusta 140–200 a tu gusto
                 const y = el.getBoundingClientRect().top + window.scrollY + extra;
                 window.scrollTo({ top: y, behavior: "smooth" });
             } else {
@@ -433,7 +433,9 @@ function Chip({ children }) {
                 />
             </svg>
 
-            <span className="relative z-10 inline-flex h-11 w-full items-center justify-center rounded-[12px] bg-white/8 px-5 text-[14px] text-white/85 ring-1 ring-white/10 backdrop-blur">
+            <span className="relative z-10 inline-flex h-11 w-full items-center justify-center text-center
+    sm:justify-start sm:text-left rounded-[12px] bg-white/8 px-5 text-[14px] text-white/85 ring-1 ring-white/10 backdrop-blur">
+
                 {children}
             </span>
 
