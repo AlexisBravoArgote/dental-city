@@ -326,7 +326,7 @@
         },
     
         "invis": {
-            "cta_whatsapp": "Agendar por WhatsApp",
+            "cta_whatsapp": "Agendar",
             "cta_demo": "Ver demostración",
             "controls": {
                 "prev": "Anterior",
