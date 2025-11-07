@@ -78,7 +78,7 @@ function navigateToLocation(tabKey) {
 
             const isMobile = window.innerWidth < 640; // sm
             if (isMobile) {
-                const extra = 175; // ajusta 140–200 a tu gusto
+                const extra = 178; // ajusta 140–200 a tu gusto
                 const y = el.getBoundingClientRect().top + window.scrollY + extra;
                 window.scrollTo({ top: y, behavior: "smooth" });
             } else {
@@ -2146,13 +2146,30 @@ function FloatingCta() {
 
     const go = (tabKey) => {
         try { sessionStorage.setItem("initialTab", tabKey); } catch (err) { void err; }
-        const el = document.querySelector("#ubicacion");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-        if (location.hash !== "#ubicacion") location.hash = "#ubicacion";
-        setTimeout(() => {
-            window.dispatchEvent(new CustomEvent("select-location-tab", { detail: tabKey }));
-        }, 0);
+
+        // Activa el tab ANTES del scroll
+        window.dispatchEvent(new CustomEvent("select-location-tab", { detail: tabKey }));
         setOpen(false);
+
+        // Espera 1–2 frames para que el layout del tab se actualice y luego hace scroll con offset (solo móvil)
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                const el = document.querySelector("#ubicacion");
+                if (!el) return;
+
+                const isMobile = window.innerWidth < 640; // sm
+                if (isMobile) {
+                    const extra = 178; // súbele/bájale (140–200) para ajustar qué tan "abajo" cae
+                    const y = el.getBoundingClientRect().top + window.scrollY + extra;
+                    window.scrollTo({ top: y, behavior: "smooth" });
+                } else {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+
+                // Evita el salto automático del navegador al cambiar el hash
+                if (location.hash !== "#ubicacion") history.replaceState(null, "", "#ubicacion");
+            });
+        });
     };
 
     const visible = !isMobile || showAfterHero;
