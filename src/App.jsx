@@ -78,7 +78,7 @@ function navigateToLocation(tabKey) {
 
             const isMobile = window.innerWidth < 640; // sm
             if (isMobile) {
-                const extra = 178; // ajusta 140–200 a tu gusto
+                const extra = 185; // ajusta 140–200 a tu gusto
                 const y = el.getBoundingClientRect().top + window.scrollY + extra;
                 window.scrollTo({ top: y, behavior: "smooth" });
             } else {
@@ -2159,7 +2159,7 @@ function FloatingCta() {
 
                 const isMobile = window.innerWidth < 640; // sm
                 if (isMobile) {
-                    const extra = 178; // súbele/bájale (140–200) para ajustar qué tan "abajo" cae
+                    const extra = 185; // súbele/bájale (140–200) para ajustar qué tan "abajo" cae
                     const y = el.getBoundingClientRect().top + window.scrollY + extra;
                     window.scrollTo({ top: y, behavior: "smooth" });
                 } else {
