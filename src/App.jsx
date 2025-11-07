@@ -1300,22 +1300,23 @@ function InvisalignInteractive() {
                                 {/* buttons */}
                                 {/* ↓ móvil: ancho total y botones 50/50; desktop como estaba */}
                                 <div className="mt-4 w-full sm:w-[430px] max-w-[calc(100vw-2rem)] mx-auto sm:mx-0">
-                                    <div className="flex items-center justify-between gap-3">
+                                    <div className="flex items-center justify-between gap-2 sm:gap-3">
                                         <a
                                             href={waHref}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-[48%] sm:w-[210px] rounded-full bg-white px-4 py-2.5 text-center text-sm font-semibold text-[#0b1b2b] shadow-sm transition hover:brightness-95"
+                                            className="flex-1 sm:w-[210px] rounded-full bg-white px-4 py-2.5 text-center text-sm font-semibold text-[#0b1b2b] shadow-sm transition hover:brightness-95"
                                         >
                                             {t("invis.cta_whatsapp")}
                                         </a>
                                         <button
                                             onClick={() => setOpen(true)}
-                                            className="w-[48%] sm:w-[210px] rounded-full border border-white/40 bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+                                            className="flex-1 sm:w-[210px] rounded-full border border-white/40 bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
                                         >
                                             {t("invis.cta_demo")}
                                         </button>
                                     </div>
+
                                 </div>
                             </div>
 
