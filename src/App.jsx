@@ -78,7 +78,7 @@ function navigateToLocation(tabKey) {
 
             const isMobile = window.innerWidth < 640; // sm
             if (isMobile) {
-                const extra = 170; // ajusta 140–200 a tu gusto
+                const extra = 175; // ajusta 140–200 a tu gusto
                 const y = el.getBoundingClientRect().top + window.scrollY + extra;
                 window.scrollTo({ top: y, behavior: "smooth" });
             } else {
@@ -2099,17 +2099,43 @@ function FloatingCta() {
     const [open, setOpen] = useState(false);
     const wrapRef = useRef(null);
 
+    // ▼ NUEVO: visibilidad condicional (solo móvil después del hero)
+    const [isMobile, setIsMobile] = useState(false);
+    const [showAfterHero, setShowAfterHero] = useState(true); // en desktop será true siempre
+
+    useEffect(() => {
+        const updateIsMobile = () => setIsMobile(window.innerWidth < 640); // sm breakpoint
+        updateIsMobile();
+        window.addEventListener("resize", updateIsMobile);
+        return () => window.removeEventListener("resize", updateIsMobile);
+    }, []);
+
+    useEffect(() => {
+        if (!isMobile) {
+            setShowAfterHero(true); // desktop: siempre visible
+            return;
+        }
+        const onScroll = () => {
+            // umbral ~ altura del hero (78vh). Usamos 80% de la ventana como aproximación.
+            const threshold = window.innerHeight * 0.8;
+            const visible = window.scrollY > threshold;
+            setShowAfterHero(visible);
+            if (!visible) setOpen(false); // si se oculta, cierra el popover
+        };
+        onScroll(); // estado inicial
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [isMobile]);
+
     // Cerrar al hacer clic fuera o con ESC
     useEffect(() => {
         if (!open) return;
-
         const onDown = (e) => {
             if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
         };
         const onKey = (e) => {
             if (e.key === "Escape") setOpen(false);
         };
-
         document.addEventListener("mousedown", onDown);
         document.addEventListener("keydown", onKey);
         return () => {
@@ -2119,11 +2145,7 @@ function FloatingCta() {
     }, [open]);
 
     const go = (tabKey) => {
-        try {
-            sessionStorage.setItem("initialTab", tabKey);
-        } catch (err) {
-            void err;
-        }
+        try { sessionStorage.setItem("initialTab", tabKey); } catch (err) { void err; }
         const el = document.querySelector("#ubicacion");
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
         if (location.hash !== "#ubicacion") location.hash = "#ubicacion";
@@ -2133,8 +2155,16 @@ function FloatingCta() {
         setOpen(false);
     };
 
+    const visible = !isMobile || showAfterHero;
+
     return (
-        <div className="fixed bottom-5 right-5 z-50" ref={wrapRef}>
+        <div
+            ref={wrapRef}
+            className={[
+                "fixed bottom-5 right-5 z-50 transition-all duration-300",
+                visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-3 pointer-events-none"
+            ].join(" ")}
+        >
             {/* Botón principal */}
             <motion.button
                 onClick={() => setOpen((v) => !v)}
@@ -2193,13 +2223,7 @@ function FloatingCta() {
                             role="menuitem"
                         >
                             <span>Dental City</span>
-                            <svg
-                                viewBox="0 0 24 24"
-                                className="h-5 w-5"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.6"
-                            >
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                                 <path d="M9 18l6-6-6-6" />
                             </svg>
                         </button>
@@ -2210,13 +2234,7 @@ function FloatingCta() {
                             role="menuitem"
                         >
                             <span>Dental City Kids & Family</span>
-                            <svg
-                                viewBox="0 0 24 24"
-                                className="h-5 w-5"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.6"
-                            >
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
                                 <path d="M9 18l6-6-6-6" />
                             </svg>
                         </button>
@@ -2226,6 +2244,7 @@ function FloatingCta() {
         </div>
     );
 }
+
 
 function FloatingBackToTop() {
     const [visible, setVisible] = React.useState(false);
