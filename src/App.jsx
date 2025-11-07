@@ -1735,7 +1735,7 @@ function LocationsTabs() {
                                                     {t("locations.labels.closed")}
                                                 </span>
                                             ) : (
-                                                    <span className="relative inline-flex h-7 px-3 md:h-auto md:px-3 md:py-1.5 rounded-full bg-green-500/15 text-xs font-semibold text-green-300 items-center justify-center leading-none self-center"> 
+                                                    <span className="relative grid place-items-center whitespace-nowrap px-3 py-1.5 text-xs font-semibold text-green-300 rounded-full bg-green-500/15 leading-[1] md:leading-normal">
 
                                                     <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-green-300/25" />
                                                     {s.time}
