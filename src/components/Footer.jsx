@@ -24,7 +24,7 @@ export default function Footer() {
 
             <Container className="mx-auto w-full max-w-7xl relative z-10">
                 <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-3">
-                    {/* Logo (no changes) */}
+                    {/* Izquierda: logo (igual) */}
                     <div className="flex justify-center md:justify-start">
                         <div className="relative inline-flex items-center justify-center rounded-full p-3 transition-transform duration-500 hover:scale-[1.03] hover:brightness-110">
                             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#d8a07b33] to-transparent blur-lg transition-all duration-500 hover:from-[#e4b89266]" />
@@ -32,7 +32,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Centro (no changes) */}
+                    {/* Centro (igual) */}
                     <div className="flex flex-col items-center text-center">
                         <div className="relative inline-flex items-center justify-center rounded-full p-3 transition-transform duration-500 hover:scale-[1.03] hover:brightness-110">
                             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#d8a07b33] to-transparent blur-lg transition-all duration-500 hover:from-[#e4b89266]" />
@@ -43,29 +43,36 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Links: móvil centrado y simétrico; desktop igual que antes */}
+                    {/* Derecha: 
+                       - Mobile: layout propio centrado (md:hidden)
+                       - Desktop: grid ORIGINAL intacto (hidden md:grid)
+                    */}
                     <div className="flex justify-center md:justify-end">
-                        <div className="text-[12px] text-white/75 w-full md:w-auto">
+                        {/* Mobile-only (centrado y simétrico) */}
+                        <div className="md:hidden w-full text-[12px] text-white/75">
                             {/* Fila 1 */}
-                            <div className="flex items-center justify-center gap-2 text-center md:grid md:grid-cols-[auto_16px_auto] md:gap-x-4 md:gap-y-2 md:justify-items-end">
-                                <Link to="/terminos" className="footer-link md:justify-self-end">
-                                    TÉRMINOS Y CONDICIONES
-                                </Link>
+                            <div className="flex items-center justify-center gap-2 text-center">
+                                <Link to="/terminos" className="footer-link">TÉRMINOS Y CONDICIONES</Link>
                                 <span className="leading-none text-[#d8a07b]/90 text-[13px]">•</span>
-                                <Link to="/privacidad" className="footer-link md:justify-self-start md:text-right">
-                                    AVISO DE PRIVACIDAD
-                                </Link>
+                                <Link to="/privacidad" className="footer-link">AVISO DE PRIVACIDAD</Link>
                             </div>
                             {/* Fila 2 */}
-                            <div className="mt-2 flex items-center justify-center gap-2 text-center md:mt-0 md:grid md:grid-cols-[auto_16px_auto] md:gap-x-4 md:gap-y-2 md:justify-items-end">
-                                <a href="https://argotelabs.com" target="_blank" rel="noopener noreferrer" className="footer-link md:justify-self-end">
-                                    ArgoteLabs
-                                </a>
+                            <div className="mt-2 flex items-center justify-center gap-2 text-center">
+                                <a href="https://argotelabs.com" target="_blank" rel="noopener noreferrer" className="footer-link">ArgoteLabs</a>
                                 <span className="leading-none text-[#d8a07b]/90 text-[13px]">•</span>
-                                <a href="mailto:dentalcity1@hotmail.com" className="footer-link md:justify-self-start md:text-right">
-                                    dentalcity1@hotmail.com
-                                </a>
+                                <a href="mailto:dentalcity1@hotmail.com" className="footer-link">dentalcity1@hotmail.com</a>
                             </div>
+                        </div>
+
+                        {/* Desktop-only (layout original) */}
+                        <div className="hidden md:grid grid-cols-[auto_16px_auto] items-center gap-x-4 gap-y-2 text-[12px] text-white/75">
+                            <Link to="/terminos" className="footer-link justify-self-end">TÉRMINOS Y CONDICIONES</Link>
+                            <span className="justify-self-center leading-none text-[#d8a07b]/90 text-[13px]">•</span>
+                            <Link to="/privacidad" className="footer-link">AVISO DE PRIVACIDAD</Link>
+
+                            <a href="https://argotelabs.com" target="_blank" rel="noopener noreferrer" className="footer-link justify-self-end">ArgoteLabs</a>
+                            <span className="justify-self-center leading-none text-[#d8a07b]/90 text-[13px]">•</span>
+                            <a href="mailto:dentalcity1@hotmail.com" className="footer-link">dentalcity1@hotmail.com</a>
                         </div>
                     </div>
                 </div>
