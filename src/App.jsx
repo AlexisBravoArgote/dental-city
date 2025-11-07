@@ -78,7 +78,7 @@ function navigateToLocation(tabKey) {
 
             const isMobile = window.innerWidth < 640; // sm
             if (isMobile) {
-                const extra = 185; // ajusta 140–200 a tu gusto
+                const extra = 195; // ajusta 140–200 a tu gusto
                 const y = el.getBoundingClientRect().top + window.scrollY + extra;
                 window.scrollTo({ top: y, behavior: "smooth" });
             } else {
@@ -1735,7 +1735,8 @@ function LocationsTabs() {
                                                     {t("locations.labels.closed")}
                                                 </span>
                                             ) : (
-                                                <span className="relative rounded-full bg-green-500/15 px-3 py-1.5 text-xs font-semibold text-green-300">
+                                                    <span className="relative rounded-full bg-green-500/15 px-3 py-1.5 text-xs font-semibold text-green-300 inline-flex items-center justify-center leading-none md:inline-block">
+
                                                     <span className="pointer-events-none absolute inset-0 rounded-full ring-1 ring-green-300/25" />
                                                     {s.time}
                                                 </span>
@@ -2159,7 +2160,7 @@ function FloatingCta() {
 
                 const isMobile = window.innerWidth < 640; // sm
                 if (isMobile) {
-                    const extra = 185; // súbele/bájale (140–200) para ajustar qué tan "abajo" cae
+                    const extra = 195; // súbele/bájale (140–200) para ajustar qué tan "abajo" cae
                     const y = el.getBoundingClientRect().top + window.scrollY + extra;
                     window.scrollTo({ top: y, behavior: "smooth" });
                 } else {
