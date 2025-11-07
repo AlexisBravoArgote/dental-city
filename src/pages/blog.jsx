@@ -200,7 +200,8 @@ export default function Blog() {
                                 initial={{ opacity: 0, y: 18 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                className="rounded-3xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_18px_50px_rgba(0,0,0,.35)] golden-hover block h-full"
+                                className="rounded-3xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_18px_50px_rgba(0,0,0,.35)] golden-hover block h-full
+             mx-auto max-w-[calc(100vw-2rem)] sm:max-w-none"
                             >
                                 <div className="rounded-3xl overflow-hidden bg-[#0f2237]/90 backdrop-blur h-full flex flex-col">
                                     <div className="relative w-full aspect-[16/7]">
@@ -241,7 +242,8 @@ export default function Blog() {
                             </motion.a>
 
                             {/* Panel de filtros */}
-                            <div className="rounded-3xl bg-white/[.04] border border-white/10 p-5 md:p-6 shadow-[0_12px_36px_rgba(0,0,0,.25)]">
+                            <div className="rounded-3xl bg-white/[.04] border border-white/10 p-5 md:p-6 shadow-[0_12px_36px_rgba(0,0,0,.25)]
+             mx-auto max-w-[calc(100vw-2rem)] sm:max-w-none">
                                 <SectionTitle
                                     eyebrow="• EXPLORAR •"
                                     title={<span className="golden-sweep">Encuentra artículos</span>}
