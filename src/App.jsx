@@ -1091,7 +1091,19 @@ function GalleryCarousel() {
                         {/* Bottom subtitle (mobile only) */}
                         <div className="absolute left-0 right-0 bottom-0 p-4 sm:hidden">
                             <p className="text-white/80 text-sm">{active.subtitle}</p>
+
+                            {/* Línea dorada de progreso (móvil, debajo del subtítulo) */}
+                            <div className="mt-2 h-[3px] w-full rounded bg-white/15 overflow-hidden">
+                                <motion.div
+                                    key={i + (hover ? '-paused' : '')}
+                                    className="h-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]"
+                                    initial={{ width: '0%' }}
+                                    animate={{ width: hover ? '0%' : '100%' }}
+                                    transition={{ duration: 5.2, ease: 'linear' }}
+                                />
+                            </div>
                         </div>
+
 
                         {/* Arrows (iguales) */}
                         <button
@@ -1275,7 +1287,8 @@ function InvisalignInteractive() {
                                     {s.overline}
                                 </div>
 
-                                <h2 className="mt-3 inline-block text-[28px] sm:text-[34px] md:text-5xl font-semibold leading-tight relative whitespace-nowrap">
+                                {/* ↓ móvil: fuente un poco más chica y SIN nowrap; desktop igual */}
+                                <h2 className="mt-3 inline-block text-[26px] sm:text-[34px] md:text-5xl font-semibold leading-tight relative whitespace-normal sm:whitespace-nowrap">
                                     <span className="golden-sweep">{s.title}</span>
                                     <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                                 </h2>
@@ -1285,19 +1298,20 @@ function InvisalignInteractive() {
                                 </p>
 
                                 {/* buttons */}
-                                <div className="mt-4 w-[430px] max-w-[calc(100vw-2rem)] mx-auto sm:mx-0">
-                                    <div className="flex items-center justify-between">
+                                {/* ↓ móvil: ancho total y botones 50/50; desktop como estaba */}
+                                <div className="mt-4 w-full sm:w-[430px] max-w-[calc(100vw-2rem)] mx-auto sm:mx-0">
+                                    <div className="flex items-center justify-between gap-3">
                                         <a
                                             href={waHref}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-[210px] rounded-full bg-white px-6 py-2.5 text-center text-sm font-semibold text-[#0b1b2b] shadow-sm transition hover:brightness-95"
+                                            className="w-[48%] sm:w-[210px] rounded-full bg-white px-4 py-2.5 text-center text-sm font-semibold text-[#0b1b2b] shadow-sm transition hover:brightness-95"
                                         >
                                             {t("invis.cta_whatsapp")}
                                         </a>
                                         <button
                                             onClick={() => setOpen(true)}
-                                            className="w-[210px] rounded-full border border-white/40 bg-white/10 px-6 py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
+                                            className="w-[48%] sm:w-[210px] rounded-full border border-white/40 bg-white/10 px-4 py-2.5 text-center text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/20"
                                         >
                                             {t("invis.cta_demo")}
                                         </button>
@@ -1310,8 +1324,9 @@ function InvisalignInteractive() {
                     </div>
 
                     {/* bottom card */}
-                    <div className="pointer-events-auto absolute z-20 left-4 sm:left-6 bottom-4 sm:bottom-5">
-                        <div className="w-[430px] max-w-[calc(100vw-2rem)] rounded-xl border border-white/40 bg-white/30 px-4 py-3 text-center text-[14px] font-medium text-[#0b1b2b] backdrop-blur-md shadow-[0_6px_20px_rgba(0,0,0,.08)]">
+                    {/* ↓ móvil: usar left & right para que no se corte; desktop igual */}
+                    <div className="pointer-events-auto absolute z-20 left-3 right-3 bottom-4 sm:left-6 sm:right-auto">
+                        <div className="w-full sm:w-[430px] max-w-[calc(100vw-2rem)] rounded-xl border border-white/40 bg-white/30 px-4 py-3 text-center text-[14px] font-medium text-[#0b1b2b] backdrop-blur-md shadow-[0_6px_20px_rgba(0,0,0,.08)]">
                             <span className="font-semibold italic underline decoration-[#0b1b2b]/25 underline-offset-[6px]">
                                 {s.strongRight}
                             </span>{" "}
@@ -1431,6 +1446,7 @@ function InvisalignInteractive() {
         </section>
     );
 }
+
 
 
 
