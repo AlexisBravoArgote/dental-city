@@ -549,8 +549,7 @@ export default function Doctores() {
                 {/* Grid de especialidades */}
                 <section className="pt-10 md:pt-12 pb-12 md:pb-14 mt-10 md:mt-14">
                     <Container>
-                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
-
+                        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-3">
                             {stats.map(([label, value], idx) => (
                                 <motion.div
                                     key={idx}
