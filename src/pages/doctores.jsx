@@ -27,7 +27,7 @@ import dc20 from "../assets/DCdoctor20.jpg";
 import dc21 from "../assets/DCdoctor21.jpg";
 import dc22 from "../assets/DCdoctor22.jpg";
 import dc23 from "../assets/DCdoctor23.jpg";
-import dc24 from "../assets/DCdoctor24.jpg";
+
 import dc25 from "../assets/DCdoctor25.jpg";
 import dc26 from "../assets/DCdoctor26.jpg";
 import dc27 from "../assets/DCdoctor27.jpg";
@@ -199,10 +199,7 @@ function Carousel({
                                         <img
                                             src={img.src}
                                             alt={img.alt || "Imagen"}
-                                            className="
-        w-full h-full object-cover
-        md:w-auto md:h-auto md:max-h-[80vh] md:object-contain
-      "
+                                            className="w-full h-full object-cover md:w-auto md:h-auto md:max-h-[80vh] md:object-contain"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_35%,rgba(255,255,255,0.08),transparent_60%)]" />
@@ -450,7 +447,7 @@ export default function Doctores() {
             { src: dc20, alt: t("altTech") },
             { src: dc21, alt: t("altTech") },
             { src: dc22, alt: t("altTech") },
-            { src: dc24, alt: t("altTech") },
+            
             { src: dc25, alt: t("altTech") },
             { src: dc26, alt: t("altTech") },
             { src: dc27, alt: t("altTech") },
@@ -492,7 +489,7 @@ export default function Doctores() {
         [t("stat_pros"), "5"],
         [t("stat_perio"), "2"],
         [t("stat_endo"), "2"],
-        [t("stat_mfs"), "1"],
+        [t("stat_mfs"), "2"],
         [t("stat_oral"), "2"],
         [t("stat_pedo"), "1"],
         [t("stat_implant"), "1"],
@@ -538,7 +535,7 @@ export default function Doctores() {
                             <div className="rounded-[28px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_18px_50px_rgba(0,0,0,.35)] golden-hover always-golden">
                                 <div className="relative rounded-[26px] bg-[#0f2237]/80 px-6 py-8 text-center">
                                     <div className="text-6xl font-semibold leading-none tracking-tight text-[#e4b892]">
-                                        28
+                                        29
                                     </div>
                                     <div className="mt-3 text-sm uppercase tracking-[.2em] text-white/85">
                                         {t("dentistsCount")}
@@ -552,7 +549,8 @@ export default function Doctores() {
                 {/* Grid de especialidades */}
                 <section className="pt-10 md:pt-12 pb-12 md:pb-14 mt-10 md:mt-14">
                     <Container>
-                        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+
                             {stats.map(([label, value], idx) => (
                                 <motion.div
                                     key={idx}
