@@ -194,17 +194,21 @@ function Carousel({
                     >
                         {images.map((img, idx) => (
                             <div key={idx} className="relative min-w-full">
-                                <div className="relative w-full max-h-[80vh] bg-[#0f2237] flex items-center justify-center">
+                                <div className="relative w-full h-[60vh] md:h-auto md:max-h-[80vh] bg-[#0f2237] flex items-center justify-center">
                                     {img.src ? (
                                         <img
                                             src={img.src}
                                             alt={img.alt || "Imagen"}
-                                            className="max-h-[80vh] w-auto object-contain"
+                                            className="
+        w-full h-full object-cover
+        md:w-auto md:h-auto md:max-h-[80vh] md:object-contain
+      "
                                         />
                                     ) : (
                                         <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_35%,rgba(255,255,255,0.08),transparent_60%)]" />
                                     )}
                                 </div>
+
 
                                 <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
 
