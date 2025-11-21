@@ -3,12 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
-  },
+    "scripts": {
+        "dev": "vite --host 0.0.0.0 ",
+        "build": "vite build",
+        "lint": "eslint .",
+        "preview": "vite preview"
+    },
   "dependencies": {
     "framer-motion": "^12.23.22",
     "i18next": "^25.6.0",

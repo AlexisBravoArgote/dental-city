@@ -32,7 +32,7 @@ import dc25 from "../assets/DCdoctor25.jpg";
 import dc26 from "../assets/DCdoctor26.jpg";
 import dc27 from "../assets/DCdoctor27.jpg";
 import dc28 from "../assets/DCdoctor28.jpg";
-
+import dc29 from "../assets/DCdoctor29.jpg";
 import kids0 from "../assets/kids0.jpg";
 import kids2 from "../assets/kids2.jpg";
 import kids3 from "../assets/kids3.jpg";
@@ -452,6 +452,7 @@ export default function Doctores() {
             { src: dc26, alt: t("altTech") },
             { src: dc27, alt: t("altTech") },
             { src: dc28, alt: t("altTech") },
+            { src: dc29, alt: t("altTech") },
         ],
         [t]
     );
