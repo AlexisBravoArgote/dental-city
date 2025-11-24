@@ -1,18 +1,18 @@
 ﻿{
     "hero": {
         "title": "L’élégance qui se voit quand vous souriez",
-        "subtitle": "Odontologie numérique de pointe, où la précision rencontre le confort et l’attention personnalisée.",
+        "subtitle": "Dentisterie numérique de pointe, où la précision rencontre le confort et une attention personnalisée.",
         "book": "Prendre rendez-vous",
         "viewTreatments": "Voir les traitements"
     },
     "about": {
         "eyebrow": "À PROPOS",
-        "title": "Des soins dentaires avec design",
-        "blurb": "Depuis 1999, nous allions technologie et qualité pour que votre sourire ait meilleure allure et soit plus confortable.",
-        "paragraph": "Clinique complète avec toutes les spécialités dentaires. Nous sommes une clinique Invisalign Diamond avec laboratoire interne pour créer des designs de sourire numériques précis, naturels et personnalisés.",
+        "title": "Des soins dentaires pensés avec design",
+        "blurb": "Depuis 1999, nous associons technologie et qualité pour que votre sourire soit plus beau et plus sain.",
+        "paragraph": "Clinique dentaire complète avec toutes les spécialités, située à Zapopan, Jalisco. Nous sommes une clinique Invisalign Diamond avec laboratoire interne pour créer des designs numériques du sourire précis, naturels et personnalisés.",
         "all": "toutes les spécialités dentaires",
         "brand": "Invisalign",
-        "designs": "designs de sourire numériques",
+        "designs": "designs numériques du sourire",
         "chip_diag3d": "Diagnostic 3D",
         "chip_lab": "Laboratoire interne",
         "chip_invisible": "Orthodontie invisible",
@@ -26,29 +26,29 @@
     "services": {
         "eyebrow": "SERVICES",
         "title": "Traitements",
-        "blurb": "Traitements d’orthodontie, réhabilitation orale, endodontie, odontopédiatrie, prothèse, parodontologie.",
+        "blurb": "Orthodontie, réhabilitation, endodontie, dentisterie pédiatrique, prothèses, parodontologie.",
         "searchPlaceholder": "Rechercher un service…",
         "prev": "← Précédent",
         "next": "Suivant →",
         "pageLabel": "Page",
-        "btn_schedule": "Réserver",
+        "btn_schedule": "Planifier",
         "btn_moreInfo": "Plus d’infos",
         "items": {
             "implantes": {
                 "title": "Implants",
-                "desc": "Remplacement fixe et esthétique des dents manquantes."
+                "desc": "Remplacement fixe et esthétique des dents absentes."
             },
             "limpieza": {
                 "title": "Détartrage",
-                "desc": "Prophylaxie professionnelle pour des gencives et des dents saines."
+                "desc": "Prophylaxie professionnelle pour garder des dents et gencives saines."
             },
             "coronas": {
                 "title": "Couronnes dentaires",
                 "desc": "Restauration résistante et naturelle des dents abîmées."
             },
             "resinas": {
-                "title": "Restaurations en résine",
-                "desc": "Restaurations esthétiques et conservatrices assorties à la teinte dentaire."
+                "title": "Résines",
+                "desc": "Restaurations esthétiques et conservatrices couleur dent."
             },
             "maxilofacial": {
                 "title": "Chirurgie maxillo-faciale",
@@ -56,15 +56,15 @@
             },
             "endodoncia": {
                 "title": "Endodontie",
-                "desc": "Traitement canalaire pour conserver les dents naturelles."
+                "desc": "Traitement des canaux pour conserver les dents naturelles."
             },
             "periodoncia": {
                 "title": "Parodontologie",
-                "desc": "Soins complets des gencives et de l’os de support."
+                "desc": "Soins complets des gencives et de l’os de soutien."
             },
             "guarda_oclusal": {
                 "title": "Gouttière occlusale",
-                "desc": "Protection contre le bruxisme et soulagement des surcharges."
+                "desc": "Protection contre le bruxisme et soulagement de la surcharge."
             },
             "puentes": {
                 "title": "Réhabilitation orale",
@@ -72,19 +72,19 @@
             },
             "alineadores": {
                 "title": "Aligneurs",
-                "desc": "Orthodontie amovible et discrète pour aligner votre sourire."
+                "desc": "Orthodontie amovible et discrète pour aligner le sourire."
             },
             "invisalign": {
                 "title": "Invisalign",
                 "desc": "Aligneurs invisibles avec planification numérique."
             },
             "brackets": {
-                "title": "Bagues (brackets)",
-                "desc": "Orthodontie fixe pour corriger l’occlusion et l’alignement."
+                "title": "Appareils dentaires",
+                "desc": "Orthodontie fixe pour corriger l’occlusion et aligner les dents."
             },
             "blanqueamientos": {
                 "title": "Blanchiment",
-                "desc": "Éclaircissement sûr et efficace de la teinte dentaire."
+                "desc": "Éclaircissement sûr et efficace des dents."
             },
             "carillas": {
                 "title": "Facettes",
@@ -92,211 +92,212 @@
             },
             "limpieza_ninos": {
                 "title": "Nettoyage pour enfants",
-                "desc": "Prophylaxie pédiatrique douce et éducative."
+                "desc": "Prophylaxie douce et éducative pour les enfants."
             },
             "selladores": {
                 "title": "Scellants",
-                "desc": "Protection des puits et fissures contre les caries."
+                "desc": "Protection des sillons contre les caries."
             },
             "extracciones": {
                 "title": "Extractions",
-                "desc": "Extractions simples et des dents de sagesse avec approche minimale invasive."
+                "desc": "Extractions simples et dents de sagesse avec approche minimale."
             },
             "ortopedia": {
-                "title": "Orthopédie dento-faciale",
-                "desc": "Guidage de la croissance maxillaire et mandibulaire chez les jeunes patients."
+                "title": "Orthopédie",
+                "desc": "Guidage de la croissance maxillaire et mandibulaire chez les jeunes."
             },
             "armonizacion_facial": {
                 "title": "Harmonisation faciale",
-                "desc": "Procédure esthétique (toxine botulinique) pour sublimer et équilibrer les traits."
+                "desc": "Traitement esthétique au botox pour équilibrer les traits du visage."
             },
             "diseno_sonrisa": {
                 "title": "Design du sourire",
-                "desc": "Plan esthétique global pour un sourire harmonieux et personnalisé."
+                "desc": "Plan esthétique complet pour un sourire harmonieux et personnalisé."
             }
         }
     },
     "services2": {
-        "btn_schedule": "Réserver",
+        "btn_schedule": "Planifier",
         "btn_moreInfo": "Plus d’infos"
     },
     "serviceModal": {
         "eyebrow": "SERVICE",
         "close": "Fermer",
         "ariaClose": "Fermer la fenêtre",
-        "cta_whatsapp": "Prendre rendez-vous via WhatsApp",
+        "cta_whatsapp": "Planifier via WhatsApp",
         "cta_viewClinics": "Voir les cliniques",
         "byService": {
             "implantes": {
-                "subtitle": "Remplacement fixe avec implant et couronne d’aspect naturel.",
+                "subtitle": "Remplacement fixe avec implant premium suisse Straumann en titane ou zirconium et couronne d’aspect naturel.",
                 "bullets": [
                     "Pose guidée pour plus de précision et de confort.",
-                    "Temps estimé : chirurgie 60–90 min ; intégration 3–6 mois.",
-                    "Prix estimé : $18,000–$35,000 MXN par implant (selon le cas)."
+                    "Durée estimée : chirurgie 30–45 min ; intégration 3–6 mois.",
+                    "Prix estimé : 33 000–38 000 MXN par implant."
                 ]
             },
             "limpieza": {
-                "subtitle": "Prophylaxie professionnelle pour maintenir dents et gencives saines.",
+                "subtitle": "Prophylaxie professionnelle pour maintenir des dents et gencives saines.",
                 "bullets": [
-                    "Dépose de plaque, tartre et polissage.",
-                    "Temps estimé : 30–45 min.",
-                    "Prix estimé : $600–$1,200 MXN."
+                    "Retrait de plaque, tartre et polissage.",
+                    "Durée : 45 min.",
+                    "Prix estimé : 1 200–1 500 MXN."
                 ]
             },
             "coronas": {
-                "subtitle": "Restauration résistante et esthétique des dents abîmées.",
+                "subtitle": "Restauration esthétique et durable des dents abîmées.",
                 "bullets": [
-                    "Céramique/zircone avec ajustage numérique.",
-                    "Temps estimé : 2 séances de 60–90 min.",
-                    "Prix estimé : $6,000–$12,000 MXN par dent."
+                    "Matériau céramique/zircone avec ajustement numérique.",
+                    "Durée : 2 séances de 60–90 min.",
+                    "Prix estimé : 9 000–10 000 MXN par dent."
                 ]
             },
             "resinas": {
-                "subtitle": "Restauration conservatrice assortie à la teinte de la dent.",
+                "subtitle": "Restaurations conservatrices couleur dent.",
                 "bullets": [
                     "Adhésion avancée et polissage haute brillance.",
-                    "Temps estimé : 40–60 min par dent.",
-                    "Prix estimé : $1,000–$2,500 MXN par dent."
+                    "Durée : 40–60 min par dent.",
+                    "Prix : 1 500–2 500 MXN (adulte), 1 000 MXN (enfant)."
                 ]
             },
             "maxilofacial": {
-                "subtitle": "Procédures chirurgicales spécialisées de haute précision.",
+                "subtitle": "Procédures chirurgicales spécialisées.",
                 "bullets": [
-                    "Plan chirurgical personnalisé et contrôle de la douleur.",
-                    "Temps estimé : 45–120 min (selon l’acte).",
-                    "Prix estimé : $5,000–$25,000+ MXN (selon complexité)."
+                    "Planification personnalisée et contrôle de la douleur.",
+                    "Durée : 45–120 min.",
+                    "Prix : 5 000–25 000+ MXN."
                 ]
             },
             "endodoncia": {
-                "subtitle": "Traitement endodontique pour préserver les dents naturelles.",
+                "subtitle": "Traitement des canaux pour préserver les dents naturelles.",
                 "bullets": [
-                    "Désinfection, mise en forme et obturation du canal.",
-                    "Temps estimé : 60–120 min (1–2 séances).",
-                    "Prix estimé : $3,500–$6,500 MXN (molaires possiblement plus)."
+                    "Désinfection, mise en forme et obturation.",
+                    "Durée : 60–120 min.",
+                    "Prix : 4 900 MXN."
                 ]
             },
             "periodoncia": {
-                "subtitle": "Soins complets des gencives et des structures de support.",
+                "subtitle": "Soins complets du parodonte.",
                 "bullets": [
-                    "Thérapie parodontale non chirurgicale et maintenance.",
-                    "Temps estimé : 60–90 min par quadrant.",
-                    "Prix estimé : $1,500–$3,000 MXN (maintenance)."
+                    "Thérapie non chirurgicale et maintenance.",
+                    "Durée : 60–90 min.",
+                    "Prix : 1 500–3 000 MXN."
                 ]
             },
             "guarda-oclusal": {
-                "subtitle": "Protection contre le bruxisme et soulagement de la surcharge.",
+                "subtitle": "Protection contre le bruxisme.",
                 "bullets": [
-                    "Empreinte/scan et ajustage personnalisé.",
-                    "Temps estimé : 2 séances de 20–30 min ; livraison en 5–7 jours.",
-                    "Prix estimé : $2,000–$4,000 MXN."
+                    "Empreinte/scan et ajustement personnalisé.",
+                    "Durée : 2 séances.",
+                    "Prix : 2 500–4 500 MXN."
                 ]
             },
             "puentes": {
-                "subtitle": "Solutions fixes pour remplacer une ou plusieurs dents.",
+                "subtitle": "Solutions fixes pour remplacer plusieurs dents.",
                 "bullets": [
-                    "Conception et ajustage occlusal pour la stabilité.",
-                    "Temps estimé : 2–3 séances de 60–90 min.",
-                    "Prix estimé : $12,000–$24,000 MXN (bridge 3 unités)."
+                    "Ajustement occlusal précis.",
+                    "Durée : 2–3 séances.",
+                    "Prix : 27 000–30 000 MXN."
                 ]
             },
             "alineadores": {
-                "subtitle": "Orthodontie amovible et discrète pour aligner votre sourire.",
+                "subtitle": "Alignement discret et amovible.",
                 "bullets": [
-                    "Scan 3D et plan de mouvements progressifs.",
-                    "Durée estimée : 6–18 mois, visites toutes les 6–8 semaines.",
-                    "Prix estimé : $25,000–$60,000 MXN (selon complexité)."
+                    "Scan 3D et plan progressif.",
+                    "Durée : 6–18 mois.",
+                    "Prix : 25 000–40 000 MXN."
                 ]
             },
             "invisalign": {
-                "subtitle": "Aligneurs invisibles avec planification numérique.",
+                "subtitle": "Aligneurs invisibles.",
                 "bullets": [
-                    "Confort et contrôle précis du traitement.",
-                    "Durée estimée : 6–18 mois, contrôles périodiques.",
-                    "Prix estimé : $35,000–$80,000 MXN."
+                    "Confort optimal et contrôle précis.",
+                    "Durée : 6–18 mois.",
+                    "Prix : 50 000–85 000 MXN."
                 ]
             },
             "brackets": {
-                "subtitle": "Orthodontie fixe pour corriger l’occlusion et l’alignement.",
+                "subtitle": "Orthodontie fixe.",
                 "bullets": [
-                    "Options métalliques ou esthétiques (selon le cas).",
-                    "Durée estimée : 18–24 mois ; visites mensuelles.",
-                    "Prix estimé : $20,000–$40,000 MXN le traitement."
+                    "Métalliques ou esthétiques.",
+                    "Durée : 18–24 mois.",
+                    "Prix : 33 000–52 000 MXN."
                 ]
             },
             "blanqueamientos": {
-                "subtitle": "Éclaircissement sûr et efficace de la teinte dentaire.",
+                "subtitle": "Éclaircissement du ton des dents.",
                 "bullets": [
-                    "Au cabinet et/ou à domicile sous supervision.",
-                    "Temps estimé : 45–60 min par séance.",
-                    "Prix estimé : $2,500–$4,500 MXN (cabinet) / $1,800–$3,000 MXN (kit)."
+                    "En clinique et/ou à domicile.",
+                    "Durée : 45–60 min.",
+                    "Prix : 3 900 MXN."
                 ]
             },
             "carillas": {
-                "subtitle": "Facettes esthétiques pour une forme et une couleur parfaites.",
+                "subtitle": "Facettes esthétiques.",
                 "bullets": [
-                    "Céramique ou composite avec préparation minimale (selon le cas).",
-                    "Temps estimé : 2–3 séances ; laboratoire 7–14 jours.",
-                    "Prix estimé : $6,000–$12,000 MXN par dent."
+                    "Céramique ou résine.",
+                    "Durée : 2–3 séances.",
+                    "Prix : 6 000–12 000 MXN par dent."
                 ]
             },
             "limpieza-ninos": {
-                "subtitle": "Prophylaxie pédiatrique douce et éducative.",
+                "subtitle": "Prophylaxie pédiatrique douce.",
                 "bullets": [
-                    "Nettoyage doux, vernis fluoré et conseils d’hygiène.",
-                    "Temps estimé : 20–30 min.",
-                    "Prix estimé : $450–$900 MXN."
+                    "Nettoyage doux et fluor.",
+                    "Durée : 30 min.",
+                    "Prix : 950 MXN."
                 ]
             },
             "selladores": {
-                "subtitle": "Protection des puits et fissures contre les caries.",
+                "subtitle": "Protection contre les caries.",
                 "bullets": [
-                    "Application indolore sur molaires saines.",
-                    "Temps estimé : 15–20 min par dent.",
-                    "Prix estimé : $400–$800 MXN par dent."
+                    "Application indolore.",
+                    "Durée : 15–20 min.",
+                    "Prix : 1 000 MXN."
                 ]
             },
             "extracciones": {
-                "subtitle": "Extractions simples et dents de sagesse avec approche mini-invasive.",
+                "subtitle": "Extractions simples et dents de sagesse.",
                 "bullets": [
-                    "Anesthésie locale et gestion postopératoire.",
-                    "Temps estimé : 20–60 min (selon complexité).",
-                    "Prix estimé : $800–$1,800 MXN (simple) / $2,500–$6,500 MXN (sagesse)."
+                    "Anesthésie locale.",
+                    "Durée : 20–60 min.",
+                    "Prix : 2 000–3 000 MXN."
                 ]
             },
             "ortopedia": {
-                "subtitle": "Guidage de la croissance maxillaire et mandibulaire chez les jeunes.",
+                "subtitle": "Guidage de la croissance maxillaire.",
                 "bullets": [
-                    "Appareillage fonctionnel personnalisé et suivis réguliers.",
-                    "Durée estimée : 6–18 mois ; contrôles bimensuels.",
-                    "Prix estimé : $8,000–$18,000 MXN (selon l’appareil)."
+                    "Appareils fonctionnels personnalisés.",
+                    "Durée : 6–18 mois.",
+                    "Prix : 20 000–28 000 MXN."
                 ]
             },
             "armonizacion-facial": {
-                "subtitle": "Toxine botulinique et fillers pour une harmonie faciale naturelle.",
+                "subtitle": "Toxine botulique et fillers.",
                 "bullets": [
-                    "Atténuation des rides et volume subtil.",
-                    "Temps estimé : 20–40 min ; résultats 4–12 mois.",
-                    "Prix estimé : $2,500–$4,500 MXN par zone (toxine) / $4,500–$7,500 MXN par 1 ml (filler)."
+                    "Résultats subtils et naturels.",
+                    "Durée : 20–40 min.",
+                    "Prix : 2 800–5 000 MXN."
                 ]
             },
             "diseno-sonrisa": {
-                "subtitle": "Plan esthétique global avec mock-up numérique et exécution guidée.",
+                "subtitle": "Plan esthétique complet.",
                 "bullets": [
-                    "Photographie clinique, analyse des proportions et essais préalables.",
-                    "Temps estimé : 1–3 séances pour diagnostic et mock-up.",
-                    "Prix estimé : Étude $1,500–$3,000 MXN ; traitement final selon plan ($10,000–$60,000 MXN)."
+                    "Photos, analyse et mock-up.",
+                    "Durée : 1–3 séances.",
+                    "Prix : 5 000–60 000 MXN."
                 ]
             },
             "default": {
-                "subtitle": "Soins personnalisés selon votre diagnostic.",
+                "subtitle": "Soin personnalisé selon diagnostic.",
                 "bullets": [
-                    "Évaluation clinique et plan sur mesure.",
-                    "Temps estimé : variable.",
-                    "Prix estimé : devis après évaluation."
+                    "Évaluation clinique.",
+                    "Durée variable.",
+                    "Prix : à déterminer."
                 ]
             }
         }
     },
+
     "gallery": {
         "eyebrow": "GALERIE",
         "title": "Nos installations",
@@ -319,48 +320,50 @@
             },
             "detalles": {
                 "title": "Détails",
-                "subtitle": "Un design inspirant"
+                "subtitle": "Design inspirant"
             }
         }
     },
+
     "invis": {
-        "cta_whatsapp": "Prendre rendez-vous via WhatsApp",
+        "cta_whatsapp": "Planifier",
         "cta_demo": "Voir la démonstration",
         "controls": {
             "prev": "Précédent",
             "next": "Suivant",
-            "goTo": "Aller à la diapo {{n}}",
+            "goTo": "Aller au slide {{n}}",
             "close": "Fermer"
         },
         "iframeTitle": "Démonstration Invisalign",
         "modal": {
-            "title": "Simulation de traitement",
-            "subtitle": "Visualisez les progrès par étape."
+            "title": "Simulation du traitement",
+            "subtitle": "Visualisez les progrès étape par étape."
         },
         "slides": {
             "slide1": {
                 "overline": "INVISALIGN",
-                "title": "Orthodontie sans bagues",
-                "subLeft": "La nouvelle orthodontie sans brackets.",
-                "strongRight": "L’aligneur n°1",
-                "textRight": "au monde pour les traitements sans bagues dès 8 ans."
+                "title": "Orthodontie sans brackets",
+                "subLeft": "La nouvelle orthodontie sans métal.",
+                "strongRight": "L’aligner n°1",
+                "textRight": "au monde pour les traitements sans brackets dès 8 ans."
             },
             "slide2": {
                 "overline": "PLAN NUMÉRIQUE",
                 "title": "Traitement guidé en 3D",
                 "subLeft": "Visualisez le résultat avant de commencer.",
                 "strongRight": "Contrôle précis par étapes",
-                "textRight": "avec suivi numérique et réglages personnalisés pour votre sourire."
+                "textRight": "avec suivi numérique et ajustements personnalisés."
             },
             "slide3": {
-                "overline": "CONFORT ET ESTHÉTIQUE",
+                "overline": "CONFORT & ESTHÉTIQUE",
                 "title": "Aligneurs transparents",
                 "subLeft": "Confortables, amovibles et hygiéniques.",
-                "strongRight": "Vivez votre quotidien",
-                "textRight": "sans changements drastiques d’hygiène ni d’alimentation."
+                "strongRight": "Votre quotidien",
+                "textRight": "sans changements drastiques d’hygiène ou d’alimentation."
             }
         }
     },
+
     "locations": {
         "eyebrow": "CLINIQUES",
         "title": "Nos cliniques",
@@ -370,13 +373,13 @@
             "schedule": "Horaires",
             "closed": "Fermé",
             "holidays": "Jours fériés",
-            "specialHours": "Horaires spéciaux",
+            "specialHours": "Horaire spécial",
             "address": "Adresse",
             "followUs": "Suivez-nous"
         },
         "cta": {
-            "whatsapp": "Prendre rendez-vous via WhatsApp",
-            "call": "Prendre rendez-vous par téléphone",
+            "whatsapp": "Planifier via WhatsApp",
+            "call": "Planifier par appel",
             "viewMaps": "Voir sur Maps"
         },
         "copy": {
@@ -390,43 +393,43 @@
         },
         "mapTitle": "Carte {{name}}",
         "msg": {
-            "dc": "Bonjour, je souhaite prendre un rendez-vous chez Dental City.",
-            "kids": "Bonjour, je souhaite prendre un rendez-vous chez Dental City Kids."
+            "dc": "Bonjour, je souhaite prendre un rendez-vous à Dental City.",
+            "kids": "Bonjour, je souhaite prendre un rendez-vous à Dental City Kids."
         }
     },
+
     "faq": {
         "eyebrow": "FAQ",
         "title": "Questions fréquentes",
         "items": [
             {
-                "q": "Recevez-vous les enfants ?",
-                "a": "Oui, nous proposons l’odontopédiatrie et une approche bienveillante chez Dental City Kids & Family."
+                "q": "Traitez-vous les enfants ?",
+                "a": "Oui, nous proposons de la dentisterie pédiatrique dans un environnement adapté aux enfants."
             },
             {
-                "q": "Acceptez-vous la carte de crédit ?",
+                "q": "Acceptez-vous les cartes de crédit ?",
                 "a": "Oui, ainsi que des plans de paiement pour certains traitements."
             },
             {
-                "q": "Que comprend la première visite ?",
-                "a": "Évaluation clinique, examens nécessaires et un plan sur mesure."
+                "q": "Que comprend la première consultation ?",
+                "a": "Évaluation clinique, examens nécessaires et plan personnalisé."
             }
         ]
     },
-    
-        "topbar": {
-            "treatments": "Nos traitements",
-            "gallery": "Nos installations",
-            "clinics": "Nos cliniques",
-            "doctors": "Nos médecins",
-            "resources": "Ressources",
-            "blog": "Blog & Recherche",
-            "edu": "Dental City Edu",
-            "jobs": "Carrières",
-            "menu": "Menu",
-            "menuCaps": "MENU",
-            "openMenu": "Ouvrir le menu",
-            "closeMenu": "Fermer le menu"
-        }
-    
 
+    "topbar": {
+        "treatments": "Nos traitements",
+        "gallery": "Nos installations",
+        "clinics": "Nos cliniques",
+        "doctors": "Nos docteurs",
+        "resources": "Ressources",
+        "blog": "Blog & Recherche",
+        "edu": "Dental City Edu",
+        "jobs": "Offres d’emploi",
+        "menu": "Menu",
+        "menuCaps": "MENU",
+        "openMenu": "Ouvrir le menu",
+        "closeMenu": "Fermer le menu"
+    }
 }
+

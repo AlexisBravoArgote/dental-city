@@ -128,11 +128,11 @@
         "cta_viewClinics": "Ver clínicas",
         "byService": {
             "implantes": {
-                "subtitle": "Reposición fija con implante de titanio o zirconio y corona de aspecto natural.",
+                "subtitle": "Reposición fija con implante premium Suizos Straumann de titanio o zirconio y corona de aspecto natural.",
                 "bullets": [
                     "Colocación guiada para mayor precisión y confort.",
                     "Tiempo estimado: cirugía 30–45 min; integración 3–6 meses.",
-                    "Precio estimado: $33,0000 - 38,000 MXN por implante premium Suizos Straumann."
+                    "Precio estimado: $33,0000 - 38,000 MXN por implante."
                 ]
             },
             "limpieza": {
@@ -140,7 +140,7 @@
                 "bullets": [
                     "Remoción de placa, sarro y pulido.",
                     "Tiempo estimado: 45 min.",
-                    "Precio estimado: $1,200 (limpieza general) – $1,500 MXN (limpieza con aeropulidor)."
+                    "Precio estimado: $1,200 (general) – $1,500 MXN (con aeropulidor)."
                 ]
             },
             "coronas": {
@@ -228,7 +228,7 @@
                 "bullets": [
                     "En clínica y/o domiciliario supervisado.",
                     "Tiempo estimado: 45–60 min por sesión.",
-                    "Precio estimado: $3900 MXN (blanqueamiento completo) / $1,500 MXN (retoque)."
+                    "Precio estimado: $3900 MXN (completo) / $1,500 MXN (retoque)."
                 ]
             },
             "carillas": {
