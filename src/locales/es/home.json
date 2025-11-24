@@ -128,11 +128,11 @@
         "cta_viewClinics": "Ver clínicas",
         "byService": {
             "implantes": {
-                "subtitle": "Reposición fija con implante y corona de aspecto natural.",
+                "subtitle": "Reposición fija con implante de titanio o zirconio y corona de aspecto natural.",
                 "bullets": [
                     "Colocación guiada para mayor precisión y confort.",
-                    "Tiempo estimado: cirugía 60–90 min; integración 3–6 meses.",
-                    "Precio estimado: $30,0000 - 33,0000 MXN por implante (según caso)."
+                    "Tiempo estimado: cirugía 30–45 min; integración 3–6 meses.",
+                    "Precio estimado: $33,0000 - 38,000 MXN por implante premium Suizos Straumann."
                 ]
             },
             "limpieza": {
@@ -140,7 +140,7 @@
                 "bullets": [
                     "Remoción de placa, sarro y pulido.",
                     "Tiempo estimado: 45 min.",
-                    "Precio estimado: $1,200–$1,500 MXN."
+                    "Precio estimado: $1,200 (limpieza general) – $1,500 MXN (limpieza con aeropulidor)."
                 ]
             },
             "coronas": {
@@ -156,7 +156,7 @@
                 "bullets": [
                     "Adhesión avanzada y pulido de alto brillo.",
                     "Tiempo estimado: 40–60 min por pieza.",
-                    "Precio estimado: $1,500 MXN (adulto), $1,000 (niño) por pieza."
+                    "Precio estimado: $1,500 MXN - $2,500 MXN (adulto, dependiendo el caso), $1,000 (niño) por pieza."
                 ]
             },
             "maxilofacial": {
@@ -164,7 +164,7 @@
                 "bullets": [
                     "Plan quirúrgico personalizado y control del dolor.",
                     "Tiempo estimado: 45–120 min (según procedimiento).",
-                    "Precio estimado: $5,000–$25,000+ MXN (según complejidad)."
+                    "Precio estimado: $5,000 – $25,000+ MXN (según complejidad)."
                 ]
             },
             "endodoncia": {
@@ -172,7 +172,7 @@
                 "bullets": [
                     "Desinfección, conformación y sellado del conducto.",
                     "Tiempo estimado: 60–120 min (1–2 citas).",
-                    "Precio estimado: $4,900 MXN (molares pueden ser más)."
+                    "Precio estimado: $4,900 MXN."
                 ]
             },
             "periodoncia": {
@@ -180,7 +180,7 @@
                 "bullets": [
                     "Terapia periodontal no quirúrgica y mantenimiento.",
                     "Tiempo estimado: 60–90 min por cuadrante.",
-                    "Precio estimado: $1,500–$3,000 MXN (mantenimiento)."
+                    "Precio estimado: $1,500–$3,000 MXN (mantenimiento). $4,200 (alargamiento de corona)"
                 ]
             },
             "guarda-oclusal": {
@@ -196,7 +196,7 @@
                 "bullets": [
                     "Diseño y ajuste de oclusión para estabilidad.",
                     "Tiempo estimado: 2–3 citas de 60–90 min.",
-                    "Precio estimado: $30,000 MXN (puente de 3 unidades)."
+                    "Precio estimado: $27,000 - $30,000 MXN (puente de 3 unidades)."
                 ]
             },
             "alineadores": {
@@ -204,7 +204,7 @@
                 "bullets": [
                     "Escaneo 3D y plan de movimientos progresivos.",
                     "Tiempo estimado: 6–18 meses, revisiones cada 6–8 semanas.",
-                    "Precio estimado: $25,000–$40 000 MXN (según complejidad)."
+                    "Precio estimado: $25,000 – $40 000 MXN (según complejidad)."
                 ]
             },
             "invisalign": {
@@ -212,7 +212,7 @@
                 "bullets": [
                     "Comodidad y control preciso del tratamiento.",
                     "Tiempo estimado: 6–18 meses, citas de control periódicas.",
-                    "Precio estimado: $55,000–$85,000 MXN."
+                    "Precio estimado: $50,000 – $85,000 MXN (según complejidad)."
                 ]
             },
             "brackets": {
@@ -220,7 +220,7 @@
                 "bullets": [
                     "Opciones metálicos o estéticos (según caso).",
                     "Tiempo estimado: 18–24 meses; citas mensuales.",
-                    "Precio estimado: $38,000–$55,000 MXN el tratamiento."
+                    "Precio estimado: $33,000 – $52,000 MXN el tratamiento."
                 ]
             },
             "blanqueamientos": {
@@ -228,15 +228,15 @@
                 "bullets": [
                     "En clínica y/o domiciliario supervisado.",
                     "Tiempo estimado: 45–60 min por sesión.",
-                    "Precio estimado: $3900 MXN (clínica) / $1,800–$3,000 MXN (kit)."
+                    "Precio estimado: $3900 MXN (blanqueamiento completo) / $1,500 MXN (retoque)."
                 ]
             },
             "carillas": {
                 "subtitle": "Láminas estéticas para forma y color perfectos.",
                 "bullets": [
-                    "Cerámica o compuesto con mínima preparación (según caso).",
+                    "Cerámica o resina con mínima preparación (según caso).",
                     "Tiempo estimado: 2–3 citas; laboratorio 7–14 días.",
-                    "Precio estimado: $6,000–$12,000 MXN por pieza."
+                    "Precio estimado: $6,000–$12,000 MXN por pieza (dependiendo del material) ."
                 ]
             },
             "limpieza-ninos": {
@@ -268,7 +268,7 @@
                 "bullets": [
                     "Aparatología funcional personalizada y controles periódicos.",
                     "Tiempo estimado: 6–18 meses; revisiones bimestrales.",
-                    "Precio estimado: $8,000–$18,000 MXN (según aparatología)."
+                    "Precio estimado: $20,000 – $28,000 MXN (según aparatología)."
                 ]
             },
             "armonizacion-facial": {
@@ -284,7 +284,7 @@
                 "bullets": [
                     "Fotografía clínica, análisis de proporciones y pruebas previas.",
                     "Tiempo estimado: 1–3 citas para diagnóstico y mock-up.",
-                    "Precio estimado: Estudio $1,500–$3,000 MXN; tratamiento final según plan ($10,000–$60,000 MXN)."
+                    "Precio estimado: Estudio $5000 MXN; tratamiento final según plan ($10,000–$60,000 MXN). Recontorneo gingival desde  $5000 MXN"
                 ]
             },
             "default": {
