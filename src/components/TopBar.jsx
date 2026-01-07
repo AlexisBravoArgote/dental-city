@@ -225,8 +225,8 @@ export default function TopBar({ bgOpacity }) {
                         </button>
 
                         <div className={`absolute left-1/2 top-[120%] z-50 w-56 -translate-x-1/2 rounded-2xl border border-[#e4b89233] bg-[#11243a]/95 p-2 text-white/90 shadow-2xl backdrop-blur-lg transition-all duration-300 hover:border-[#e4b89266] ${openDesktop === "recursos" ? "block" : "hidden"}`}>
-                            <a href="/blog" className="block rounded-xl px-4 py-3 transition hover:bg-white/10">
-                                {t("topbar.blog", { defaultValue: "Blog & Research" })}
+                            <a href="/bolsa" className="block rounded-xl px-4 py-3 transition hover:bg-white/10">
+                                {t("topbar.jobs", { defaultValue: "Bolsa de trabajo" })}
                             </a>
                             <a href="/edu" className="block rounded-xl px-4 py-3 transition hover:bg-white/10">
                                 {t("topbar.edu", { defaultValue: "Dental City Edu" })}
@@ -235,10 +235,10 @@ export default function TopBar({ bgOpacity }) {
                     </div>
 
                     <a
-                        href="/bolsa"
+                        href="/blog"
                         className="text-white/80 transition hover:text-white hover:drop-shadow-[0_0_4px_rgba(228,184,146,0.6)]"
                     >
-                        {t("topbar.jobs", { defaultValue: "Bolsa de trabajo" })}
+                        {t("topbar.blog", { defaultValue: "Blog & Research" })}
                     </a>
                 </nav>
             </Container>
@@ -365,8 +365,8 @@ export default function TopBar({ bgOpacity }) {
                                                     transition={{ duration: 0.2 }}
                                                     className="overflow-hidden pl-2"
                                                 >
-                                                    <a href="/blog" onClick={() => setMobileOpen(false)} className="mt-1 block rounded-lg px-4 py-2.5 text-[14px] text-white/90 hover:bg-white/10">
-                                                        {t("topbar.blog", { defaultValue: "Blog & Research" })}
+                                                    <a href="/bolsa" onClick={() => setMobileOpen(false)} className="mt-1 block rounded-lg px-4 py-2.5 text-[14px] text-white/90 hover:bg-white/10">
+                                                        {t("topbar.jobs", { defaultValue: "Bolsa de trabajo" })}
                                                     </a>
                                                     <a href="/edu" onClick={() => setMobileOpen(false)} className="mt-1 block rounded-lg px-4 py-2.5 text-[14px] text-white/90 hover:bg-white/10">
                                                         {t("topbar.edu", { defaultValue: "Dental City Edu" })}
@@ -378,11 +378,11 @@ export default function TopBar({ bgOpacity }) {
 
                                     {/* ✅ Link correcto a Bolsa */}
                                     <Link
-                                        to="/bolsa"
+                                        to="/blog"
                                         onClick={() => setMobileOpen(false)}
                                         className="block rounded-xl px-4 py-3 text-[15px] hover:bg-white/10"
                                     >
-                                        {t("topbar.jobs", { defaultValue: "Bolsa de trabajo" })}
+                                        {t("topbar.blog", { defaultValue: "Blog & Research" })}
                                     </Link>
                                 </div>
 
