@@ -476,8 +476,8 @@ function ImageCard({ src, alt, label }) {
         <figure className="group relative aspect-square overflow-hidden rounded-2xl">
             <img src={src} alt={alt} loading="lazy" className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" />
             {label && (
-                <figcaption className="pointer-events-none absolute left-2 top-2 rounded-full bg-black/40 px-2 py-1 text-xs text-white/90 backdrop-blur-sm">
-                    {label}
+                <figcaption className="pointer-events-none absolute left-1 top-2 rounded-lg md:rounded-full md:left-2 bg-black/40 px-1.5 py-0.5 md:px-2 md:py-1 text-[11px] leading-tight md:text-xs md:leading-normal text-white/90 backdrop-blur-sm max-w-[calc(100%-0.5rem)] md:max-w-none">
+                    <span className="block line-clamp-2 md:line-clamp-none">{label}</span>
                 </figcaption>
             )}
             <div

@@ -122,7 +122,7 @@ export default function Blog() {
     }, []);
 
     const categories = useMemo(
-        () => ["Todos", "Prevención", "Tecnología", "Ortodoncia", "Implantes", "Odontopediatría", "Periodoncia", "Estética", "Endodoncia", "Filantropía", "Alianza"],
+        () => ["Todos", "Prevención", "Tecnología", "Ortodoncia", "Implantes", "Alianza", "Odontopediatría", "Periodoncia", "Estética", "Endodoncia", "Filantropía"],
         []
     );
 
@@ -201,7 +201,7 @@ export default function Blog() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 className="rounded-3xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_18px_50px_rgba(0,0,0,.35)] golden-hover block h-full
-             mx-auto max-w-[calc(100vw-2rem)] sm:max-w-none"
+             w-full max-w-full lg:max-w-none mx-auto"
                             >
                                 <div className="rounded-3xl overflow-hidden bg-[#0f2237]/90 backdrop-blur h-full flex flex-col">
                                     <div className="relative w-full aspect-[16/7]">
@@ -243,7 +243,7 @@ export default function Blog() {
 
                             {/* Panel de filtros */}
                             <div className="rounded-3xl bg-white/[.04] border border-white/10 p-5 md:p-6 shadow-[0_12px_36px_rgba(0,0,0,.25)]
-             mx-auto max-w-[calc(100vw-2rem)] sm:max-w-none">
+             w-full max-w-full lg:max-w-none mx-auto overflow-hidden">
                                 <SectionTitle
                                     eyebrow="• EXPLORAR •"
                                     title={<span className="golden-sweep">Encuentra artículos</span>}
@@ -261,7 +261,7 @@ export default function Blog() {
                                                 value={query}
                                                 onChange={(e) => setQuery(e.target.value)}
                                                 placeholder="Palabra clave, tema o etiqueta…"
-                                                className="w-full rounded-2xl bg-transparent px-4 py-3 text-white placeholder-white/40 focus:outline-none"
+                                                className="w-full rounded-2xl bg-transparent px-3 py-2.5 md:px-4 md:py-3 text-white placeholder-white/40 focus:outline-none text-sm md:text-base"
                                             />
                                         </div>
                                     </div>
@@ -269,12 +269,12 @@ export default function Blog() {
                                     {/* Categories */}
                                     <div>
                                         <label className="block text-sm text-white/70 mb-2">Categorías</label>
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="flex flex-wrap gap-2 -mx-1 px-1">
                                             {categories.map((c) => (
                                                 <button
                                                     key={c}
                                                     onClick={() => setCategory(c)}
-                                                    className={`rounded-full px-3 py-1.5 text-sm border transition ${category === c ? "border-[#e4b89280] bg-white/10 text-[#e4b892]" : "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
+                                                    className={`rounded-full px-2.5 py-1.5 md:px-3 text-xs md:text-sm border transition flex-shrink-0 ${category === c ? "border-[#e4b89280] bg-white/10 text-[#e4b892]" : "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
                                                         }`}
                                                 >
                                                     {c}
@@ -286,12 +286,12 @@ export default function Blog() {
                                     {/* Tags quick-pick */}
                                     <div>
                                         <label className="block text-sm text-white/70 mb-2">Etiquetas populares</label>
-                                        <div className="flex flex-wrap gap-2">
+                                        <div className="flex flex-wrap gap-2 -mx-1 px-1">
                                             {["Aligners", "CBCT", "Prophylaxis", "Selladores", "Brackets", "Comunidad", "Deporte"].map((t) => (
                                                 <button
                                                     key={t}
                                                     onClick={() => setActiveTag((prev) => (prev === t ? "" : t))}
-                                                    className={`rounded-full px-3 py-1.5 text-sm border transition ${activeTag === t ? "border-[#e4b89280] bg-white/10 text-[#e4b892]" : "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
+                                                    className={`rounded-full px-2.5 py-1.5 md:px-3 text-xs md:text-sm border transition flex-shrink-0 ${activeTag === t ? "border-[#e4b89280] bg-white/10 text-[#e4b892]" : "border-white/10 bg-white/5 text-white/80 hover:bg-white/10"
                                                         }`}
                                                 >
                                                     #{t}
@@ -324,12 +324,12 @@ export default function Blog() {
                                     </div>
 
                                     {/* Newsletter / CTA */}
-                                    <div className="mt-2 rounded-2xl bg-gradient-to-r from-[#c89b7b]/20 via-[#e4b892]/10 to-transparent p-[1.5px]">
-                                        <div className="rounded-2xl bg-[#0f2237]/80 p-4">
-                                            <p className="text-sm text-white/85">¿Te gustaría recibir nuevos artículos?</p>
+                                    <div className="mt-2 rounded-2xl bg-gradient-to-r from-[#c89b7b]/20 via-[#e4b892]/10 to-transparent p-[1.5px] w-full md:mx-auto md:max-w-none">
+                                        <div className="rounded-2xl bg-[#0f2237]/80 p-3.5 md:p-4">
+                                            <p className="text-sm text-white/85 text-left">¿Te gustaría recibir nuevos artículos?</p>
                                             <form onSubmit={(e) => e.preventDefault()} className="mt-2 flex gap-2">
-                                                <input type="email" placeholder="tu@email.com" className="flex-1 rounded-xl bg-transparent border border-white/15 px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:border-[#e4b89266]" />
-                                                <button className="rounded-xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] px-4 py-2 text-[#0f2237] font-medium hover:brightness-110 transition">
+                                                <input type="email" placeholder="tu@email.com" className="flex-1 rounded-xl bg-transparent border border-white/15 px-3 py-2 text-white placeholder-white/40 focus:outline-none focus:border-[#e4b89266] text-sm" />
+                                                <button className="rounded-xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] px-3 py-2 md:px-4 md:py-2 text-[#0f2237] font-medium hover:brightness-110 transition text-sm md:text-base whitespace-nowrap">
                                                     Suscribirme
                                                 </button>
                                             </form>

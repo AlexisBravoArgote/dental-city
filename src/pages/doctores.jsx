@@ -66,7 +66,7 @@ function Container({ children, className = "" }) {
 }
 function Eyebrow({ children }) {
     return (
-        <span className="inline-flex items-center gap-2 rounded-full border border-[#e4b89233] bg-white/5 px-3 py-1 text-[11px] tracking-[.35em] text-[#e4b892]">
+        <span className="inline-flex items-center gap-2 rounded-full border border-[#e4b89233] bg-white/5 px-2 py-1 md:px-3 text-[10px] md:text-[11px] tracking-[.15em] md:tracking-[.35em] text-[#e4b892] whitespace-nowrap">
             {children}
         </span>
     );
@@ -560,11 +560,11 @@ export default function Doctores() {
                                     transition={{ delay: idx * 0.03 }}
                                     className="rounded-2xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_10px_30px_rgba(0,0,0,.25)] golden-hover"
                                 >
-                                    <div className="rounded-2xl bg-[#0f2237]/90 px-3 py-4 md:px-4 md:py-5 backdrop-blur-sm text-center">
+                                    <div className="rounded-2xl bg-[#0f2237]/90 px-3 py-4 md:px-4 md:py-5 backdrop-blur-sm text-center flex flex-col justify-center h-[85px] md:h-auto">
                                         <div className="text-2xl md:text-3xl font-semibold text-[#e4b892] leading-none">
                                             {value}
                                         </div>
-                                        <div className="mt-1 text-[11px] md:text-sm text-white/80 leading-snug">
+                                        <div className="mt-1 text-[10px] md:text-sm text-white/80 leading-tight md:leading-snug line-clamp-2">
                                             {label}
                                         </div>
                                     </div>

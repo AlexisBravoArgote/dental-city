@@ -599,7 +599,7 @@ const TOPICS = Object.keys(QUIZZES);
 
 const Progress = ({ value }) => (
     <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-        <div className="h-full bg-teal-400 transition-all" style={{ width: `${value}%` }} />
+        <div className="h-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] transition-all" style={{ width: `${value}%` }} />
     </div>
 );
 
@@ -644,12 +644,12 @@ export default function DentalCityQuizzes() {
         <>
             <TopBar />
 
-            <div className="w-full min-h-screen bg-[#0f2233] text-white py-10 px-4 sm:px-6 lg:px-8">
+            <div className="w-full min-h-screen bg-[#0f2237] text-white py-10 px-4 sm:px-6 lg:px-8">
 
                 <div className="mx-auto max-w-5xl">
                     <header className="mb-8">
-                        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-center">
-                            Quizzes de Salud Dental
+                        <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-center">
+                            <span className="golden-sweep">Quizzes de Salud Dental</span>
                         </h1>
                         <p className="text-center text-white/80 mt-2">
                             Elige un tema y responde. Al final verás tu puntaje y recomendaciones.
@@ -657,8 +657,8 @@ export default function DentalCityQuizzes() {
                     </header>
 
                     {/* Selector de temas */}
-                    <section className="rounded-3xl bg-slate-900/60 border border-white/10 p-5 sm:p-8 shadow-xl">
-                        <h2 className="text-xl font-bold mb-4">Temas</h2>
+                    <section className="rounded-3xl bg-white/[.04] border border-white/10 p-5 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,.35)]">
+                        <h2 className="text-xl font-semibold mb-4 text-[#e4b892]">Temas</h2>
                         <div
                             className="
                 grid 
@@ -677,8 +677,8 @@ export default function DentalCityQuizzes() {
                                             "flex items-center justify-center text-center",
                                             "h-20 sm:h-24 px-3 sm:px-4 py-2 rounded-2xl border font-medium transition-all",
                                             active
-                                                ? "bg-amber-300 text-slate-900 font-semibold border-amber-200 shadow-lg scale-105"
-                                                : "bg-slate-800/60 border-white/10 hover:bg-slate-800 hover:scale-105",
+                                                ? "bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] text-[#0f2237] font-semibold border-[#e4b892] shadow-[0_8px_30px_rgba(228,184,146,.35)] scale-105"
+                                                : "bg-[#0f2237]/90 border-white/10 hover:bg-white/5 hover:border-[#e4b89233] hover:scale-105",
                                         ].join(" ")}
                                     >
                                         <span className="text-sm sm:text-base">{t}</span>
@@ -691,10 +691,10 @@ export default function DentalCityQuizzes() {
                     {/* Quiz */}
                     <section
                         id="quizSection"
-                        className="mt-10 rounded-3xl bg-slate-900/60 border border-white/10 p-5 sm:p-8 shadow-xl"
+                        className="mt-10 rounded-3xl bg-white/[.04] border border-white/10 p-5 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,.35)]"
                     >
                         <div id="quizTop" className="flex items-center gap-3 mb-6">
-                            <h2 className="text-xl font-bold">{topic}</h2>
+                            <h2 className="text-xl font-semibold text-[#e4b892]">{topic}</h2>
                             <div className="ml-auto w-40">
                                 <Progress value={(step / quizData.length) * 100} />
                             </div>
@@ -706,33 +706,24 @@ export default function DentalCityQuizzes() {
                                     <div className="text-sm text-white/70">
                                         Pregunta {step + 1} de {quizData.length}
                                     </div>
-                                    <p className="text-lg font-semibold mt-1">{quizData[step].q}</p>
+                                    <p className="text-lg font-semibold mt-1 text-white/90">{quizData[step].q}</p>
                                 </div>
 
                                 <div className="grid sm:grid-cols-2 gap-3">
                                     {quizData[step].a.map((opt, i) => {
                                         const selected = answers[step] === i;
-                                        const isCorrect = quizData[step].i === i;
-                                        const showState = selected;
                                         return (
                                             <button
                                                 key={i}
                                                 onClick={() => onAnswer(i)}
                                                 className={[
-                                                    "text-left p-4 rounded-2xl border transition",
+                                                    "text-left p-4 rounded-2xl border transition-all",
                                                     selected
-                                                        ? isCorrect
-                                                            ? "bg-teal-500/20 border-teal-300"
-                                                            : "bg-rose-500/20 border-rose-300"
-                                                        : "bg-slate-800/60 border-white/10 hover:bg-slate-800",
+                                                        ? "bg-[#0f2237]/80 border-[#e4b89266] shadow-[0_4px_20px_rgba(228,184,146,.15)]"
+                                                        : "bg-[#0f2237]/60 border-white/10 hover:bg-[#0f2237]/80 hover:border-[#e4b89233]",
                                                 ].join(" ")}
                                             >
-                                                <span className="font-medium">{opt}</span>
-                                                {showState && (
-                                                    <div className="text-xs mt-1 text-white/80">
-                                                        {quizData[step].ex}
-                                                    </div>
-                                                )}
+                                                <span className="font-medium text-white/90">{opt}</span>
                                             </button>
                                         );
                                     })}
@@ -742,36 +733,90 @@ export default function DentalCityQuizzes() {
                                     <button
                                         onClick={prevStep}
                                         disabled={step === 0}
-                                        className="px-4 py-2 rounded-2xl bg-slate-700 border border-white/10 disabled:opacity-40"
+                                        className="px-4 py-2 rounded-2xl bg-[#0f2237]/80 border border-white/10 disabled:opacity-40 hover:bg-white/5 transition"
                                     >
                                         Atrás
                                     </button>
                                     <button
                                         onClick={nextStep}
-                                        className="px-5 py-2 rounded-2xl bg-teal-400 text-slate-900 font-semibold"
+                                        className="px-5 py-2 rounded-2xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] text-[#0f2237] font-semibold hover:brightness-110 transition shadow-[0_4px_20px_rgba(228,184,146,.25)]"
                                     >
                                         Siguiente
                                     </button>
                                 </div>
                             </div>
                         ) : (
-                            <div className="text-center space-y-4">
-                                <div className="text-3xl font-extrabold">¡Resultados!</div>
-                                <div className="flex flex-wrap items-center justify-center gap-3">
-                                    <div className="px-5 py-3 rounded-2xl bg-slate-800 border border-white/10">
-                                        Quiz ({topic}): <span className="font-semibold">{quizScore}%</span>
+                            <div className="space-y-6">
+                                <div className="text-center">
+                                    <div className="text-3xl font-semibold mb-2">
+                                        <span className="golden-sweep">¡Resultados!</span>
+                                    </div>
+                                    <div className="flex flex-wrap items-center justify-center gap-3">
+                                        <div className="px-5 py-3 rounded-2xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_8px_30px_rgba(228,184,146,.35)]">
+                                            <div className="rounded-2xl bg-[#0f2237]/90 px-5 py-3">
+                                                Quiz ({topic}): <span className="font-semibold text-[#e4b892]">{quizScore}%</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <p className="text-white/80 max-w-2xl mx-auto">
+                                {/* Mostrar respuestas correctas e incorrectas */}
+                                <div className="space-y-4 mt-8">
+                                    <h3 className="text-xl font-semibold text-[#e4b892] mb-4">Revisión de respuestas:</h3>
+                                    {quizData.map((q, qIdx) => {
+                                        const userAnswer = answers[qIdx];
+                                        const isCorrect = userAnswer === q.i;
+                                        return (
+                                            <div key={qIdx} className="rounded-2xl border p-4 bg-[#0f2237]/60">
+                                                <div className="flex items-start gap-3 mb-3">
+                                                    <span className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-sm font-semibold ${
+                                                        isCorrect 
+                                                            ? "bg-green-500/20 text-green-400 border border-green-500/40" 
+                                                            : "bg-red-500/20 text-red-400 border border-red-500/40"
+                                                    }`}>
+                                                        {isCorrect ? "✓" : "✗"}
+                                                    </span>
+                                                    <p className="font-medium text-white/90 flex-1">{q.q}</p>
+                                                </div>
+                                                <div className="ml-9 space-y-2">
+                                                    {q.a.map((opt, optIdx) => {
+                                                        const isUserChoice = userAnswer === optIdx;
+                                                        const isCorrectAnswer = q.i === optIdx;
+                                                        return (
+                                                            <div
+                                                                key={optIdx}
+                                                                className={`p-3 rounded-xl border text-sm ${
+                                                                    isCorrectAnswer
+                                                                        ? "bg-green-500/10 border-green-500/40 text-green-300"
+                                                                        : isUserChoice && !isCorrectAnswer
+                                                                        ? "bg-red-500/10 border-red-500/40 text-red-300"
+                                                                        : "bg-white/5 border-white/10 text-white/60"
+                                                                }`}
+                                                            >
+                                                                {opt}
+                                                                {isCorrectAnswer && <span className="ml-2 text-xs">✓ Correcta</span>}
+                                                                {isUserChoice && !isCorrectAnswer && <span className="ml-2 text-xs">Tu respuesta</span>}
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+                                                <div className="mt-3 ml-9 p-3 rounded-xl bg-white/5 border border-white/10">
+                                                    <p className="text-xs text-white/70 italic">{q.ex}</p>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+
+                                <p className="text-white/80 max-w-2xl mx-auto text-center mt-8">
                                     ¿Te gustaría una evaluación profesional? Nuestro equipo de odontología puede
                                     revisar tu caso y ofrecerte opciones personalizadas.
                                 </p>
 
-                                <div className="flex items-center justify-center gap-3">
+                                <div className="flex items-center justify-center gap-3 pt-4">
                                     <a
                                         href="/#ubicacion"
-                                        className="px-6 py-3 rounded-2xl bg-amber-300 text-slate-900 font-semibold shadow hover:shadow-md"
+                                        className="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] text-[#0f2237] font-semibold shadow-[0_4px_20px_rgba(228,184,146,.25)] hover:brightness-110 transition"
                                     >
                                         Agendar cita
                                     </a>
@@ -780,7 +825,7 @@ export default function DentalCityQuizzes() {
                                             setStep(0);
                                             setAnswers([]);
                                         }}
-                                        className="px-6 py-3 rounded-2xl bg-slate-700 border border-white/10"
+                                        className="px-6 py-3 rounded-2xl bg-[#0f2237]/80 border border-white/10 hover:bg-white/5 transition"
                                     >
                                         Rehacer quiz
                                     </button>
@@ -792,6 +837,22 @@ export default function DentalCityQuizzes() {
             </div>
 
             <Footer />
+
+            <style>{`
+        @keyframes shimmer {
+          0% { background-position: -200% center; }
+          100% { background-position: 200% center; }
+        }
+        .golden-sweep {
+          color: transparent;
+          background-image: linear-gradient(90deg,#c89b7b 0%,#e4b892 20%,#f4d3b3 35%,#e4b892 60%,#c89b7b 100%);
+          background-size: 250% 100%;
+          -webkit-background-clip: text; background-clip: text;
+          -webkit-text-fill-color: transparent;
+          animation: shimmer 4s linear infinite;
+          display: inline-block;
+        }
+      `}</style>
         </>
     );
     
