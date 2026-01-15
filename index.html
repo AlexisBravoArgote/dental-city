@@ -36,6 +36,58 @@
     <!-- Preconnect para mejorar performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="dns-prefetch" href="https://dentalcity.mx" />
+    
+    <!-- SEO dinámico inicial basado en URL -->
+    <script>
+        (function() {
+            const path = window.location.pathname;
+            const baseUrl = "https://dentalcity.mx";
+            
+            // Mapeo de rutas a meta tags
+            const seoMap = {
+                "/doctores": {
+                    title: "Nuestros doctores | Dental City",
+                    description: "Dental City cuenta con 29 dentistas especializados en todas las áreas de odontología. Más de 25 años de experiencia en Zapopan, Jalisco.",
+                    keywords: "dentistas Zapopan, odontólogos Guadalajara, especialistas dentales, equipo dental, clínica dental"
+                },
+                "/blog": {
+                    title: "Blog & Research | Dental City",
+                    description: "Artículos clínicos, tecnología, prevención y research de Dental City. Información sobre ortodoncia, implantes, odontopediatría y más.",
+                    keywords: "blog dental, artículos odontología, investigación dental, ortodoncia, implantes, odontopediatría"
+                },
+                "/edu": {
+                    title: "Quizzes de Salud Dental | Dental City",
+                    description: "Quizzes educativos interactivos sobre salud dental, ortodoncia, prevención, implantes y más. Aprende sobre odontología mientras respondes preguntas.",
+                    keywords: "quizzes dentales, educación dental, test de salud bucal, ortodoncia quiz, prevención dental"
+                }
+            };
+            
+            // Actualizar meta tags si la ruta está en el mapa
+            if (seoMap[path]) {
+                const seo = seoMap[path];
+                document.title = seo.title;
+                
+                // Actualizar description
+                let desc = document.querySelector('meta[name="description"]');
+                if (desc) desc.setAttribute('content', seo.description);
+                
+                // Actualizar keywords
+                let keywords = document.querySelector('meta[name="keywords"]');
+                if (keywords) keywords.setAttribute('content', seo.keywords);
+                
+                // Actualizar OG tags
+                let ogTitle = document.querySelector('meta[property="og:title"]');
+                if (ogTitle) ogTitle.setAttribute('content', seo.title);
+                
+                let ogDesc = document.querySelector('meta[property="og:description"]');
+                if (ogDesc) ogDesc.setAttribute('content', seo.description);
+                
+                // Actualizar canonical
+                let canonical = document.querySelector('link[rel="canonical"]');
+                if (canonical) canonical.setAttribute('href', baseUrl + path);
+            }
+        })();
+    </script>
 </head>
 <body>
     <div id="root"></div>
