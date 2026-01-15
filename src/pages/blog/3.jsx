@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
+import SEO from "../../components/SEO.jsx";
+import StructuredData from "../../components/StructuredData.jsx";
 import ortodoncia from "../../assets/alineadores.avif";
 
 function Container({ children, className = "" }) {
@@ -21,25 +23,56 @@ function Eyebrow({ children }) {
 }
 
 export default function BlogPost15() {
-    useEffect(() => {
-        document.title =
-            "Ortodoncia moderna: Aligners vs Brackets | Dental City";
-    }, []);
-
     const post = {
-        id: "15",
+        id: "3",
         title: "Ortodoncia moderna: Aligners vs Brackets",
         excerpt:
             "La ortodoncia ya no es solo cuestión de alambres. Con los nuevos alineadores transparentes, los tratamientos son más cómodos, estéticos y personalizados. Pero, ¿cuál opción es mejor para ti?",
         cover: ortodoncia,
-        category: "Tratamientos",
+        category: "Ortodoncia",
         tags: ["Ortodoncia", "Aligners", "Brackets", "Estética dental"],
-        date: "2025-10-21",
+        date: "2025-04-28",
         readingMin: 6,
+    };
+
+    const articleData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://dentalcity.mx${post.cover}`,
+        "datePublished": post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Dental City"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dentalcity.mx/blog/${post.id}`
+        },
+        "keywords": post.tags.join(", "),
+        "articleSection": post.category
     };
 
     return (
         <>
+            <SEO 
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(", ")}
+                image={`https://dentalcity.mx${post.cover}`}
+                type="article"
+            />
+            <StructuredData data={articleData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">

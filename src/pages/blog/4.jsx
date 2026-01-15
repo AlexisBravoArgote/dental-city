@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
+import SEO from "../../components/SEO.jsx";
+import StructuredData from "../../components/StructuredData.jsx";
 import implantes from "../../assets/implante.jpg";
 
 function Container({ children, className = "" }) {
@@ -21,25 +23,56 @@ function Eyebrow({ children }) {
 }
 
 export default function BlogPost16() {
-    useEffect(() => {
-        document.title =
-            "Implantes dentales: lo que debes saber antes de decidir | Dental City";
-    }, []);
-
     const post = {
-        id: "16",
+        id: "4",
         title: "Implantes dentales: lo que debes saber antes de decidir",
         excerpt:
             "Los implantes dentales son una solución moderna, segura y duradera para reemplazar dientes perdidos. Antes de decidirte, es importante conocer sus ventajas, cuidados y lo que implica el tratamiento.",
         cover: implantes,
-        category: "Rehabilitación",
+        category: "Implantes",
         tags: ["Implantes dentales", "Cirugía oral", "Rehabilitación", "Odontología moderna"],
-        date: "2025-10-21",
+        date: "2025-04-10",
         readingMin: 7,
+    };
+
+    const articleData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://dentalcity.mx${post.cover}`,
+        "datePublished": post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Dental City"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dentalcity.mx/blog/${post.id}`
+        },
+        "keywords": post.tags.join(", "),
+        "articleSection": post.category
     };
 
     return (
         <>
+            <SEO 
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(", ")}
+                image={`https://dentalcity.mx${post.cover}`}
+                type="article"
+            />
+            <StructuredData data={articleData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">

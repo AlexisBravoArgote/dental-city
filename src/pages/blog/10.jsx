@@ -2,6 +2,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
+import SEO from "../../components/SEO.jsx";
+import StructuredData from "../../components/StructuredData.jsx";
 
 // Assets (puedes importar más y agregarlas al array 'photos')
 import cendi from "../../assets/cendi.jpg";
@@ -180,11 +182,6 @@ function Carousel({ images = [], caption = "" }) {
 
 /* ------------------------- Página ------------------------- */
 export default function BlogPost10() {
-    useEffect(() => {
-        document.title =
-            "Filantropía: jornada gratuita para niñas y niños del CENDI Tlajomulco | Dental City";
-    }, []);
-
     const post = {
         id: "10",
         title:
@@ -194,6 +191,36 @@ export default function BlogPost10() {
         category: "Filantropía",
         tags: ["Inclusión", "Infancia", "Comunidad", "Voluntariado"],
         date: "2025-10-18",
+        cover: cendi,
+    };
+
+    // Structured Data para artículo de blog
+    const articleData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://dentalcity.mx${post.cover}`,
+        "datePublished": post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Dental City"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dentalcity.mx/blog/${post.id}`
+        },
+        "keywords": post.tags.join(", "),
+        "articleSection": post.category
     };
 
     // Fotos del carrusel
@@ -222,6 +249,14 @@ export default function BlogPost10() {
 
     return (
         <>
+            <SEO 
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(", ")}
+                image={`https://dentalcity.mx${post.cover}`}
+                type="article"
+            />
+            <StructuredData data={articleData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">

@@ -2,6 +2,8 @@
 import React, { useEffect, useMemo } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
+import SEO from "../../components/SEO.jsx";
+import StructuredData from "../../components/StructuredData.jsx";
 
 // Imágenes
 import sagradocorazon from "../../assets/sagradocorazon.jpg";
@@ -133,20 +135,44 @@ function Carousel({ images = [], caption = "" }) {
 
 /* ------------------------- Página ------------------------- */
 export default function BlogPost12() {
-    useEffect(() => {
-        document.title =
-            "Filantropía: apoyo al Centro de Ayuda Integral Sagrado Corazón, A.C. | Dental City";
-    }, []);
-
     const post = {
-        id: "12",
+        id: "9",
         title:
             "Filantropía: apoyo al Centro de Ayuda Integral Sagrado Corazón, A.C.",
         excerpt:
             "Dental City donó atención y material para apoyar a las hermanas del Centro de Ayuda Integral Sagrado Corazón, A.C., reforzando nuestra misión social.",
         category: "Filantropía",
         tags: ["Comunidad", "Donativos", "Alianzas", "Impacto social"],
-        date: "2025-10-05",
+        date: "2025-06-15",
+        cover: sagradocorazon,
+    };
+
+    const articleData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://dentalcity.mx${post.cover}`,
+        "datePublished": post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Dental City"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dentalcity.mx/blog/${post.id}`
+        },
+        "keywords": post.tags.join(", "),
+        "articleSection": post.category
     };
 
     // ✅ Ahora sí: todas tus fotos en un solo arreglo
@@ -165,6 +191,14 @@ export default function BlogPost12() {
 
     return (
         <>
+            <SEO 
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(", ")}
+                image={`https://dentalcity.mx${post.cover}`}
+                type="article"
+            />
+            <StructuredData data={articleData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">

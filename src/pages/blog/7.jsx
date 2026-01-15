@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
+import SEO from "../../components/SEO.jsx";
+import StructuredData from "../../components/StructuredData.jsx";
 import blanqueamiento from "../../assets/blanqueamiento.jpg";
 
 function Container({ children, className = "" }) {
@@ -21,25 +23,56 @@ function Eyebrow({ children }) {
 }
 
 export default function BlogPost18() {
-    useEffect(() => {
-        document.title =
-            "Blanqueamiento dental seguro: protocolos y resultados | Dental City";
-    }, []);
-
     const post = {
-        id: "18",
+        id: "7",
         title: "Blanqueamiento dental seguro: protocolos y resultados",
         excerpt:
             "El blanqueamiento dental profesional es uno de los tratamientos estéticos más solicitados. Sin embargo, hacerlo de forma segura requiere diagnóstico, protocolo clínico y seguimiento para evitar sensibilidad o daño al esmalte.",
         cover: blanqueamiento,
-        category: "Estética dental",
+        category: "Estética",
         tags: ["Blanqueamiento dental", "Estética", "Cuidado dental", "Sensibilidad"],
-        date: "2025-10-21",
+        date: "2024-12-05",
         readingMin: 6,
+    };
+
+    const articleData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://dentalcity.mx${post.cover}`,
+        "datePublished": post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Dental City"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dentalcity.mx/blog/${post.id}`
+        },
+        "keywords": post.tags.join(", "),
+        "articleSection": post.category
     };
 
     return (
         <>
+            <SEO 
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(", ")}
+                image={`https://dentalcity.mx${post.cover}`}
+                type="article"
+            />
+            <StructuredData data={articleData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">

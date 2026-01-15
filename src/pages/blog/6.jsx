@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
+import SEO from "../../components/SEO.jsx";
+import StructuredData from "../../components/StructuredData.jsx";
 import periodoncia from "../../assets/periodoncia.jpg";
 
 function Container({ children, className = "" }) {
@@ -21,25 +23,56 @@ function Eyebrow({ children }) {
 }
 
 export default function BlogPost17() {
-    useEffect(() => {
-        document.title =
-            "Periodoncia: encías sanas, sonrisa saludable | Dental City";
-    }, []);
-
     const post = {
-        id: "17",
+        id: "6",
         title: "Periodoncia: encías sanas, sonrisa saludable",
         excerpt:
             "Las encías son el soporte invisible de tu sonrisa. La periodoncia se encarga de prevenir, diagnosticar y tratar las enfermedades que afectan los tejidos que rodean y sostienen los dientes.",
         cover: periodoncia,
-        category: "Salud dental",
+        category: "Periodoncia",
         tags: ["Periodoncia", "Encías", "Salud bucal", "Prevención"],
-        date: "2025-10-21",
+        date: "2025-02-18",
         readingMin: 6,
+    };
+
+    const articleData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://dentalcity.mx${post.cover}`,
+        "datePublished": post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Dental City"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dentalcity.mx/blog/${post.id}`
+        },
+        "keywords": post.tags.join(", "),
+        "articleSection": post.category
     };
 
     return (
         <>
+            <SEO 
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(", ")}
+                image={`https://dentalcity.mx${post.cover}`}
+                type="article"
+            />
+            <StructuredData data={articleData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">

@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 import TopBar from "../../components/TopBar.jsx";
 import Footer from "../../components/Footer.jsx";
+import SEO from "../../components/SEO.jsx";
+import StructuredData from "../../components/StructuredData.jsx";
 import odontologiaDigital from "../../assets/escaneo.jpg";
 
 function Container({ children, className = "" }) {
@@ -21,25 +23,57 @@ function Eyebrow({ children }) {
 }
 
 export default function BlogPost14() {
-    useEffect(() => {
-        document.title =
-            "Odontología digital en Dental City: escáneres, guías y precisión | Dental City";
-    }, []);
-
     const post = {
         id: "14",
         title: "Odontología digital en Dental City: escáneres, guías y precisión",
         excerpt:
             "La revolución digital llegó a la odontología. En Dental City, los escáneres intraorales, guías quirúrgicas y flujos digitales permiten tratamientos más precisos, cómodos y personalizados.",
         cover: odontologiaDigital,
-        category: "Innovación",
+        category: "Tecnología",
         tags: ["Odontología digital", "Escáner intraoral", "Guías quirúrgicas", "Precisión clínica"],
         date: "2025-10-21",
         readingMin: 6,
     };
 
+    // Structured Data para artículo de blog
+    const articleData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://dentalcity.mx${post.cover}`,
+        "datePublished": post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Dental City"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://dentalcity.mx/blog/${post.id}`
+        },
+        "keywords": post.tags.join(", "),
+        "articleSection": post.category
+    };
+
     return (
         <>
+            <SEO 
+                title={post.title}
+                description={post.excerpt}
+                keywords={post.tags.join(", ")}
+                image={`https://dentalcity.mx${post.cover}`}
+                type="article"
+            />
+            <StructuredData data={articleData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">
