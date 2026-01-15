@@ -23,6 +23,8 @@ import arquitectura from "./assets/arquitectura.png";
 
 import TopBar from "./components/TopBar.jsx";
 import Footer from "./components/Footer.jsx";
+import SEO from "./components/SEO.jsx";
+import StructuredData from "./components/StructuredData.jsx";
 import LanguageBoutique from "./components/LanguageBoutique.jsx";
 
 // Rutas estáticas
@@ -111,9 +113,55 @@ function Container({ children, className = "" }) {
 function Home() {
     const { scrollYProgress } = useScroll();
     const bgOpacity = useTransform(scrollYProgress, [0, 1], [0.55, 0.85]);
+    const { t } = useTranslation("home");
+
+    // Structured Data para LocalBusiness
+    const localBusinessData = {
+        "@context": "https://schema.org",
+        "@type": "DentalClinic",
+        "name": "Dental City",
+        "description": "Clínica dental integral en Zapopan, Jalisco. Especialidades: ortodoncia, implantes, odontopediatría, estética dental. Tecnología digital de vanguardia.",
+        "url": "https://dentalcity.mx",
+        "logo": "https://dentalcity.mx/logo.png",
+        "image": "https://dentalcity.mx/logo.png",
+        "telephone": "+52-33-1234-5678",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Zona Real, Zapopan",
+            "addressLocality": "Zapopan",
+            "addressRegion": "Jalisco",
+            "postalCode": "45000",
+            "addressCountry": "MX"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "20.7238",
+            "longitude": "-103.3858"
+        },
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "09:00",
+                "closes": "19:00"
+            }
+        ],
+        "priceRange": "$$",
+        "medicalSpecialty": ["Orthodontics", "Dentistry", "Pediatric Dentistry", "Cosmetic Dentistry", "Dental Implants"],
+        "areaServed": {
+            "@type": "City",
+            "name": "Zapopan, Guadalajara"
+        }
+    };
 
     return (
         <div className="min-h-screen w-full bg-[#0b1b2b] text-white">
+            <SEO 
+                title="Clínica Dental en Zapopan, Guadalajara"
+                description="Clínica dental integral en Zapopan, Jalisco. Especialidades: ortodoncia, implantes, odontopediatría, estética dental. Tecnología digital de vanguardia. Más de 25 años de experiencia."
+                keywords="clínica dental Zapopan, dentista Guadalajara, ortodoncia, implantes dentales, odontopediatría, estética dental, Invisalign, odontología digital"
+            />
+            <StructuredData data={localBusinessData} />
             <TopBar bgOpacity={bgOpacity} />
             {/* 🌐 selector global, debajo del TopBar en todas las páginas */}
             <LanguageBoutique />

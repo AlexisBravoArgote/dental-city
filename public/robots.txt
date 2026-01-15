@@ -1,0 +1,17 @@
+# robots.txt para Dental City
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://dentalcity.mx/sitemap.xml
+
+# No indexar archivos de desarrollo
+Disallow: /src/
+Disallow: /*.jsx$
+Disallow: /*.js$
+
+# Permitir todo lo demás
+Allow: /blog/
+Allow: /doctores
+Allow: /edu
+Allow: /bolsa

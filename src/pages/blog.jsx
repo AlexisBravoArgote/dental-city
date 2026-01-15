@@ -3,6 +3,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import TopBar from "../components/TopBar.jsx";
 import Footer from "../components/Footer.jsx";
+import SEO from "../components/SEO.jsx";
+import StructuredData from "../components/StructuredData.jsx";
 import atlas1 from '../assets/atlas2.jpg';
 import sagradocorazon from "../assets/sagradocorazon.jpg";
 import cendi from "../assets/cendi.jpg"
@@ -121,6 +123,23 @@ export default function Blog() {
         document.title = "Blog & Research | Dental City";
     }, []);
 
+    // Structured Data para Blog
+    const blogData = {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Dental City Blog",
+        "description": "Artículos clínicos, tecnología, prevención y research de Dental City",
+        "url": "https://dentalcity.mx/blog",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Dental City",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://dentalcity.mx/logo.png"
+            }
+        }
+    };
+
     const categories = useMemo(
         () => ["Todos", "Prevención", "Tecnología", "Ortodoncia", "Implantes", "Alianza", "Odontopediatría", "Periodoncia", "Estética", "Endodoncia", "Filantropía"],
         []
@@ -168,6 +187,12 @@ export default function Blog() {
 
     return (
         <>
+            <SEO 
+                title="Blog & Research"
+                description="Artículos clínicos, tecnología, prevención y research de Dental City. Información sobre ortodoncia, implantes, odontopediatría y más."
+                keywords="blog dental, artículos odontología, investigación dental, ortodoncia, implantes, odontopediatría"
+            />
+            <StructuredData data={blogData} />
             <TopBar />
 
             <main className="min-h-dvh bg-[#0f2237]">

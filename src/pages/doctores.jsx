@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import TopBar from "../components/TopBar.jsx";
 import Footer from "../components/Footer.jsx";
+import SEO from "../components/SEO.jsx";
+import StructuredData from "../components/StructuredData.jsx";
 const __MOTION_USED = Boolean(motion); // eslint-disable-line no-unused-vars
 
 import dc3 from "../assets/DCdoctor3.jpg";
@@ -319,6 +321,29 @@ export default function Doctores() {
         document.title = title;
     }, [t]);
 
+    // Structured Data para Medical Organization
+    const medicalOrgData = {
+        "@context": "https://schema.org",
+        "@type": "MedicalOrganization",
+        "name": "Dental City",
+        "description": "Clínica dental con más de 25 años de experiencia. Contamos con 29 dentistas especializados en todas las áreas de odontología.",
+        "url": "https://dentalcity.mx/doctores",
+        "medicalSpecialty": [
+            "Orthodontics",
+            "General Dentistry",
+            "Pediatric Dentistry",
+            "Periodontics",
+            "Endodontics",
+            "Oral Surgery",
+            "Cosmetic Dentistry",
+            "Dental Implants"
+        ],
+        "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": "29"
+        }
+    };
+
     // ---------- Selector de idioma (🌐) ----------
     const [openLang, setOpenLang] = useState(false);
     const langWrapRef = useRef(null);
@@ -498,6 +523,12 @@ export default function Doctores() {
 
     return (
         <>
+            <SEO 
+                title={t("pageTitle", { defaultValue: "Nuestros doctores" })}
+                description="Dental City cuenta con 29 dentistas especializados en todas las áreas de odontología. Más de 25 años de experiencia en Zapopan, Jalisco."
+                keywords="dentistas Zapopan, odontólogos Guadalajara, especialistas dentales, equipo dental, clínica dental"
+            />
+            <StructuredData data={medicalOrgData} />
             <TopBar />
             <LanguageBoutique />
 
