@@ -1582,9 +1582,9 @@ function LocationsTabs() {
                     { day: "Domingo", time: "Cerrado", closed: true },
                 ],
                 holidays: [
-                    { day: "24 de diciembre", closed: true },
                     { day: "25 de diciembre", closed: true },
                     { day: "1 de enero", closed: true },
+                    { day: "2 de febrero", closed: true },
                 ],
             },
             "Dental City Kids & Family": {
@@ -1604,9 +1604,9 @@ function LocationsTabs() {
                     { day: "Domingo", time: "Cerrado", closed: true },
                 ],
                 holidays: [
-                    { day: "24 de diciembre", closed: true },
                     { day: "25 de diciembre", closed: true },
                     { day: "1 de enero", closed: true },
+                    { day: "2 de febrero", closed: true },
                 ],
             },
         }),
