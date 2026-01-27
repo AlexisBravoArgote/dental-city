@@ -1,4 +1,4 @@
-﻿// src/App.jsx
+// src/App.jsx
 import React, { useEffect, useMemo, useRef, useState, useCallback, useId } from "react";
 import { Routes, Route } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
@@ -947,47 +947,94 @@ function InfoModal({ open, onClose, service }) {
                     transition={{ duration: 0.25, ease: "easeOut" }}
                     className="relative w-full max-w-2xl overflow-hidden rounded-[22px] border border-[#e4b89233] bg-[#0f2237] text-white shadow-2xl"
                 >
+                    {/* fondo con gradiente sutil */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0f2237] via-[#0f2237] to-[#152a42] opacity-100" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(228,184,146,.08),transparent_50%)]" />
+                    
                     {/* líneas doradas */}
-                    <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
-                    <div className="absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
+                    <div className="absolute inset-x-0 top-0 z-10 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
+                    <div className="absolute inset-x-0 bottom-0 z-10 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
 
                     {/* botón cerrar */}
                     <button
                         onClick={onClose}
-                        className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 text-white/80 hover:bg-white/10"
+                        className="absolute right-4 top-4 z-20 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-[#0f2237]/80 backdrop-blur-sm text-white/80 transition-all hover:bg-white/10 hover:border-white/30 hover:text-white"
                         aria-label={t("serviceModal.close", { defaultValue: "Cerrar" })}
                         title={t("serviceModal.close", { defaultValue: "Cerrar" })}
                     >
-                        ✕
+                        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M18 6L6 18M6 6l12 12" />
+                        </svg>
                     </button>
+                    
+                    {/* contenido relativo */}
+                    <div className="relative z-0">
 
                     {/* cabecera */}
-                    <div className="px-6 pt-8 text-center sm:px-10">
-                        <div className="text-[11px] tracking-[.35em] text-[#e4b892cc]">
+                    <div className="px-8 pt-10 text-center sm:px-12">
+                        <div className="text-[11px] font-semibold tracking-[.35em] text-[#e4b892] uppercase">
                             {t("serviceModal.eyebrow", { defaultValue: "SERVICIO" })}
                         </div>
-                        <h3 className="mt-2 text-3xl font-extrabold leading-tight sm:text-4xl">
+                        <h3 className="mt-3 text-3xl font-extrabold leading-tight sm:text-4xl">
                             {service.title}
                         </h3>
-                        <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-white/85 sm:text-lg">
+                        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
                             {subtitle}
                         </p>
                     </div>
 
+                    {/* divider */}
+                    <div className="mx-8 mt-6 h-px bg-gradient-to-r from-transparent via-[#e4b89240] to-transparent sm:mx-12" />
+
                     {/* bullets */}
-                    <div className="px-6 pt-5 sm:px-10">
-                        <ul className="grid gap-3 text-[15px] sm:text-[16px] text-white/90">
-                            {bullets.map((b, i) => (
-                                <li key={i} className="flex items-start gap-3">
-                                    <span className="mt-2 inline-block h-2.5 w-2.5 shrink-0 rounded-full bg-[#e4b892]" />
-                                    <span className="leading-relaxed">{b}</span>
-                                </li>
-                            ))}
+                    <div className="px-8 pt-7 sm:px-12">
+                        <ul className="grid gap-5 text-[15px] sm:text-[16px] text-white/90">
+                            {bullets.map((b, i) => {
+                                // Iconos según el índice
+                                let iconSvg;
+                                if (i === 0) {
+                                    // Muela/diente
+                                    iconSvg = (
+                                        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-[#0f2237]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M12 2C8.5 2 6 4.5 6 8c0 2.5 1.5 4.5 3.5 5.5V16c0 .5.5 1 1 1h3c.5 0 1-.5 1-1v-2.5c2-1 3.5-3 3.5-5.5 0-3.5-2.5-6-6-6z"/>
+                                            <path d="M12 10v4M9 12h6"/>
+                                        </svg>
+                                    );
+                                } else if (i === 1) {
+                                    // Reloj
+                                    iconSvg = (
+                                        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-[#0f2237]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <polyline points="12 6 12 12 16 14"/>
+                                        </svg>
+                                    );
+                                } else {
+                                    // Moneda
+                                    iconSvg = (
+                                        <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 text-[#0f2237]" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <path d="M12 6v12M15 9a3 3 0 1 0 0 6M9 9a3 3 0 1 0 0 6"/>
+                                        </svg>
+                                    );
+                                }
+                                
+                                return (
+                                    <li key={i} className="flex items-start gap-3">
+                                        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#e4b892] to-[#c89b7b] shadow-[0_2px_8px_rgba(228,184,146,.3)]">
+                                            {iconSvg}
+                                        </div>
+                                        <span className="flex-1 leading-relaxed pt-0.5">{b}</span>
+                                    </li>
+                                );
+                            })}
                         </ul>
                     </div>
 
+                    {/* divider */}
+                    <div className="mx-8 mt-7 h-px bg-gradient-to-r from-transparent via-[#e4b89240] to-transparent sm:mx-12" />
+
                     {/* CTAs */}
-                    <div className="px-6 pb-8 pt-7 sm:px-10">
+                    <div className="px-8 pb-10 pt-8 sm:px-12">
                         <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:items-center">
                             <a
                                 href={waForThisService}
@@ -1009,6 +1056,7 @@ function InfoModal({ open, onClose, service }) {
                                 {t("serviceModal.cta_viewClinics", { defaultValue: "Ver clínicas" })}
                             </a>
                         </div>
+                    </div>
                     </div>
                 </motion.div>
             </motion.button>
