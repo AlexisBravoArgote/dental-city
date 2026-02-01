@@ -1086,10 +1086,24 @@ function GalleryCarousel() {
     const prev = useCallback(() => setI((p) => (p - 1 + IMAGES.length) % IMAGES.length), [IMAGES.length]);
 
     useEffect(() => {
+        // Limpiar el temporizador anterior
+        if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+        }
+        
+        // Si está en hover, no iniciar el temporizador
         if (hover) return;
+        
+        // Reiniciar el temporizador desde cero
         timerRef.current = setInterval(() => next(), 5200);
-        return () => clearInterval(timerRef.current);
-    }, [hover, next]);
+        return () => {
+            if (timerRef.current) {
+                clearInterval(timerRef.current);
+                timerRef.current = null;
+            }
+        };
+    }, [hover, next, i]); // Agregar 'i' como dependencia para reiniciar cuando cambia la imagen
 
     useEffect(() => {
         const onKey = (e) => {
@@ -1230,7 +1244,13 @@ function GalleryCarousel() {
                     {IMAGES.map((img, idx) => (
                         <button
                             key={idx}
-                            onClick={() => setI(idx)}
+                            onClick={() => {
+                                if (timerRef.current) {
+                                    clearInterval(timerRef.current);
+                                    timerRef.current = null;
+                                }
+                                setI(idx);
+                            }}
                             className={`thumb chic relative overflow-hidden rounded-xl border ${idx === i ? "border-[#e4b89299]" : "border-white/15"} bg-white/5 hover:bg-white/10 transition`}
                             title={img.title}
                         >
@@ -1252,7 +1272,13 @@ function GalleryCarousel() {
                     {IMAGES.map((_, idx) => (
                         <button
                             key={idx}
-                            onClick={() => setI(idx)}
+                            onClick={() => {
+                                if (timerRef.current) {
+                                    clearInterval(timerRef.current);
+                                    timerRef.current = null;
+                                }
+                                setI(idx);
+                            }}
                             className={`h-1.5 w-6 rounded-full transition ${idx === i ? "bg-[#e4b892]" : "bg-white/30 hover:bg-white/50"}`}
                             aria-label={t("gallery.goToPhoto", { n: idx + 1 })}
                         />
