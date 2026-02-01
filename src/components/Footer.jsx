@@ -19,8 +19,9 @@ function LogoImage({ className = "h-18 w-auto" }) {
 export default function Footer() {
     return (
         <footer className="relative border-t border-white/10 bg-[#152b53] pt-8 pb-6 overflow-hidden">
-            <div className="absolute top-0 left-0 h-[2px] w-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] animate-[shimmer_6s_linear_infinite]" />
-            <div className="absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] animate-[shimmer_6s_linear_infinite]" />
+            {/* Líneas doradas superior e inferior */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
 
             <Container className="mx-auto w-full max-w-7xl relative z-10">
                 <div className="grid grid-cols-1 items-start gap-6 md:grid-cols-3">

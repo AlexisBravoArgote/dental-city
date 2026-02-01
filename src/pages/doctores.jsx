@@ -100,12 +100,14 @@ function Carousel({
     const n = images.length || 1;
     const [progress, setProgress] = useState(0);
     const [hovering, setHovering] = useState(false);
+    const [isVisible, setIsVisible] = useState(false);
 
     const tickIdRef = useRef(null);
     const startRef = useRef(Date.now());
     const pausedUntilRef = useRef(0);
 
     const railRef = useRef(null);
+    const carouselRef = useRef(null);
 
     const clearTick = () => {
         if (tickIdRef.current) {
@@ -135,10 +137,42 @@ function Carousel({
         resetCycle();
     };
 
+    // IntersectionObserver para detectar cuando el carrusel está visible
+    useEffect(() => {
+        if (!carouselRef.current) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    setIsVisible(entry.isIntersecting);
+                });
+            },
+            {
+                threshold: 0.3, // Se considera visible cuando al menos 30% está en viewport
+            }
+        );
+
+        observer.observe(carouselRef.current);
+
+        return () => {
+            if (carouselRef.current) {
+                observer.unobserve(carouselRef.current);
+            }
+        };
+    }, []);
+
     useEffect(() => {
         clearTick();
-        if (!autoPlay || n <= 1) return;
+        // Solo iniciar autoplay si está visible, autoPlay está activo y hay más de 1 imagen
+        if (!autoPlay || n <= 1 || !isVisible) {
+            // Si no está visible, reiniciar el progreso
+            if (!isVisible) {
+                setProgress(0);
+            }
+            return;
+        }
 
+        // Reiniciar cuando se vuelve visible
         startRef.current = Date.now();
         setProgress(0);
 
@@ -157,7 +191,7 @@ function Carousel({
         }, 100);
 
         return clearTick;
-    }, [autoPlay, duration, n, hovering]);
+    }, [autoPlay, duration, n, hovering, isVisible]);
 
     useEffect(() => {
         const rail = railRef.current;
@@ -180,6 +214,7 @@ function Carousel({
     return (
         <>
             <div
+                ref={carouselRef}
                 className="group"
                 onMouseEnter={() => setHovering(true)}
                 onMouseLeave={() => {
@@ -189,82 +224,94 @@ function Carousel({
                 aria-label={ariaLabel}
             >
                 {/* Principal */}
-                <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/[.04] shadow-[0_18px_50px_rgba(0,0,0,.35)]">
+                <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-white/[.08] via-white/[.04] to-white/[.02] shadow-[0_20px_60px_rgba(0,0,0,.4)] backdrop-blur-xl group/carousel w-full">
+                    {/* Borde decorativo superior */}
+                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#e4b892]/60 to-transparent z-10" />
+                    
+                    {/* Overlay decorativo */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#e4b892]/5 via-transparent to-transparent pointer-events-none z-10" />
+                    
                     <div
-                        className="flex transition-transform duration-500 ease-out"
+                        className="flex transition-transform duration-700 ease-[cubic-bezier(0.4,0,0.2,1)] w-full"
                         style={{ transform: `translateX(-${i * 100}%)` }}
                     >
                         {images.map((img, idx) => (
-                            <div key={idx} className="relative min-w-full">
-                                <div className="relative w-full h-[60vh] md:h-auto md:max-h-[80vh] bg-[#0f2237] flex items-center justify-center">
+                            <div key={idx} className="relative min-w-full flex-shrink-0 w-full">
+                                <div className="relative w-full h-[60vh] md:h-auto md:max-h-[80vh] bg-gradient-to-br from-[#0f2237] to-[#0b1b2b] flex items-center justify-center overflow-hidden">
                                     {img.src ? (
                                         <img
                                             src={img.src}
                                             alt={img.alt || "Imagen"}
-                                            className="w-full h-full object-cover md:w-auto md:h-auto md:max-h-[80vh] md:object-contain"
+                                            className="w-full h-full object-cover md:w-auto md:h-auto md:max-h-[80vh] md:object-contain transition-transform duration-700 group-hover/carousel:scale-[1.02]"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 bg-[radial-gradient(60%_60%_at_50%_35%,rgba(255,255,255,0.08),transparent_60%)]" />
                                     )}
+                                    
+                                    {/* Overlay sutil en los bordes */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f2237]/40 via-transparent to-transparent pointer-events-none" />
+                                    <div className="absolute inset-0 bg-gradient-to-b from-[#0f2237]/40 via-transparent to-transparent pointer-events-none" />
                                 </div>
 
-
-                                <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
-
                                 {n > 1 && (
-                                    <div className="absolute bottom-3 right-3 rounded-full bg-[#0d2034]/70 border border-white/20 px-3 py-1 text-[12px] text-white/90 backdrop-blur">
-                                        {String(i + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+                                    <div className="absolute bottom-4 right-4 rounded-full bg-gradient-to-br from-[#0d2034]/90 to-[#0b1b2b]/90 border border-[#e4b892]/30 px-4 py-2 text-sm font-semibold text-white/95 backdrop-blur-md shadow-[0_4px_16px_rgba(0,0,0,.4)] ring-1 ring-white/10">
+                                        <span className="text-[#e4b892]">{String(i + 1).padStart(2, "0")}</span>
+                                        <span className="text-white/50 mx-1.5">/</span>
+                                        <span className="text-white/80">{String(n).padStart(2, "0")}</span>
                                     </div>
                                 )}
                             </div>
                         ))}
                     </div>
 
-                    {/* Flechas */}
+                    {/* Flechas modernas */}
                     {n > 1 && (
                         <>
                             <button
                                 type="button"
                                 onClick={() => go(-1)}
-                                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-[#0d2034]/70 p-2 backdrop-blur hover:bg-[#0d2034]/90"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/20 bg-gradient-to-br from-[#0d2034]/90 to-[#0b1b2b]/90 p-3 backdrop-blur-md hover:bg-gradient-to-br hover:from-[#e4b892]/20 hover:to-[#c89b7b]/20 hover:border-[#e4b892]/40 transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,.4)] hover:shadow-[0_6px_20px_rgba(228,184,146,.3)] hover:scale-110 active:scale-95 group/btn"
                                 aria-label={prevLabel}
                                 title={prevLabel}
                             >
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg viewBox="0 0 24 24" className="h-5 w-5 text-white/90 group-hover/btn:text-[#e4b892] transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M15 18l-6-6 6-6" />
                                 </svg>
                             </button>
                             <button
                                 type="button"
                                 onClick={() => go(1)}
-                                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full border border-white/20 bg-[#0d2034]/70 p-2 backdrop-blur hover:bg-[#0d2034]/90"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 rounded-full border border-white/20 bg-gradient-to-br from-[#0d2034]/90 to-[#0b1b2b]/90 p-3 backdrop-blur-md hover:bg-gradient-to-br hover:from-[#e4b892]/20 hover:to-[#c89b7b]/20 hover:border-[#e4b892]/40 transition-all duration-300 shadow-[0_4px_16px_rgba(0,0,0,.4)] hover:shadow-[0_6px_20px_rgba(228,184,146,.3)] hover:scale-110 active:scale-95 group/btn"
                                 aria-label={nextLabel}
                                 title={nextLabel}
                             >
-                                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+                                <svg viewBox="0 0 24 24" className="h-5 w-5 text-white/90 group-hover/btn:text-[#e4b892] transition-colors" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M9 18l6-6-6-6" />
                                 </svg>
                             </button>
                         </>
                     )}
 
-                    {/* Progreso */}
+                    {/* Barra de progreso moderna */}
                     {autoPlay && n > 1 && (
-                        <div className="absolute bottom-0 left-0 right-0 h-[6px]">
-                            <div className="mx-6 mb-3 h-[6px] rounded-full bg-white/15 backdrop-blur-sm">
+                        <div className="absolute bottom-0 left-0 right-0 z-20">
+                            <div className="mx-6 mb-4 h-[4px] rounded-full bg-white/10 backdrop-blur-sm overflow-hidden border border-white/5">
                                 <div
-                                    className="h-[6px] rounded-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] transition-[width] duration-100 ease-linear"
+                                    className="h-full rounded-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] transition-[width] duration-100 ease-linear relative overflow-hidden"
                                     style={{ width: `${progress}%` }}
-                                />
+                                >
+                                    {/* Efecto de brillo animado */}
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[shimmer_2s_infinite]" />
+                                </div>
                             </div>
                         </div>
                     )}
                 </div>
 
-                {/* Miniaturas */}
+                {/* Miniaturas modernas */}
                 {n > 1 && (
-                    <div className="mt-4 flex items-center justify-center">
-                        <div ref={railRef} className="thumb-rail flex gap-2 overflow-x-auto px-4 py-1">
+                    <div className="mt-6 flex items-center justify-center overflow-x-hidden w-full">
+                        <div ref={railRef} className="thumb-rail flex gap-3 overflow-x-auto px-4 py-2 overscroll-x-contain max-w-full">
                             {images.map((img, idx) => {
                                 const selected = i === idx;
                                 return (
@@ -275,25 +322,40 @@ function Carousel({
                                         onMouseDown={(e) => e.preventDefault()}
                                         tabIndex={-1}
                                         onClick={() => set(idx)}
-                                        className={`relative shrink-0 transition-all duration-300 ${selected ? "scale-105" : "opacity-80 hover:opacity-100 hover:scale-105"
-                                            }`}
+                                        className={`relative shrink-0 transition-all duration-300 group/thumb ${
+                                            selected 
+                                                ? "scale-110 z-10" 
+                                                : "opacity-70 hover:opacity-100 hover:scale-105"
+                                        }`}
                                         aria-label={(img.alt || "Imagen") + ` ${idx + 1}`}
                                         title={(img.alt || "Imagen") + ` ${idx + 1}`}
                                     >
                                         <div
-                                            className={`rounded-2xl p-[2px] ${selected
-                                                ? "bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]"
-                                                : "bg-white/20"
-                                                }`}
+                                            className={`rounded-xl overflow-hidden transition-all duration-300 ${
+                                                selected
+                                                    ? "p-[3px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] shadow-[0_4px_16px_rgba(228,184,146,.4)] ring-2 ring-[#e4b892]/50"
+                                                    : "p-[2px] bg-white/20 hover:bg-white/30 border border-white/10"
+                                            }`}
                                         >
-                                            <div className="rounded-[14px] overflow-hidden bg-[#0f2237]/90">
+                                            <div className="rounded-lg overflow-hidden bg-gradient-to-br from-[#0f2237] to-[#0b1b2b] relative">
                                                 <img
                                                     src={img.src}
                                                     alt={img.alt || `Miniatura ${idx + 1}`}
-                                                    className="h-16 w-24 md:h-20 md:w-28 object-cover"
+                                                    className={`h-20 w-28 md:h-24 md:w-36 object-cover transition-transform duration-300 ${
+                                                        selected ? "brightness-110" : "brightness-90 group-hover/thumb:brightness-100"
+                                                    }`}
                                                 />
+                                                {/* Overlay sutil cuando está seleccionado */}
+                                                {selected && (
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-[#e4b892]/20 via-transparent to-transparent pointer-events-none" />
+                                                )}
                                             </div>
                                         </div>
+                                        
+                                        {/* Indicador de selección */}
+                                        {selected && (
+                                            <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-8 rounded-full bg-gradient-to-r from-[#c89b7b] to-[#e4b892]" />
+                                        )}
                                     </button>
                                 );
                             })}
@@ -302,9 +364,14 @@ function Carousel({
                 )}
             </div>
 
-            {/* Ocultar scrollbar */}
+            {/* Ocultar scrollbar y prevenir overflow */}
             <style>{`
-        .thumb-rail { -ms-overflow-style: none; scrollbar-width: none; overscroll-behavior-x: contain; }
+        .thumb-rail { 
+          -ms-overflow-style: none; 
+          scrollbar-width: none; 
+          overscroll-behavior-x: contain; 
+          -webkit-overflow-scrolling: touch;
+        }
         .thumb-rail::-webkit-scrollbar { display: none; }
       `}</style>
         </>
@@ -532,71 +599,120 @@ export default function Doctores() {
             <TopBar />
             <LanguageBoutique />
 
-            <main className="min-h-dvh bg-[#0f2237]">
+            <main className="min-h-dvh bg-[#0f2237] overflow-x-hidden">
                 {/* Hero */}
-                <section className="relative overflow-hidden bg-[radial-gradient(70%_70%_at_50%_0%,rgba(255,255,255,0.08),transparent_60%)]">
+                <section className="relative overflow-hidden bg-gradient-to-b from-[#0f2237] via-[#0b1b2b] to-[#0f2237]">
+                    {/* Efectos de fondo decorativos */}
+                    <div className="pointer-events-none absolute inset-0 opacity-20">
+                        <div className="absolute top-20 left-10 h-96 w-96 rounded-full bg-[#e4b892]/10 blur-3xl" />
+                        <div className="absolute bottom-20 right-10 h-[500px] w-[500px] rounded-full bg-[#c89b7b]/10 blur-3xl" />
+                    </div>
                     <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
-                    <Container className="py-12 md:py-14">
+                    <Container className="py-16 md:py-20 relative z-10">
                         <div className="text-center">
-                            <div className="text-xs tracking-[0.35em] text-white/50">
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6 }}
+                                className="text-xs tracking-[0.35em] text-[#e4b892]/80 uppercase mb-4"
+                            >
                                 {t("eyebrowTeam")}
-                            </div>
-                            <h1 className="mt-3 inline-block text-3xl md:text-5xl font-semibold relative">
-                                <span className="golden-sweep">{t("pageTitle")}</span>
-                                <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
+                            </motion.div>
+                            <h1 className="mt-3 inline-block text-4xl md:text-6xl font-bold relative">
+                                <span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">{t("pageTitle")}</span>
+                                <span className="absolute left-0 right-0 -bottom-3 h-[3px] rounded-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                             </h1>
-                            <p className="mx-auto mt-8 max-w-3xl text-white/85 leading-relaxed">
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                                className="mx-auto mt-10 max-w-3xl text-white/90 leading-relaxed text-lg"
+                            >
                                 {t("heroP1", {
                                     years: t("heroP1_years"),
                                     allSpecs: t("heroP1_allSpecs"),
                                     twoBranches: t("heroP1_twoBranches"),
                                     kids: t("heroP1_kids"),
                                 })}
-                            </p>
-                            <p className="mx-auto mt-4 max-w-3xl text-white/80 leading-relaxed">
+                            </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
+                                className="mx-auto mt-5 max-w-3xl text-white/75 leading-relaxed"
+                            >
                                 {t("heroP2")}
-                            </p>
+                            </motion.p>
                         </div>
                     </Container>
                 </section>
 
-                {/* Estadísticas */}
-                <section className="pt-6 md:pt-8">
+                {/* Estadísticas Principal */}
+                <section className="pt-8 md:pt-12">
                     <Container>
-                        <div className="relative mx-auto mt-2 w-full max-w-sm">
-                            <div className="rounded-[28px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_18px_50px_rgba(0,0,0,.35)] golden-hover always-golden">
-                                <div className="relative rounded-[26px] bg-[#0f2237]/80 px-6 py-8 text-center">
-                                    <div className="text-6xl font-semibold leading-none tracking-tight text-[#e4b892]">
-                                        29
-                                    </div>
-                                    <div className="mt-3 text-sm uppercase tracking-[.2em] text-white/85">
-                                        {t("dentistsCount")}
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6 }}
+                            className="relative mx-auto mt-2 w-full max-w-md"
+                        >
+                            <div className="relative">
+                                {/* Círculo decorativo de fondo */}
+                                <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#e4b892]/20 via-[#c89b7b]/10 to-transparent blur-2xl scale-150" />
+                                
+                                <div className="relative rounded-full bg-gradient-to-br from-[#e4b892]/30 via-[#c89b7b]/20 to-[#e4b892]/30 p-[3px] shadow-[0_20px_60px_rgba(228,184,146,.4)]">
+                                    <div className="relative rounded-full bg-gradient-to-br from-[#0f2237] to-[#0b1b2b] px-10 py-12 text-center backdrop-blur-sm">
+                                        <div className="text-7xl md:text-8xl font-bold leading-none tracking-tight bg-gradient-to-br from-[#e4b892] via-[#f4d3b3] to-[#e4b892] bg-clip-text text-transparent">
+                                            29
+                                        </div>
+                                        <div className="mt-4 text-sm uppercase tracking-[.3em] text-[#e4b892]/90 font-medium">
+                                            {t("dentistsCount")}
+                                        </div>
+                                        {/* Puntos decorativos */}
+                                        <div className="absolute top-4 right-4 h-2 w-2 rounded-full bg-[#e4b892]/60 animate-pulse" />
+                                        <div className="absolute bottom-4 left-4 h-2 w-2 rounded-full bg-[#c89b7b]/60 animate-pulse delay-300" />
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </Container>
                 </section>
 
-                {/* Grid de especialidades */}
-                <section className="pt-10 md:pt-12 pb-12 md:pb-14 mt-10 md:mt-14">
+                {/* Grid de especialidades - Círculos pequeños */}
+                <section className="pt-10 md:pt-12 pb-12 md:pb-16 mt-8 md:mt-10">
                     <Container>
-                        <div className="grid grid-cols-3 gap-2 sm:gap-3 md:grid-cols-3">
+                        <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto">
                             {stats.map(([label, value], idx) => (
                                 <motion.div
                                     key={idx}
-                                    initial={{ opacity: 0, y: 12 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
                                     viewport={{ once: true }}
-                                    transition={{ delay: idx * 0.03 }}
-                                    className="rounded-2xl bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] p-[1.5px] shadow-[0_10px_30px_rgba(0,0,0,.25)] golden-hover"
+                                    transition={{ 
+                                        delay: idx * 0.05,
+                                        duration: 0.4
+                                    }}
+                                    whileHover={{ scale: 1.05 }}
+                                    className="group relative flex justify-center"
                                 >
-                                    <div className="rounded-2xl bg-[#0f2237]/90 px-3 py-4 md:px-4 md:py-5 backdrop-blur-sm text-center flex flex-col justify-center h-[85px] md:h-auto">
-                                        <div className="text-2xl md:text-3xl font-semibold text-[#e4b892] leading-none">
-                                            {value}
-                                        </div>
-                                        <div className="mt-1 text-[10px] md:text-sm text-white/80 leading-tight md:leading-snug line-clamp-2">
-                                            {label}
+                                    <div className="relative w-full max-w-[140px] mx-auto">
+                                        {/* Círculo decorativo de fondo */}
+                                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#e4b892]/15 via-[#c89b7b]/10 to-transparent blur-xl scale-125 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        
+                                        <div className="relative rounded-full bg-gradient-to-br from-[#e4b892]/30 via-[#c89b7b]/20 to-[#e4b892]/30 p-[2px] shadow-[0_8px_24px_rgba(228,184,146,.3)] group-hover:shadow-[0_12px_32px_rgba(228,184,146,.4)] transition-shadow">
+                                            <div className="relative rounded-full bg-gradient-to-br from-[#0f2237] to-[#0b1b2b] p-5 md:p-6 text-center backdrop-blur-sm aspect-square flex flex-col justify-center items-center">
+                                                <div className="text-3xl md:text-4xl font-bold leading-none tracking-tight bg-gradient-to-br from-[#e4b892] via-[#f4d3b3] to-[#e4b892] bg-clip-text text-transparent mb-2">
+                                                    {value}
+                                                </div>
+                                                <div className="text-[10px] md:text-xs text-white/85 leading-tight font-medium line-clamp-2 px-1">
+                                                    {label}
+                                                </div>
+                                                
+                                                {/* Puntos decorativos */}
+                                                <div className="absolute top-2 right-2 h-1.5 w-1.5 rounded-full bg-[#e4b892]/60 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                                <div className="absolute bottom-2 left-2 h-1.5 w-1.5 rounded-full bg-[#c89b7b]/60 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                            </div>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -606,13 +722,16 @@ export default function Doctores() {
                 </section>
 
                 {/* Carrusel Dental City */}
-                <section className="pb-10">
-                    <Container>
+                <section className="pb-12 md:pb-16 relative">
+                    <div className="absolute inset-0 opacity-5">
+                        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-[#e4b892]/30 blur-3xl" />
+                    </div>
+                    <Container className="relative z-10">
                         <SectionTitle
                             eyebrow={t("eyebrowMainClinic")}
-                            title={<span className="golden-sweep">{t("titleMainClinic")}</span>}
+                            title={<span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">{t("titleMainClinic")}</span>}
                         />
-                        <div className="mt-6">
+                        <div className="mt-8">
                             <Carousel
                                 images={imagesDC}
                                 ariaLabel={t("ariaMainCarousel")}
@@ -624,13 +743,16 @@ export default function Doctores() {
                 </section>
 
                 {/* Carrusel Dental City Kids */}
-                <section className="pb-16">
-                    <Container>
+                <section className="pb-20 md:pb-24 relative">
+                    <div className="absolute inset-0 opacity-5">
+                        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-[#c89b7b]/30 blur-3xl" />
+                    </div>
+                    <Container className="relative z-10">
                         <SectionTitle
                             eyebrow={t("eyebrowKids")}
-                            title={<span className="golden-sweep">{t("titleKids")}</span>}
+                            title={<span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">{t("titleKids")}</span>}
                         />
-                        <div className="mt-6">
+                        <div className="mt-8">
                             <Carousel
                                 images={imagesKids}
                                 ariaLabel={t("ariaKidsCarousel")}
@@ -647,8 +769,8 @@ export default function Doctores() {
             {/* Estilos extra */}
             <style>{`
         @keyframes shimmer {
-          0% { background-position: -200% center; }
-          100% { background-position: 200% center; }
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
         }
         .golden-sweep {
           color: transparent;

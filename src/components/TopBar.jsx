@@ -107,9 +107,9 @@ export default function TopBar({ bgOpacity }) {
             style={bgStyle}
             className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-md shadow-[0_4px_10px_rgba(0,0,0,0.15)] relative"
         >
-            {/* Líneas doradas animadas */}
-            <div className="absolute top-0 left-0 h-[2px] w-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] animate-[shimmer_6s_linear_infinite]" />
-            <div className="absolute bottom-0 left-0 h-[2px] w-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] animate-[shimmer_6s_linear_infinite]" />
+            {/* Líneas doradas superior e inferior */}
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[2px] bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
 
             <Container className="relative mx-auto flex max-w-7xl items-center justify-between py-5 md:py-6">
                 {/* Logo */}
