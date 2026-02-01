@@ -1,7 +1,8 @@
 ﻿// src/pages/Doctores.jsx
 import React, { useEffect, useMemo, useState, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import TopBar from "../components/TopBar.jsx";
 import Footer from "../components/Footer.jsx";
 import SEO from "../components/SEO.jsx";
@@ -514,64 +515,64 @@ export default function Doctores() {
     );
 
 
-    // ---------- Imágenes con alts localizados ----------
+    // ---------- Imágenes con alts descriptivos para SEO ----------
     const imagesDC = useMemo(
         () => [
-            { src: dc3, alt: t("altTech") },
-            { src: dc4, alt: t("altTech") },
-            { src: dc5, alt: t("altTech") },
-            { src: dc6, alt: t("altTech") },
-            { src: dc7, alt: t("altTech") },
-            { src: dc23, alt: t("altTech") },
-            { src: dc8, alt: t("altTech") },
-            { src: dc9, alt: t("altTech") },
-            { src: dc22, alt: t("altTech") },
-            { src: dc10, alt: t("altTech") },
-            { src: dc11, alt: t("altTech") },
-            { src: dc12, alt: t("altTech") },
-            { src: dc13, alt: t("altTech") },
-            { src: dc14, alt: t("altTech") },
-            { src: dc15, alt: t("altTech") },
-            { src: dc16, alt: t("altTech") },
-            { src: dc17, alt: t("altTech") },
-            { src: dc18, alt: t("altTech") },
-            { src: dc19, alt: t("altTech") },
-            { src: dc20, alt: t("altTech") },
-            { src: dc21, alt: t("altTech") },
-            { src: dc22, alt: t("altTech") },
+            { src: dc3, alt: "Equipo de dentistas especialistas en Dental City Zapopan - Tecnología dental avanzada" },
+            { src: dc4, alt: "Doctores dentistas profesionales en clínica dental Zapopan, Jalisco" },
+            { src: dc5, alt: "Especialistas en odontología trabajando con tecnología digital en Dental City" },
+            { src: dc6, alt: "Equipo médico dental multidisciplinario en Zapopan, Guadalajara" },
+            { src: dc7, alt: "Dentistas especializados utilizando equipos de última generación" },
+            { src: dc23, alt: "Profesionales de la salud dental en consulta con pacientes" },
+            { src: dc8, alt: "Ortodoncistas y especialistas dentales en Dental City" },
+            { src: dc9, alt: "Equipo de odontólogos expertos en tratamientos dentales avanzados" },
+            { src: dc22, alt: "Doctores dentistas realizando procedimientos con tecnología moderna" },
+            { src: dc10, alt: "Especialistas en implantes dentales y prostodoncia en Zapopan" },
+            { src: dc11, alt: "Periodoncistas y endodoncistas en clínica dental Dental City" },
+            { src: dc12, alt: "Cirujanos maxilofaciales y orales trabajando en equipo" },
+            { src: dc13, alt: "Dentistas generales y especialistas en atención dental integral" },
+            { src: dc14, alt: "Equipo profesional de odontología con más de 25 años de experiencia" },
+            { src: dc15, alt: "Doctores dentistas comprometidos con la excelencia clínica" },
+            { src: dc16, alt: "Especialistas en estética dental y rehabilitación oral" },
+            { src: dc17, alt: "Profesionales de la odontología en consultorio moderno" },
+            { src: dc18, alt: "Equipo multidisciplinario de dentistas en Dental City Zapopan" },
+            { src: dc19, alt: "Doctores especializados en todas las áreas de la odontología" },
+            { src: dc20, alt: "Dentistas profesionales utilizando escáneres digitales 3D" },
+            { src: dc21, alt: "Equipo de 29 dentistas especializados en Zapopan, Jalisco" },
+            { src: dc22, alt: "Profesionales de la salud dental con formación continua" },
             
-            { src: dc25, alt: t("altTech") },
-            { src: dc26, alt: t("altTech") },
-            { src: dc27, alt: t("altTech") },
-            { src: dc28, alt: t("altTech") },
-            { src: dc29, alt: t("altTech") },
+            { src: dc25, alt: "Especialistas en ortodoncia y odontopediatría en Dental City" },
+            { src: dc26, alt: "Doctores dentistas trabajando con tecnología de vanguardia" },
+            { src: dc27, alt: "Equipo médico dental comprometido con la calidad y seguridad" },
+            { src: dc28, alt: "Profesionales de la odontología en clínica dental moderna" },
+            { src: dc29, alt: "Dentistas especializados brindando atención de excelencia" },
         ],
         [t]
     );
     const imagesKids = useMemo(
         () => [
-            { src: kids0, alt: t("altKids") },
-            { src: kids2, alt: t("altKids") },
-            { src: kids3, alt: t("altKids") },
-            { src: kids4, alt: t("altKids") },
-            { src: kids5, alt: t("altKids") },
-            { src: kids6, alt: t("altKids") },
-            { src: kids22, alt: t("altKids") },
-            { src: kids21, alt: t("altKids") },
-            { src: kids20, alt: t("altKids") },
-            { src: kids19, alt: t("altKids") },
-            { src: kids18, alt: t("altKids") },
-            { src: kids17, alt: t("altKids") },
-            { src: kids16, alt: t("altKids") },
-            { src: kids15, alt: t("altKids") },
-            { src: kids14, alt: t("altKids") },
-            { src: kids13, alt: t("altKids") },
-            { src: kids12, alt: t("altKids") },
-            { src: kids11, alt: t("altKids") },
-            { src: kids10, alt: t("altKids") },
-            { src: kids9, alt: t("altKids") },
-            { src: kids8, alt: t("altKids") },
-            { src: kids7, alt: t("altKids") },
+            { src: kids0, alt: "Odontopediatras y ortodoncistas infantiles en Dental City Kids & Family Zapopan" },
+            { src: kids2, alt: "Especialistas en atención dental para niños y adolescentes" },
+            { src: kids3, alt: "Odontopediatras trabajando con tecnología amigable para niños" },
+            { src: kids4, alt: "Equipo de Dental City Kids especializado en ortodoncia infantil" },
+            { src: kids5, alt: "Doctores dentistas pediátricos brindando atención dental a niños" },
+            { src: kids6, alt: "Especialistas en odontopediatría y prevención dental infantil" },
+            { src: kids22, alt: "Ortodoncistas infantiles utilizando técnicas modernas y amigables" },
+            { src: kids21, alt: "Equipo de Dental City Kids & Family en consulta pediátrica" },
+            { src: kids20, alt: "Odontopediatras expertos en atención dental para toda la familia" },
+            { src: kids19, alt: "Especialistas en salud dental infantil en Zapopan, Jalisco" },
+            { src: kids18, alt: "Doctores dentistas pediátricos con enfoque en prevención" },
+            { src: kids17, alt: "Equipo multidisciplinario de odontopediatría y ortodoncia" },
+            { src: kids16, alt: "Profesionales especializados en tratamientos dentales para niños" },
+            { src: kids15, alt: "Odontopediatras utilizando técnicas no invasivas y amigables" },
+            { src: kids14, alt: "Especialistas en ortodoncia interceptiva y preventiva infantil" },
+            { src: kids13, alt: "Equipo de Dental City Kids comprometido con la salud bucal infantil" },
+            { src: kids12, alt: "Doctores dentistas pediátricos en ambiente amigable y seguro" },
+            { src: kids11, alt: "Odontopediatras y ortodoncistas trabajando con niños y adolescentes" },
+            { src: kids10, alt: "Especialistas en atención dental familiar en Dental City Kids" },
+            { src: kids9, alt: "Equipo profesional de odontopediatría en Zapopan, Jalisco" },
+            { src: kids8, alt: "Doctores dentistas especializados en salud dental infantil" },
+            { src: kids7, alt: "Odontopediatras y ortodoncistas infantiles con tecnología avanzada" },
         ],
         [t]
     );
@@ -591,9 +592,9 @@ export default function Doctores() {
     return (
         <>
             <SEO 
-                title={t("pageTitle", { defaultValue: "Nuestros doctores" })}
-                description="Dental City cuenta con 29 dentistas especializados en todas las áreas de odontología. Más de 25 años de experiencia en Zapopan, Jalisco."
-                keywords="dentistas Zapopan, odontólogos Guadalajara, especialistas dentales, equipo dental, clínica dental"
+                title="Nuestros Doctores - 29 Dentistas Especializados | Dental City Zapopan"
+                description="Conoce a nuestro equipo de 29 dentistas especializados en todas las áreas de odontología en Dental City. Ortodoncistas, implantólogos, odontopediatras, periodoncistas y más. Más de 25 años de experiencia en Zapopan, Jalisco. Clínica dental con tecnología de vanguardia."
+                keywords="dentistas Zapopan, odontólogos Guadalajara, especialistas dentales, equipo dental, clínica dental, ortodoncistas Zapopan, implantólogos Guadalajara, odontopediatras, periodoncistas, endodoncistas, cirujanos maxilofaciales, protesistas dentales"
             />
             <StructuredData data={medicalOrgData} />
             <TopBar />
@@ -643,13 +644,24 @@ export default function Doctores() {
                             >
                                 {t("heroP2")}
                             </motion.p>
+                            
+                            {/* Contenido adicional para SEO */}
+                            <div className="mx-auto mt-8 max-w-3xl text-white/80 leading-relaxed text-base">
+                                <p className="mb-4">
+                                    Nuestro equipo multidisciplinario está formado por <strong>29 profesionales de la odontología</strong> altamente capacitados, incluyendo <strong>5 ortodoncistas</strong>, <strong>9 dentistas generales</strong>, <strong>5 protesistas</strong>, <strong>2 periodoncistas</strong>, <strong>2 endodoncistas</strong>, <strong>2 cirujanos maxilofaciales</strong>, <strong>2 cirujanos orales</strong>, <strong>1 odontopediatra</strong> y <strong>1 implantólogo</strong>. Cada especialista aporta años de experiencia y formación continua para brindar la mejor atención dental en Zapopan, Jalisco.
+                                </p>
+                                <p>
+                                    Trabajamos con tecnología digital de última generación y seguimos los más altos estándares de calidad y seguridad. Nuestros doctores están comprometidos con la educación continua y la innovación en tratamientos dentales para ofrecer resultados excepcionales a nuestros pacientes.
+                                </p>
+                            </div>
                         </div>
                     </Container>
                 </section>
 
                 {/* Estadísticas Principal */}
-                <section className="pt-8 md:pt-12">
+                <section className="pt-8 md:pt-12" aria-labelledby="estadisticas-titulo">
                     <Container>
+                        <h2 id="estadisticas-titulo" className="sr-only">Estadísticas de nuestro equipo dental</h2>
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             whileInView={{ opacity: 1, scale: 1 }}
@@ -680,8 +692,11 @@ export default function Doctores() {
                 </section>
 
                 {/* Grid de especialidades - Círculos pequeños */}
-                <section className="pt-10 md:pt-12 pb-12 md:pb-16 mt-8 md:mt-10">
+                <section className="pt-10 md:pt-12 pb-12 md:pb-16 mt-8 md:mt-10" aria-labelledby="especialidades-titulo">
                     <Container>
+                        <h2 id="especialidades-titulo" className="text-center text-2xl md:text-3xl font-semibold mb-8 text-white/90">
+                            <span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">Especialidades de Nuestro Equipo</span>
+                        </h2>
                         <div className="grid grid-cols-3 gap-3 md:gap-4 max-w-4xl mx-auto">
                             {stats.map(([label, value], idx) => (
                                 <motion.div
@@ -722,15 +737,20 @@ export default function Doctores() {
                 </section>
 
                 {/* Carrusel Dental City */}
-                <section className="pb-12 md:pb-16 relative">
+                <section className="pb-12 md:pb-16 relative" aria-labelledby="clinica-principal-titulo">
                     <div className="absolute inset-0 opacity-5">
                         <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-[#e4b892]/30 blur-3xl" />
                     </div>
                     <Container className="relative z-10">
-                        <SectionTitle
-                            eyebrow={t("eyebrowMainClinic")}
-                            title={<span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">{t("titleMainClinic")}</span>}
-                        />
+                        <div id="clinica-principal-titulo">
+                            <SectionTitle
+                                eyebrow={t("eyebrowMainClinic")}
+                                title={<span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">{t("titleMainClinic")}</span>}
+                            />
+                        </div>
+                        <p className="text-center mt-4 text-white/80 max-w-2xl mx-auto">
+                            Nuestro equipo de especialistas en la clínica principal de Dental City, ubicada en la Zona Real de Zapopan. Profesionales altamente capacitados en todas las áreas de la odontología moderna.
+                        </p>
                         <div className="mt-8">
                             <Carousel
                                 images={imagesDC}
@@ -743,15 +763,20 @@ export default function Doctores() {
                 </section>
 
                 {/* Carrusel Dental City Kids */}
-                <section className="pb-20 md:pb-24 relative">
+                <section className="pb-20 md:pb-24 relative" aria-labelledby="clinica-kids-titulo">
                     <div className="absolute inset-0 opacity-5">
                         <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-[#c89b7b]/30 blur-3xl" />
                     </div>
                     <Container className="relative z-10">
-                        <SectionTitle
-                            eyebrow={t("eyebrowKids")}
-                            title={<span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">{t("titleKids")}</span>}
-                        />
+                        <div id="clinica-kids-titulo">
+                            <SectionTitle
+                                eyebrow={t("eyebrowKids")}
+                                title={<span className="bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] bg-clip-text text-transparent">{t("titleKids")}</span>}
+                            />
+                        </div>
+                        <p className="text-center mt-4 text-white/80 max-w-2xl mx-auto">
+                            Especialistas en odontopediatría y ortodoncia infantil en Dental City Kids & Family. Nuestro equipo está especialmente entrenado para brindar atención dental amigable y efectiva a niños y adolescentes en Zapopan, Jalisco.
+                        </p>
                         <div className="mt-8">
                             <Carousel
                                 images={imagesKids}
@@ -765,6 +790,7 @@ export default function Doctores() {
             </main>
 
             <Footer />
+            <FloatingCtaDoctores />
 
             {/* Estilos extra */}
             <style>{`
@@ -794,6 +820,181 @@ export default function Doctores() {
         }
       `}</style>
         </>
+    );
+}
+
+/* ============================ FloatingCta para página de doctores ============================ */
+function FloatingCtaDoctores() {
+    const { t } = useTranslation("home");
+    const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const wrapRef = useRef(null);
+
+    // Visibilidad condicional (solo móvil después del hero)
+    const [isMobile, setIsMobile] = useState(false);
+    const [showAfterHero, setShowAfterHero] = useState(true);
+
+    useEffect(() => {
+        const updateIsMobile = () => setIsMobile(window.innerWidth < 640);
+        updateIsMobile();
+        window.addEventListener("resize", updateIsMobile);
+        return () => window.removeEventListener("resize", updateIsMobile);
+    }, []);
+
+    useEffect(() => {
+        if (!isMobile) {
+            setShowAfterHero(true);
+            return;
+        }
+        const onScroll = () => {
+            const threshold = window.innerHeight * 0.8;
+            const visible = window.scrollY > threshold;
+            setShowAfterHero(visible);
+            if (!visible) setOpen(false);
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [isMobile]);
+
+    // Cerrar al hacer clic fuera o con ESC
+    useEffect(() => {
+        if (!open) return;
+        const onDown = (e) => {
+            if (wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+        };
+        const onKey = (e) => {
+            if (e.key === "Escape") setOpen(false);
+        };
+        document.addEventListener("mousedown", onDown);
+        document.addEventListener("keydown", onKey);
+        return () => {
+            document.removeEventListener("mousedown", onDown);
+            document.removeEventListener("keydown", onKey);
+        };
+    }, [open]);
+
+    const go = (tabKey) => {
+        try {
+            sessionStorage.setItem("initialTab", tabKey);
+        } catch (err) {
+            void err;
+        }
+
+        setOpen(false);
+        
+        // Navegar al home con hash de ubicaciones
+        navigate("/#ubicacion");
+        
+        // Esperar a que la página cargue y luego activar el tab y hacer scroll
+        setTimeout(() => {
+            window.dispatchEvent(new CustomEvent("select-location-tab", { detail: tabKey }));
+            
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const el = document.querySelector("#ubicacion");
+                    if (!el) return;
+
+                    const isMobile = window.innerWidth < 640;
+                    if (isMobile) {
+                        const extra = 195;
+                        const y = el.getBoundingClientRect().top + window.scrollY + extra;
+                        window.scrollTo({ top: y, behavior: "smooth" });
+                    } else {
+                        el.scrollIntoView({ behavior: "smooth", block: "start" });
+                    }
+                });
+            });
+        }, 100);
+    };
+
+    const visible = !isMobile || showAfterHero;
+
+    return (
+        <div
+            ref={wrapRef}
+            className={[
+                "fixed bottom-5 right-5 z-50 transition-all duration-300",
+                visible ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-3 pointer-events-none"
+            ].join(" ")}
+        >
+            {/* Botón principal */}
+            <motion.button
+                onClick={() => setOpen((v) => !v)}
+                className="relative rounded-full bg-[#d8a07b] px-6 py-3 text-sm font-semibold text-[#0b1b2b] shadow-xl ring-4 ring-[#d8a07b]/25 transition hover:brightness-105 active:scale-[0.97]"
+                aria-haspopup="menu"
+                aria-expanded={open}
+                animate={{
+                    filter: open
+                        ? "drop-shadow(0 0 14px rgba(216,160,123,0.7))"
+                        : "drop-shadow(0 0 0 rgba(0,0,0,0))",
+                }}
+                transition={{ duration: 0.35 }}
+            >
+                {t("hero.book", { defaultValue: "Agendar cita" })}
+                <motion.span
+                    className="inline-block ml-1"
+                    animate={{ rotate: open ? 180 : 0 }}
+                    transition={{ duration: 0.25 }}
+                >
+                    ▾
+                </motion.span>
+            </motion.button>
+
+            {/* Backdrop clickeable para cerrar */}
+            <AnimatePresence>
+                {open && (
+                    <motion.button
+                        type="button"
+                        onClick={() => setOpen(false)}
+                        className="fixed inset-0 z-[-1] cursor-default"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        aria-hidden="true"
+                    />
+                )}
+            </AnimatePresence>
+
+            {/* Popover */}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                        transition={{ duration: 0.22 }}
+                        className="absolute bottom-[110%] right-0 w-[260px] rounded-2xl border border-[#d8a07b]/25 bg-[#11243a]/95 p-2 text-white/90 shadow-2xl backdrop-blur"
+                        role="menu"
+                    >
+                        {/* Caret dorado */}
+                        <span className="pointer-events-none absolute -bottom-2 right-6 h-4 w-4 rotate-45 rounded-[4px] bg-[#11243a]/95 border-l border-b border-[#d8a07b]/25" />
+
+                        <button
+                            onClick={() => go("Dental City")}
+                            className="flex w-full items-center justify-between gap-2 rounded-xl px-4 py-3 text-left transition hover:bg-[#d8a07b]/15"
+                            role="menuitem"
+                        >
+                            <span>Dental City</span>
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+
+                        <button
+                            onClick={() => go("Dental City Kids & Family")}
+                            className="mt-1 flex w-full items-center justify-between gap-2 rounded-xl px-4 py-3 text-left transition hover:bg-[#d8a07b]/15"
+                            role="menuitem"
+                        >
+                            <span>Dental City Kids & Family</span>
+                            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.6">
+                                <path d="M9 18l6-6-6-6" />
+                            </svg>
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
     );
 }
 
