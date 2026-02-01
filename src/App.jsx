@@ -1787,7 +1787,7 @@ function LocationsTabs() {
                 </div>
 
                 <div className="mx-auto mt-8 max-w-5xl rounded-3xl border border-white/10 bg-white/5 p-6 shadow-[0_10px_30px_rgba(0,0,0,.25)] backdrop-blur">
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-3">
                         {Object.keys(tabs).map((k) => {
                             const isActive = k === tab;
                             return (
@@ -1795,15 +1795,18 @@ function LocationsTabs() {
                                     key={k}
                                     onClick={() => setTab(k)}
                                     className={[
-                                        "relative rounded-full px-5 py-2 text-sm transition border",
+                                        "relative rounded-full px-6 py-2.5 text-sm font-medium transition-all duration-300 border backdrop-blur-sm",
                                         isActive
-                                            ? "border-white/30 bg-white text-[#0b1b2b] shadow-sm"
-                                            : "border-white/10 bg-white/5 text-white hover:bg-white/10",
+                                            ? "border-[#e4b892]/40 bg-gradient-to-r from-[#e4b892]/20 to-[#c89b7b]/20 text-white shadow-[0_4px_12px_rgba(228,184,146,.25)] scale-105"
+                                            : "border-white/15 bg-white/5 text-white/80 hover:bg-white/10 hover:border-white/25 hover:scale-102",
                                     ].join(" ")}
                                 >
                                     {k}
                                     {isActive && (
-                                        <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#d8a07b]/40" />
+                                        <>
+                                            <span className="pointer-events-none absolute inset-0 rounded-full ring-2 ring-[#e4b892]/50 animate-pulse" />
+                                            <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 h-1 w-8 rounded-full bg-gradient-to-r from-[#c89b7b] to-[#e4b892]" />
+                                        </>
                                     )}
                                 </button>
                             );
