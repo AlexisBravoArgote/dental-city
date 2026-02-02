@@ -63,27 +63,21 @@ export default function SEO({
         updateMetaTag("twitter:description", finalDescription);
         updateMetaTag("twitter:image", finalImage);
 
-        // Canonical URL
+        // Canonical URL - siempre sin parámetros de query para evitar duplicados
+        const canonicalUrl = `${baseUrl}${location.pathname}`;
         let canonical = document.querySelector("link[rel='canonical']");
         if (!canonical) {
             canonical = document.createElement("link");
             canonical.setAttribute("rel", "canonical");
             document.head.appendChild(canonical);
         }
-        canonical.setAttribute("href", currentUrl);
+        canonical.setAttribute("href", canonicalUrl);
 
-        // Language alternates (si tienes i18n)
-        const languages = ["es", "en", "fr", "it", "de", "zh", "ja", "ko"];
-        languages.forEach(lang => {
-            let langLink = document.querySelector(`link[rel='alternate'][hreflang='${lang}']`);
-            if (!langLink) {
-                langLink = document.createElement("link");
-                langLink.setAttribute("rel", "alternate");
-                langLink.setAttribute("hreflang", lang);
-                document.head.appendChild(langLink);
-            }
-            langLink.setAttribute("href", `${baseUrl}${location.pathname}?lang=${lang}`);
-        });
+        // NO agregar hreflang tags porque no hay rutas separadas por idioma
+        // El sitio usa i18n con parámetros de query/localStorage, no URLs separadas
+        // Eliminar cualquier hreflang existente para evitar confusión
+        const existingHreflangs = document.querySelectorAll("link[rel='alternate'][hreflang]");
+        existingHreflangs.forEach(link => link.remove());
 
     }, [finalTitle, finalDescription, finalImage, finalKeywords, currentUrl, type, noindex]);
 
