@@ -1,6 +1,6 @@
 // src/App.jsx
 import React, { useEffect, useMemo, useRef, useState, useCallback, useId } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import "./i18n"; // <<<<<< inicializa i18next
@@ -44,6 +44,22 @@ import BlogPost6 from "./pages/blog/6.jsx";
 import BlogPost7 from "./pages/blog/7.jsx";
 import BlogPost8 from "./pages/blog/8.jsx";
 import BlogPost9 from "./pages/blog/9.jsx";
+import Implantes from "./pages/tratamientos/implantes.jsx";
+import Limpieza from "./pages/tratamientos/limpieza.jsx";
+import Coronas from "./pages/tratamientos/coronas.jsx";
+import Resinas from "./pages/tratamientos/resinas.jsx";
+import Maxilofacial from "./pages/tratamientos/maxilofacial.jsx";
+import Endodoncia from "./pages/tratamientos/endodoncia.jsx";
+import Periodoncia from "./pages/tratamientos/periodoncia.jsx";
+import GuardaOclusal from "./pages/tratamientos/guarda-oclusal.jsx";
+import RehabilitacionOral from "./pages/tratamientos/rehabilitacion-oral.jsx";
+import Blanqueamientos from "./pages/tratamientos/blanqueamientos.jsx";
+import Invisalign from "./pages/tratamientos/invisalign.jsx";
+import Brackets from "./pages/tratamientos/brackets.jsx";
+import Carillas from "./pages/tratamientos/carillas.jsx";
+import ArmonizacionFacial from "./pages/tratamientos/armonizacion-facial.jsx";
+import Extracciones from "./pages/tratamientos/extracciones.jsx";
+import DisenoSonrisa from "./pages/tratamientos/diseno-sonrisa.jsx";
 import Edu from "./pages/edu.jsx";
 
 // =========================
@@ -207,6 +223,22 @@ export default function App() {
                 <Route path="/blog/8" element={<BlogPost8 />} />
                 <Route path="/blog/9" element={<BlogPost9 />} />
                 <Route path="/edu" element={<Edu />} />
+                <Route path="/tratamientos/implantes" element={<Implantes />} />
+                <Route path="/tratamientos/limpieza" element={<Limpieza />} />
+                <Route path="/tratamientos/coronas" element={<Coronas />} />
+                <Route path="/tratamientos/resinas" element={<Resinas />} />
+                <Route path="/tratamientos/maxilofacial" element={<Maxilofacial />} />
+                <Route path="/tratamientos/endodoncia" element={<Endodoncia />} />
+                <Route path="/tratamientos/periodoncia" element={<Periodoncia />} />
+                <Route path="/tratamientos/guarda-oclusal" element={<GuardaOclusal />} />
+                <Route path="/tratamientos/rehabilitacion-oral" element={<RehabilitacionOral />} />
+                <Route path="/tratamientos/blanqueamientos" element={<Blanqueamientos />} />
+                <Route path="/tratamientos/invisalign" element={<Invisalign />} />
+                <Route path="/tratamientos/brackets" element={<Brackets />} />
+                <Route path="/tratamientos/carillas" element={<Carillas />} />
+                <Route path="/tratamientos/armonizacion-facial" element={<ArmonizacionFacial />} />
+                <Route path="/tratamientos/extracciones" element={<Extracciones />} />
+                <Route path="/tratamientos/diseno-sonrisa" element={<DisenoSonrisa />} />
             </Routes>
         </>
     );
@@ -891,6 +923,7 @@ function ServiceCard({ title, desc, index, onInfo, waUrl }) {
 
 function InfoModal({ open, onClose, service }) {
     const { t } = useTranslation("home");
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!open) return;
@@ -908,6 +941,34 @@ function InfoModal({ open, onClose, service }) {
     if (!open || !service) return null;
 
     const waForThisService = getWaUrl(service.key, service.title);
+    
+    // Función para obtener la ruta del tratamiento
+    const getTreatmentRoute = (serviceKey) => {
+        const treatmentRoutes = {
+            "implantes": "/tratamientos/implantes",
+            "limpieza": "/tratamientos/limpieza",
+            "coronas": "/tratamientos/coronas",
+            "resinas": "/tratamientos/resinas",
+            "maxilofacial": "/tratamientos/maxilofacial",
+            "endodoncia": "/tratamientos/endodoncia",
+            "periodoncia": "/tratamientos/periodoncia",
+            "guarda-oclusal": "/tratamientos/guarda-oclusal",
+            "rehabilitacion-oral": "/tratamientos/rehabilitacion-oral",
+            "puentes": "/tratamientos/rehabilitacion-oral",
+            "blanqueamientos": "/tratamientos/blanqueamientos",
+            "invisalign": "/tratamientos/invisalign",
+            "brackets": "/tratamientos/brackets",
+            "carillas": "/tratamientos/carillas",
+            "armonizacion-facial": "/tratamientos/armonizacion-facial",
+            "armonizacion_facial": "/tratamientos/armonizacion-facial",
+            "extracciones": "/tratamientos/extracciones",
+            "diseno-sonrisa": "/tratamientos/diseno-sonrisa",
+            "diseno_sonrisa": "/tratamientos/diseno-sonrisa"
+        };
+        return treatmentRoutes[serviceKey] || null;
+    };
+
+    const treatmentRoute = getTreatmentRoute(service.key);
 
     // --- Textos por servicio desde i18n ---
     const baseKey = `serviceModal.byService.${service.key}`;
@@ -1048,13 +1109,28 @@ function InfoModal({ open, onClose, service }) {
                                 </svg>
                             </a>
 
-                            <a
-                                href="#ubicacion"
-                                onClick={onClose}
-                                className="inline-flex h-12 min-w-[200px] items-center justify-center gap-2 rounded-full border border-white/20 px-7 text-[15px] text-white/90 transition hover:bg-white/10"
-                            >
-                                {t("serviceModal.cta_viewClinics", { defaultValue: "Ver clínicas" })}
-                            </a>
+                            {treatmentRoute ? (
+                                <button
+                                    onClick={() => {
+                                        onClose();
+                                        navigate(treatmentRoute);
+                                    }}
+                                    className="inline-flex h-12 min-w-[200px] items-center justify-center gap-2 rounded-full border border-white/20 px-7 text-[15px] text-white/90 transition hover:bg-white/10"
+                                >
+                                    {t("serviceModal.cta_fullInfo", { defaultValue: "Info completa" })}
+                                    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M5 12h14M13 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            ) : (
+                                <a
+                                    href="#ubicacion"
+                                    onClick={onClose}
+                                    className="inline-flex h-12 min-w-[200px] items-center justify-center gap-2 rounded-full border border-white/20 px-7 text-[15px] text-white/90 transition hover:bg-white/10"
+                                >
+                                    {t("serviceModal.cta_viewClinics", { defaultValue: "Ver clínicas" })}
+                                </a>
+                            )}
                         </div>
                     </div>
                     </div>
