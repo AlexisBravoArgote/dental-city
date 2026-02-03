@@ -341,6 +341,15 @@ export default function TopBar({ bgOpacity }) {
                                         {t("topbar.doctors", { defaultValue: "Nuestros doctores" })}
                                     </a>
 
+                                    {/* ✅ Link correcto a Bolsa */}
+                                    <Link
+                                        to="/blog"
+                                        onClick={() => setMobileOpen(false)}
+                                        className="block rounded-xl px-4 py-3 text-[15px] hover:bg-white/10"
+                                    >
+                                        {t("topbar.blog", { defaultValue: "Blog & Research" })}
+                                    </Link>
+
                                     {/* Grupo: Recursos */}
                                     <div>
                                         <button
@@ -375,15 +384,6 @@ export default function TopBar({ bgOpacity }) {
                                             )}
                                         </AnimatePresence>
                                     </div>
-
-                                    {/* ✅ Link correcto a Bolsa */}
-                                    <Link
-                                        to="/blog"
-                                        onClick={() => setMobileOpen(false)}
-                                        className="block rounded-xl px-4 py-3 text-[15px] hover:bg-white/10"
-                                    >
-                                        {t("topbar.blog", { defaultValue: "Blog & Research" })}
-                                    </Link>
                                 </div>
 
                                 <div className="h-[2px] w-full bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b] opacity-80" />
