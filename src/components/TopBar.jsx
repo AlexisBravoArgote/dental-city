@@ -29,9 +29,15 @@ function LogoImage({ className = "h-18 w-auto" }) {
 }
 
 /* Scroll helper para cuando ya estamos en "/" */
-function scrollToId(hash) {
+function scrollToId(hash, offset = 0) {
     const el = document.querySelector(hash);
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (!el) return;
+    if (offset && window.innerWidth >= 768) {
+        const y = el.getBoundingClientRect().top + window.scrollY + offset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+    } else {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
 }
 
 /* Scroll a #ubicacion y selecciona pestaña */
@@ -146,9 +152,9 @@ export default function TopBar({ bgOpacity }) {
                 {/* Nav principal (desktop) */}
                 <nav className="hidden items-center gap-8 md:flex text-[15px] font-medium tracking-wide">
                     {[
-                        [t("topbar.treatments", { defaultValue: "Nuestros tratamientos" }), "#servicios"],
-                        [t("topbar.gallery", { defaultValue: "Nuestras instalaciones" }), "#galeria"],
-                    ].map(([label, hash]) => (
+                        [t("topbar.treatments", { defaultValue: "Nuestros tratamientos" }), "#servicios", 0],
+                        [t("topbar.gallery", { defaultValue: "Nuestras instalaciones" }), "#galeria", -40],
+                    ].map(([label, hash, offset]) => (
                         <a
                             key={hash}
                             href={`/${hash}`} // absoluto hacia home
@@ -156,7 +162,7 @@ export default function TopBar({ bgOpacity }) {
                                 if (location.pathname === "/") {
                                     e.preventDefault();
                                     if (location.hash !== hash) history.replaceState(null, "", hash);
-                                    scrollToId(hash);
+                                    scrollToId(hash, offset);
                                 }
                             }}
                             className="text-white/80 transition hover:text-white hover:drop-shadow-[0_0_4px_rgba(228,184,146,0.6)]"

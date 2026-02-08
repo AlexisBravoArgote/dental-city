@@ -1213,7 +1213,7 @@ function GalleryCarousel() {
             <Container>
                 <div className="text-center">
                     <div className="text-xs tracking-[0.35em] text-white/50">{t("gallery.eyebrow")}</div>
-                    <h2 className="mt-5 md:-mt-1 inline-block text-3xl font-semibold md:text-4xl relative">
+                    <h2 className="mt-5 md:mt-3 inline-block text-3xl font-semibold md:text-4xl relative">
                         <span className="golden-sweep">{t("gallery.title")}</span>
                         <span className="absolute left-0 right-0 -bottom-2 h-[2px] rounded bg-gradient-to-r from-[#c89b7b] via-[#e4b892] to-[#c89b7b]" />
                     </h2>
