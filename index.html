@@ -30,7 +30,7 @@
     <meta name="twitter:description" content="Clínica dental integral en Zapopan, Jalisco. Especialidades: ortodoncia, implantes, odontopediatría, estética dental." />
     <meta name="twitter:image" content="https://dentalcity.mx/logo.png" />
     
-    <!-- Canonical URL -->
+    <!-- Canonical URL - se actualiza dinámicamente abajo -->
     <link rel="canonical" href="https://dentalcity.mx/" />
     
     <!-- Preconnect para mejorar performance -->
@@ -42,6 +42,20 @@
         (function() {
             const path = window.location.pathname;
             const baseUrl = "https://dentalcity.mx";
+            
+            // SIEMPRE actualizar canonical y og:url a la URL actual (sin query params ni trailing slash)
+            // Esto evita que Googlebot vea canonical apuntando al homepage en todas las páginas
+            const currentUrl = baseUrl + (path === '/' ? '/' : path.replace(/\/+$/, ''));
+            
+            let canonical = document.querySelector('link[rel="canonical"]');
+            if (canonical) {
+                canonical.setAttribute('href', currentUrl);
+            }
+            
+            let ogUrl = document.querySelector('meta[property="og:url"]');
+            if (ogUrl) {
+                ogUrl.setAttribute('content', currentUrl);
+            }
             
             // Mapeo de rutas a meta tags
             const seoMap = {
@@ -81,10 +95,6 @@
                 
                 let ogDesc = document.querySelector('meta[property="og:description"]');
                 if (ogDesc) ogDesc.setAttribute('content', seo.description);
-                
-                // Actualizar canonical
-                let canonical = document.querySelector('link[rel="canonical"]');
-                if (canonical) canonical.setAttribute('href', baseUrl + path);
             }
         })();
     </script>
