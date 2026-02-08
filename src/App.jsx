@@ -135,11 +135,17 @@ function Home() {
     const localBusinessData = {
         "@context": "https://schema.org",
         "@type": "DentalClinic",
-        "name": "Dental City",
-        "description": "Clínica dental integral en Zapopan, Jalisco. Especialidades: ortodoncia, implantes, odontopediatría, estética dental. Tecnología digital de vanguardia.",
+        "name": "Dental City by Dra. Linda Argote",
+        "alternateName": "Dental City",
+        "description": "Dental City by Dra. Linda Argote — Clínica dental integral en Zapopan, Jalisco. Especialidades: ortodoncia, implantes, odontopediatría, estética dental. Tecnología digital de vanguardia.",
         "url": "https://dentalcity.mx",
         "logo": "https://dentalcity.mx/logo.png",
         "image": "https://dentalcity.mx/logo.png",
+        "founder": {
+            "@type": "Person",
+            "name": "Dra. Linda Argote",
+            "jobTitle": "Fundadora y Directora"
+        },
         "telephone": "+52-33-1234-5678",
         "address": {
             "@type": "PostalAddress",
@@ -174,8 +180,8 @@ function Home() {
         <div className="min-h-screen w-full bg-[#0b1b2b] text-white">
             <SEO 
                 title="Clínica Dental en Zapopan, Guadalajara"
-                description="Clínica dental integral en Zapopan, Jalisco. Especialidades: ortodoncia, implantes, odontopediatría, estética dental. Tecnología digital de vanguardia. Más de 25 años de experiencia."
-                keywords="clínica dental Zapopan, dentista Guadalajara, ortodoncia, implantes dentales, odontopediatría, estética dental, Invisalign, odontología digital"
+                description="Dental City by Dra. Linda Argote — Clínica dental integral en Zapopan, Jalisco. Especialidades: ortodoncia, implantes, odontopediatría, estética dental. Tecnología digital de vanguardia. Más de 25 años de experiencia."
+                keywords="Dental City, Dra. Linda Argote, Dental City by Dra. Linda Argote, clínica dental Zapopan, dentista Guadalajara, ortodoncia, implantes dentales, odontopediatría, estética dental, Invisalign, odontología digital"
             />
             <StructuredData data={localBusinessData} />
             <TopBar bgOpacity={bgOpacity} />

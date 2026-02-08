@@ -40,7 +40,7 @@ export default function Footer() {
                             <img src={arquitectura} alt="Arquitectura Dental City" className="relative z-10 h-14 w-auto md:h-18 object-contain opacity-95" loading="lazy" />
                         </div>
                         <div className="mt-3 text-[13px] text-white/80 italic" style={{ fontFamily: "'Playfair Display', serif", letterSpacing: "0.3px" }}>
-                            © {new Date().getFullYear()} Dental City — Hecho con cuidado
+                            © {new Date().getFullYear()} Dental City by Dra. Linda Argote
                         </div>
                     </div>
 
